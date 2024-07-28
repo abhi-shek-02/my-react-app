@@ -6,7 +6,6 @@ import {
   Container,
   Grid,
   Paper,
-  Stack,
   Typography,
   ThemeProvider,
   createTheme,
@@ -15,6 +14,7 @@ import {
   TextField,
   Modal,
   CircularProgress,
+  InputAdornment,
 } from "@mui/material";
 import { styled } from "@mui/system";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
@@ -23,6 +23,11 @@ import HygieneIcon from "@mui/icons-material/CleanHands";
 import Footer from "./Footer";
 import Dzire from "../assets/dzire.png";
 import Ertiga from "../assets/Ertiga.png";
+import DatePicker from "@mui/lab/DatePicker"; // Import DatePicker component
+import { DateTimePicker, LocalizationProvider } from "@mui/x-date-pickers";
+import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+// import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 
 // Custom futuristic theme
 const futuristicTheme = createTheme({
@@ -119,10 +124,11 @@ export default function Quote() {
   const navigate = useNavigate();
 
   const [open, setOpen] = React.useState(false);
+  const [editMode, setEditMode] = React.useState(false);
   const [formData, setFormData] = React.useState({
-    pickupLocation: "",
-    dropLocation: "",
-    journeyDate: "",
+    pickupLocation: "Puruliya",
+    dropLocation: "Kolkata, Airport",
+    journeyDate: "2024-07-29",
     phoneNumber: "",
     message: "",
   });
@@ -132,10 +138,17 @@ export default function Quote() {
   const [bookingId, setBookingId] = React.useState("");
 
   const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const handleClose = () => {
+    setOpen(false);
+    setEditMode(false);
+  };
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleDateChange = (date) => {
+    setFormData({ ...formData, journeyDate: date });
   };
 
   const handleSubmit = async (e) => {
@@ -177,11 +190,99 @@ export default function Quote() {
       <Container maxWidth="lg" sx={{ marginTop: 10 }}>
         {/* Header */}
         <Header>
-          <Typography variant="h6">Puruliya ➞ Kolkata, Airport</Typography>
-          <Button variant="outlined" onClick={() => navigate("/edit")}>
-            Edit
-          </Button>
-          <Typography variant="subtitle1">29 Jul Mon</Typography>
+          {editMode ? (
+            <Grid container spacing={2}>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  label="Pickup Location"
+                  name="pickupLocation"
+                  value={formData.pickupLocation}
+                  onChange={handleChange}
+                  fullWidth
+                  margin="normal"
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  label="Drop Location"
+                  name="dropLocation"
+                  value={formData.dropLocation}
+                  onChange={handleChange}
+                  fullWidth
+                  margin="normal"
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  id="outlined-basic-journeyDate"
+                  label="Journey Date"
+                  hiddenLabel
+                  variant="outlined"
+                  aria-label="Journey Date"
+                  placeholder="Journey Date"
+                  fullWidth
+                  required
+                  name="journeyDate"
+                  type="date"
+                  InputLabelProps={{ shrink: true }}
+                  value={formData.journeyDate}
+                  onChange={handleChange}
+                  margin="normal"
+                />
+              </Grid>
+              <Grid
+                item
+                xs={12}
+                sm={6}
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "flex-end",
+                }}
+              >
+                <Button
+                  variant="contained"
+                  onClick={() => setEditMode(false)}
+                  fullWidth
+                >
+                  Save
+                </Button>
+              </Grid>
+            </Grid>
+          ) : (
+            <Grid container spacing={2}>
+              <Grid item xs={12} sm={4}>
+                <Typography
+                  variant="subtitle1"
+                  sx={{ fontSize: { xs: "0.875rem", sm: "1rem" } }}
+                >
+                  {formData.journeyDate}
+                </Typography>
+              </Grid>
+              <Grid item xs={12} sm={5}>
+                <Typography
+                  variant="h6"
+                  sx={{ fontSize: { xs: "1rem", sm: "1.25rem" } }}
+                >
+                  {formData.pickupLocation} ➞ {formData.dropLocation}
+                </Typography>
+              </Grid>
+              <Grid
+                item
+                xs={12}
+                sm={3}
+                sx={{ textAlign: { xs: "center", sm: "right" } }}
+              >
+                <Button
+                  variant="outlined"
+                  onClick={() => setEditMode(true)}
+                  fullWidth
+                >
+                  Edit
+                </Button>
+              </Grid>
+            </Grid>
+          )}
         </Header>
 
         <Divider />
@@ -235,7 +336,7 @@ export default function Quote() {
                     sx={{ color: "#00bcd4", marginBottom: 1 }}
                   />
                   <Typography variant="body1" color="textPrimary">
-                    Driver Hygiene
+                    Clean & Safe
                   </Typography>
                 </Box>
               </IconSection>
