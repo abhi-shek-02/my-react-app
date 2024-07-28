@@ -27,7 +27,7 @@ const futuristicTheme = createTheme({
       main: "#00bcd4", // Pink
     },
     background: {
-      default: "#121212",
+      default: "#090E10",
       paper: "#1e1e1e",
     },
   },

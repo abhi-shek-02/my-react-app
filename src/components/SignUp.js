@@ -24,18 +24,19 @@ const StyledPaper = styled(Paper)(({ theme }) => ({
   alignItems: "center",
   maxWidth: 400,
   margin: "auto",
-  marginTop: theme.spacing(8),
+  marginTop: theme.spacing(12),
   marginBottom: theme.spacing(4),
   boxShadow: theme.shadows[8],
   borderRadius: theme.shape.borderRadius,
   position: "relative",
+  background: "#121212",
 }));
 
 const AnimatedBox = styled(motion.div)(({ theme }) => ({
   padding: theme.spacing(4),
   borderRadius: theme.shape.borderRadius,
-  boxShadow: theme.shadows[3],
-  background: theme.palette.background.paper,
+  // boxShadow: theme.shadows[3],
+  // background: "#121212",
 }));
 
 const fadeIn = {

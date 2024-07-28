@@ -250,7 +250,7 @@ export default function Hero({ start_location_List }) {
                     left={0}
                     right={0}
                     boxShadow={3}
-                    bgcolor="#ffffff"
+                    bgcolor="#000"
                     borderRadius={2}
                     mt={1}
                     border="1px solid #cccccc"
@@ -304,7 +304,7 @@ export default function Hero({ start_location_List }) {
                     left={0}
                     right={0}
                     boxShadow={3}
-                    bgcolor="#ffffff"
+                    bgcolor="#000"
                     borderRadius={2}
                     mt={1}
                     border="1px solid #cccccc"
