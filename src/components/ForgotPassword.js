@@ -1,8 +1,6 @@
-// src/components/SignUp.tsx
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../firebaseConfig";
+import { getAuth, sendPasswordResetEmail } from "firebase/auth";
 import {
   Container,
   Box,
@@ -10,8 +8,8 @@ import {
   TextField,
   Button,
   Paper,
-  Divider,
   Link,
+  Divider,
 } from "@mui/material";
 import { styled } from "@mui/system";
 import { motion } from "framer-motion";
@@ -43,23 +41,18 @@ const fadeIn = {
   visible: { opacity: 1 },
 };
 
-function SignUp() {
+function ForgotPassword() {
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
   const navigate = useNavigate();
 
-  const handleSignUp = async (e) => {
+  const handleResetPassword = async (e) => {
     e.preventDefault();
-    if (password !== confirmPassword) {
-      alert("Passwords do not match");
-      return;
-    }
     try {
-      await createUserWithEmailAndPassword(auth, email, password);
-      navigate("/"); // Redirect to home page on successful sign up
+      await sendPasswordResetEmail(getAuth(), email);
+      // Handle successful password reset (e.g., show message or redirect)
+      // navigate("/sign-in"); // Redirect to Sign In page after successful reset
     } catch (error) {
-      console.error("Error signing up", error);
+      console.error("Error resetting password", error);
     }
   };
 
@@ -73,10 +66,10 @@ function SignUp() {
       >
         <StyledPaper>
           <Typography component="h1" variant="h5" gutterBottom>
-            Sign Up
+            Forgot Password
           </Typography>
           <Divider sx={{ mb: 2 }} />
-          <Box component="form" onSubmit={handleSignUp} sx={{ mt: 1 }}>
+          <Box component="form" onSubmit={handleResetPassword} sx={{ mt: 1 }}>
             <TextField
               variant="outlined"
               margin="normal"
@@ -91,33 +84,6 @@ function SignUp() {
               onChange={(e) => setEmail(e.target.value)}
               sx={{ mb: 2 }}
             />
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              autoComplete="current-password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              sx={{ mb: 2 }}
-            />
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              name="confirmPassword"
-              label="Confirm Password"
-              type="password"
-              id="confirmPassword"
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-              sx={{ mb: 2 }}
-            />
             <Button
               type="submit"
               fullWidth
@@ -125,10 +91,10 @@ function SignUp() {
               color="primary"
               sx={{ mt: 3, mb: 2 }}
             >
-              Sign Up
+              Reset Password
             </Button>
             <Link href="/sign-in" variant="body2">
-              Already have an account? Sign In
+              Remembered your password? Sign In
             </Link>
           </Box>
         </StyledPaper>
@@ -137,4 +103,4 @@ function SignUp() {
   );
 }
 
-export default SignUp;
+export default ForgotPassword;

@@ -45,17 +45,37 @@
 // reportWebVitals();
 
 // src/index.tsx
+// import React from 'react';
+// import ReactDOM from 'react-dom';
+// import { ThemeProvider } from '@mui/material/styles';
+// import App from './App';
+// import {theme} from './theme'; // Import your custom theme
+// import './index.css';
+// import reportWebVitals from './reportWebVitals';
+
+// ReactDOM.render(
+//   <React.StrictMode>
+//     <ThemeProvider theme={theme}>
+//       <App />
+//     </ThemeProvider>
+//   </React.StrictMode>,
+//   document.getElementById('root')
+// );
+
+// reportWebVitals();
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { ThemeProvider } from '@mui/material/styles';
 import App from './App';
-import theme from './theme'; // Import your custom theme
+import { futuristicTheme } from './theme'; // Import your custom theme
+import CssBaseline from '@mui/material/CssBaseline';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
   <React.StrictMode>
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={futuristicTheme}>
+      <CssBaseline />
       <App />
     </ThemeProvider>
   </React.StrictMode>,
@@ -63,3 +83,4 @@ ReactDOM.render(
 );
 
 reportWebVitals();
+

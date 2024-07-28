@@ -1,6 +1,5 @@
-
-
 import React, { useState } from "react";
+import PropTypes from "prop-types";
 import CssBaseline from "@mui/material/CssBaseline";
 import Box from "@mui/material/Box";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
@@ -9,12 +8,77 @@ import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
 import Container from "@mui/material/Container";
 import AppAppBar from "./AppAppBar";
-import getLPTheme from "../getLPTheme";
 import Footer from "./Footer";
 import Divider from "@mui/material/Divider";
-import CustomModal from "./CustomModal"; // Import your custom modal component
 import TextField from "@mui/material/TextField";
+import { motion } from "framer-motion";
+import CustomModal from "./CustomModal"; // Import your custom modal component
 
+// Custom futuristic theme
+const futuristicTheme = createTheme({
+  palette: {
+    mode: "dark",
+    primary: {
+      main: "#fff", // Teal
+    },
+    secondary: {
+      main: "#00bcd4", // Pink
+    },
+    background: {
+      default: "#121212",
+      paper: "#1e1e1e",
+    },
+  },
+  typography: {
+    fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+  },
+  components: {
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          borderRadius: "20px",
+          boxShadow: "0 4px 8px rgba(0, 0, 0, 0.3)",
+          "&:hover": {
+            backgroundColor: "#fff",
+            boxShadow: "0 6px 12px rgba(0, 0, 0, 0.3)",
+          },
+        },
+      },
+    },
+    MuiTextField: {
+      styleOverrides: {
+        root: {
+          borderRadius: "10px",
+          "& .MuiOutlinedInput-root": {
+            borderRadius: "10px",
+            "& fieldset": {
+              borderColor: "#fff",
+            },
+            "&:hover fieldset": {
+              borderColor: "#00bcd4",
+            },
+          },
+          "& .MuiInputLabel-root": {
+            color: "#fff",
+          },
+        },
+      },
+    },
+  },
+});
+
+// Motion variants
+const fadeIn = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1 },
+};
+
+const slideUp = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0 },
+};
+
+// Toggle custom theme component
 function ToggleCustomTheme({ showCustomTheme, toggleCustomTheme }) {
   return (
     <Box
@@ -24,24 +88,28 @@ function ToggleCustomTheme({ showCustomTheme, toggleCustomTheme }) {
         mt: 2,
       }}
     >
-      <Button onClick={toggleCustomTheme} variant="contained" color="primary">
+      <Button onClick={toggleCustomTheme} variant="contained" color="secondary">
         Toggle Custom Theme
       </Button>
     </Box>
   );
 }
 
+ToggleCustomTheme.propTypes = {
+  showCustomTheme: PropTypes.bool.isRequired,
+  toggleCustomTheme: PropTypes.func.isRequired,
+};
+
 const CancelBooking = () => {
-  const [mode, setMode] = useState("light");
+  const [mode, setMode] = useState("dark");
   const [showCustomTheme, setShowCustomTheme] = useState(true);
   const [bookingId, setBookingId] = useState(""); // State variable to store booking ID
   const [isLoading, setIsLoading] = useState(false); // State variable to manage loader visibility
   const [showModal, setShowModal] = useState(false); // State variable to manage modal visibility
-  const LPtheme = createTheme(getLPTheme(mode));
-  const defaultTheme = createTheme({ palette: { mode } });
+  const defaultTheme = futuristicTheme;
 
   const toggleColorMode = () => {
-    setMode((prev) => (prev === "dark" ? "light" : "dark"));
+    setMode((prev) => (prev === "dark" ? "dark" : "dark"));
   };
 
   const toggleCustomTheme = () => {
@@ -92,51 +160,70 @@ const CancelBooking = () => {
   };
 
   return (
-    <ThemeProvider theme={showCustomTheme ? LPtheme : defaultTheme}>
+    <ThemeProvider theme={showCustomTheme ? defaultTheme : defaultTheme}>
       <CssBaseline />
       <AppAppBar mode={mode} toggleColorMode={toggleColorMode} />
-
-      <Box
-        sx={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          height: "100vh", // Full height of the viewport
-        }}
-      >
-        <Container
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-          }}
+      <Container sx={{ mt: 20 }}>
+        <motion.div
+          initial="hidden"
+          animate="visible"
+          variants={fadeIn}
+          transition={{ duration: 1 }}
         >
-          <Typography variant="h1" gutterBottom>
+          <Typography variant="h3" gutterBottom>
             Cancel Booking
           </Typography>
-          <TextField
-            label="Booking ID"
-            variant="outlined"
-            value={bookingId}
-            onChange={(e) => setBookingId(e.target.value)}
-            sx={{
-              mt: 2,
-              mb: 2,
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              justifyContent: "center",
-              //   width: 20,
-            }}
-            placeholder="Enter Booking ID"
-          />
-          <Button variant="contained" color="primary" onClick={handleSubmit}>
-            Submit
-          </Button>
-        </Container>
-      </Box>
-
-      <Divider />
+          <Divider sx={{ mb: 2 }} />
+        </motion.div>
+        <Box sx={{ mt: 4 }}>
+          <motion.form
+            onSubmit={handleSubmit}
+            initial="hidden"
+            animate="visible"
+            variants={slideUp}
+            transition={{ duration: 0.8 }}
+          >
+            <Grid container spacing={2}>
+              <Grid item xs={12}>
+                <motion.div
+                  initial="hidden"
+                  animate="visible"
+                  variants={slideUp}
+                  transition={{ duration: 0.8 }}
+                >
+                  <TextField
+                    id="outlined-basic-name"
+                    label="Booking ID"
+                    size="small"
+                    variant="outlined"
+                    fullWidth
+                    name="name"
+                    value={bookingId}
+                    onChange={(e) => setBookingId(e.target.value)}
+                    required
+                  />
+                </motion.div>
+              </Grid>
+            </Grid>
+            <motion.div
+              initial="hidden"
+              animate="visible"
+              variants={slideUp}
+              transition={{ duration: 0.8 }}
+              sx={{ mt: 2 }}
+            >
+              <Button
+                type="submit"
+                variant="contained"
+                color="primary"
+                sx={{ mt: 2 }}
+              >
+                Submit
+              </Button>
+            </motion.div>
+          </motion.form>
+        </Box>
+      </Container>
       <Footer />
 
       {/* Loader */}

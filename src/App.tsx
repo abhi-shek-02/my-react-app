@@ -18,18 +18,18 @@ import ProtectedComponent from './components/ProtectedComponent';
 import { AuthProvider } from './contexts/AuthContext';
 import PrivateRoute from './components/PrivateRoute';
 import './App.css';
+import ForgotPassword from './components/ForgotPassword';
 
 function App() {
-  const [mode, setMode] = React.useState('light');
+    const [mode, setMode] = React.useState('dark');
 
   const toggleColorMode = () => {
-    setMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'));
+    setMode((prevMode) => (prevMode === 'light' ? 'dark' : 'dark'));
   };
-
   return (
     <Router>
       <AuthProvider>
-        <AppAppBar mode={mode} toggleColorMode={toggleColorMode} />
+      <AppAppBar mode={mode} toggleColorMode={toggleColorMode} />
         <Routes>
           <Route path="/" element={<LandingPage />} />
           <Route path="/quote" element={<Quote />} />
@@ -45,6 +45,7 @@ function App() {
           <Route path="/sign-in" element={<SignIn />} />
           <Route path="/sign-up" element={<SignUp />} />
           <Route path="/protected-route" element={<PrivateRoute><ProtectedComponent /></PrivateRoute>} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
         </Routes>
       </AuthProvider>
     </Router>
@@ -52,3 +53,4 @@ function App() {
 }
 
 export default App;
+

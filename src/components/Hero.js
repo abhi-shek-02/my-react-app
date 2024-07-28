@@ -97,7 +97,7 @@ export default function Hero({ start_location_List }) {
         width: "100%",
         backgroundImage:
           theme.palette.mode === "light"
-            ? "linear-gradient(180deg, #CEE5FD, #FFF)"
+            ? `linear-gradient(#02294F, ${alpha("#090E10", 0.0)})`
             : `linear-gradient(#02294F, ${alpha("#090E10", 0.0)})`,
         backgroundSize: "100% 20%",
         backgroundRepeat: "no-repeat",

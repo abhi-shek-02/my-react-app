@@ -36,13 +36,13 @@ ToggleCustomTheme.propTypes = {
 };
 
 const RefundPolicy = () => {
-  const [mode, setMode] = useState("light");
+  const [mode, setMode] = useState("dark");
   const [showCustomTheme, setShowCustomTheme] = useState(true);
   const LPtheme = createTheme(getLPTheme(mode));
   const defaultTheme = createTheme({ palette: { mode } });
 
   const toggleColorMode = () => {
-    setMode((prev) => (prev === "dark" ? "light" : "dark"));
+    setMode((prev) => (prev === "dark" ? "dark" : "dark"));
   };
 
   const toggleCustomTheme = () => {

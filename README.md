@@ -52,8 +52,14 @@ To learn React, check out the [React documentation](https://reactjs.org/).
 <!-- FAQs - [30 MIN] -->
 <!-- Terms & Conditions - [20 MIN] -->
 
-SIGN up and sign in
+<!-- SIGN up and sign in -->
 Price page
 
 <!-- Driver Policy -->
 <!-- Privacy Policy --> 
+Auth Setup
+web hosting
+testing
+APi hosting
+
+

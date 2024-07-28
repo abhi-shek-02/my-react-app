@@ -50,7 +50,7 @@ const LandingPage = () => {
   const LPtheme = createTheme(getLPTheme(mode));
   const defaultTheme = createTheme({ palette: { mode } });
   const toggleColorMode = () => {
-    setMode((prev) => (prev === "light" ? "dark" : "light"));
+    setMode((prev) => (prev === "light" ? "dark" : "dark"));
   };
 
   React.useEffect(() => {
@@ -117,26 +117,3 @@ const LandingPage = () => {
 
 export default LandingPage;
 
-// export default function LandingPage() {
-//   const [mode, setMode] = React.useState('light');
-//   const [showCustomTheme, setShowCustomTheme] = React.useState(true);
-//   const LPtheme = createTheme(getLPTheme(mode));
-//   const defaultTheme = createTheme({ palette: { mode } });
-
-//   const toggleColorMode = () => {
-//     setMode((prev) => (prev === 'dark' ? 'light' : 'dark'));
-//   };
-
-//   const toggleCustomTheme = () => {
-//     setShowCustomTheme((prev) => !prev);
-//   };
-
-//   return (
-//     <ThemeProvider theme={showCustomTheme ? LPtheme : defaultTheme}>
-//       <CssBaseline />
-//       <AppAppBar mode={mode} toggleColorMode={toggleColorMode} />
-//       <Hero />
-
-//     </ThemeProvider>
-//   );
-// }

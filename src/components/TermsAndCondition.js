@@ -30,7 +30,7 @@ function ToggleCustomTheme({ showCustomTheme, toggleCustomTheme }) {
 }
 
 const TermsAndCondition = () => {
-  const [mode, setMode] = useState("light");
+  const [mode, setMode] = useState("dark");
   const [showCustomTheme, setShowCustomTheme] = useState(true);
   const [bookingId, setBookingId] = useState(""); // State variable to store booking ID
   const [isLoading, setIsLoading] = useState(false); // State variable to manage loader visibility
@@ -39,7 +39,7 @@ const TermsAndCondition = () => {
   const defaultTheme = createTheme({ palette: { mode } });
 
   const toggleColorMode = () => {
-    setMode((prev) => (prev === "dark" ? "light" : "dark"));
+    setMode((prev) => (prev === "dark" ? "dark" : "dark"));
   };
 
   const toggleCustomTheme = () => {
@@ -110,7 +110,7 @@ const TermsAndCondition = () => {
           }}
         >
           <Typography variant="h4" gutterBottom>
-            Terms of Use 
+            Terms of Use
           </Typography>
           <Typography variant="subtitle1" gutterBottom>
             Effective Date: 19th August, 2022

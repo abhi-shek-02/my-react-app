@@ -8,11 +8,76 @@ import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
 import Container from "@mui/material/Container";
 import AppAppBar from "./AppAppBar";
-import getLPTheme from "../getLPTheme";
 import Footer from "./Footer";
 import Divider from "@mui/material/Divider";
 import TextField from "@mui/material/TextField";
+import { motion } from "framer-motion";
 
+// Custom futuristic theme
+const futuristicTheme = createTheme({
+  palette: {
+    mode: "dark",
+    primary: {
+      main: "#fff", // Teal
+    },
+    secondary: {
+      main: "#00bcd4", // Pink
+    },
+    background: {
+      default: "#121212",
+      paper: "#1e1e1e",
+    },
+  },
+  typography: {
+    fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+  },
+  components: {
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          borderRadius: "20px",
+          boxShadow: "0 4px 8px rgba(0, 0, 0, 0.3)",
+          "&:hover": {
+            backgroundColor: "#fff",
+            boxShadow: "0 6px 12px rgba(0, 0, 0, 0.3)",
+          },
+        },
+      },
+    },
+    MuiTextField: {
+      styleOverrides: {
+        root: {
+          borderRadius: "10px",
+          "& .MuiOutlinedInput-root": {
+            borderRadius: "10px",
+            "& fieldset": {
+              borderColor: "#fff",
+            },
+            "&:hover fieldset": {
+              borderColor: "#00bcd4",
+            },
+          },
+          "& .MuiInputLabel-root": {
+            color: "#fff",
+          },
+        },
+      },
+    },
+  },
+});
+
+// Motion variants
+const fadeIn = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1 },
+};
+
+const slideUp = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0 },
+};
+
+// Toggle custom theme component
 function ToggleCustomTheme({ showCustomTheme, toggleCustomTheme }) {
   return (
     <Box
@@ -22,7 +87,7 @@ function ToggleCustomTheme({ showCustomTheme, toggleCustomTheme }) {
         mt: 2,
       }}
     >
-      <Button onClick={toggleCustomTheme} variant="contained" color="primary">
+      <Button onClick={toggleCustomTheme} variant="contained" color="secondary">
         Toggle Custom Theme
       </Button>
     </Box>
@@ -35,7 +100,7 @@ ToggleCustomTheme.propTypes = {
 };
 
 const ContactUs = () => {
-  const [mode, setMode] = useState("light");
+  const [mode, setMode] = useState("dark");
   const [showCustomTheme, setShowCustomTheme] = useState(true);
   const [formData, setFormData] = useState({
     name: "",
@@ -45,8 +110,7 @@ const ContactUs = () => {
     email: "",
   });
   const [errors, setErrors] = useState({});
-  const LPtheme = createTheme(getLPTheme(mode));
-  const defaultTheme = createTheme({ palette: { mode } });
+  const defaultTheme = futuristicTheme;
 
   const toggleColorMode = () => {
     setMode((prev) => (prev === "dark" ? "light" : "dark"));
@@ -82,13 +146,16 @@ const ContactUs = () => {
     setErrors(validationErrors);
     if (Object.keys(validationErrors).length === 0) {
       try {
-        const response = await fetch("https://bookings-uhs1.onrender.com/api/v1/contact/create", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formData),
-        });
+        const response = await fetch(
+          "https://bookings-uhs1.onrender.com/api/v1/contact/create",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(formData),
+          }
+        );
         if (!response.ok) {
           throw new Error("Network response was not ok");
         }
@@ -110,122 +177,166 @@ const ContactUs = () => {
   };
 
   return (
-    <ThemeProvider theme={showCustomTheme ? LPtheme : defaultTheme}>
+    <ThemeProvider theme={showCustomTheme ? defaultTheme : defaultTheme}>
       <CssBaseline />
       <AppAppBar mode={mode} toggleColorMode={toggleColorMode} />
       <Container sx={{ mt: 20 }}>
-        <Typography variant="h2" align="center" gutterBottom>
-          Contact Us
-        </Typography>
-        <Typography variant="p" align="center" gutterBottom>
-          Do you have any questions? Please do not hesitate to contact us
-          directly. Our team will come back to you within a matter of hours to
-          help you.
-        </Typography>
-        <Divider />
+        <motion.div
+          initial="hidden"
+          animate="visible"
+          variants={fadeIn}
+          transition={{ duration: 1 }}
+        >
+          <Typography variant="h2" align="center" gutterBottom>
+            Contact Us
+          </Typography>
+          <Typography variant="body1" align="center" gutterBottom>
+            Do you have any questions? Please do not hesitate to contact us
+            directly. Our team will come back to you within a matter of hours to
+            help you.
+          </Typography>
+          <Divider sx={{ mb: 2 }} />
+        </motion.div>
         <Box sx={{ mt: 4 }}>
-          <form onSubmit={handleSubmit}>
+          <motion.form
+            onSubmit={handleSubmit}
+            initial="hidden"
+            animate="visible"
+            variants={slideUp}
+            transition={{ duration: 0.8 }}
+          >
             <Grid container spacing={2}>
               <Grid item xs={12}>
-                <TextField
-                  id="outlined-basic-name"
-                  label="Your Name"
-                  hiddenLabel
-                  size="small"
-                  variant="outlined"
-                  aria-label="Your Name"
-                  placeholder="Your Name"
-                  fullWidth
-                  name="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  error={!!errors.name}
-                  helperText={errors.name}
-                  required
-                />
+                <motion.div
+                  initial="hidden"
+                  animate="visible"
+                  variants={slideUp}
+                  transition={{ duration: 0.8 }}
+                >
+                  <TextField
+                    id="outlined-basic-name"
+                    label="Your Name"
+                    size="small"
+                    variant="outlined"
+                    fullWidth
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    error={!!errors.name}
+                    helperText={errors.name}
+                    required
+                  />
+                </motion.div>
               </Grid>
               <Grid item xs={12}>
-                <TextField
-                  id="outlined-basic-phone"
-                  hiddenLabel
-                  size="small"
-                  variant="outlined"
-                  aria-label="Phone"
-                  placeholder="Phone"
-                  fullWidth
-                  name="phone"
-                  value={formData.phone}
-                  onChange={handleChange}
-                  error={!!errors.phone}
-                  helperText={errors.phone}
-                  required
-                />
+                <motion.div
+                  initial="hidden"
+                  animate="visible"
+                  variants={slideUp}
+                  transition={{ duration: 0.8 }}
+                >
+                  <TextField
+                    id="outlined-basic-phone"
+                    label="Phone"
+                    size="small"
+                    variant="outlined"
+                    fullWidth
+                    name="phone"
+                    value={formData.phone}
+                    onChange={handleChange}
+                    error={!!errors.phone}
+                    helperText={errors.phone}
+                    required
+                  />
+                </motion.div>
               </Grid>
               <Grid item xs={12}>
-                <TextField
-                  id="outlined-basic-email"
-                  hiddenLabel
-                  size="small"
-                  variant="outlined"
-                  aria-label="Your Email (optional)"
-                  placeholder="Your Email (optional)"
-                  fullWidth
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                />
+                <motion.div
+                  initial="hidden"
+                  animate="visible"
+                  variants={slideUp}
+                  transition={{ duration: 0.8 }}
+                >
+                  <TextField
+                    id="outlined-basic-email"
+                    label="Your Email (optional)"
+                    size="small"
+                    variant="outlined"
+                    fullWidth
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                  />
+                </motion.div>
               </Grid>
               <Grid item xs={12}>
-                <TextField
-                  id="outlined-basic-subject"
-                  hiddenLabel
-                  size="small"
-                  variant="outlined"
-                  aria-label="Subject"
-                  placeholder="Subject"
-                  fullWidth
-                  name="subject"
-                  value={formData.subject}
-                  onChange={handleChange}
-                  error={!!errors.subject}
-                  helperText={errors.subject}
-                  required
-                />
+                <motion.div
+                  initial="hidden"
+                  animate="visible"
+                  variants={slideUp}
+                  transition={{ duration: 0.8 }}
+                >
+                  <TextField
+                    id="outlined-basic-subject"
+                    label="Subject"
+                    size="small"
+                    variant="outlined"
+                    fullWidth
+                    name="subject"
+                    value={formData.subject}
+                    onChange={handleChange}
+                    error={!!errors.subject}
+                    helperText={errors.subject}
+                    required
+                  />
+                </motion.div>
               </Grid>
               <Grid item xs={12}>
-                <TextField
-                  id="outlined-basic-message"
-                  hiddenLabel
-                  size="small"
-                  variant="outlined"
-                  aria-label="Your Message"
-                  placeholder="Your Message"
-                  fullWidth
-                  multiline
-                  rows={4}
-                  name="message"
-                  value={formData.message}
-                  onChange={handleChange}
-                  error={!!errors.message}
-                  helperText={errors.message}
-                  required
-                />
+                <motion.div
+                  initial="hidden"
+                  animate="visible"
+                  variants={slideUp}
+                  transition={{ duration: 0.8 }}
+                >
+                  <TextField
+                    id="outlined-basic-message"
+                    label="Your Message"
+                    size="small"
+                    variant="outlined"
+                    fullWidth
+                    multiline
+                    rows={4}
+                    name="message"
+                    value={formData.message}
+                    onChange={handleChange}
+                    error={!!errors.message}
+                    helperText={errors.message}
+                    required
+                  />
+                </motion.div>
               </Grid>
             </Grid>
-            <Button
-              type="submit"
-              variant="contained"
-              color="primary"
+            <motion.div
+              initial="hidden"
+              animate="visible"
+              variants={slideUp}
+              transition={{ duration: 0.8 }}
               sx={{ mt: 2 }}
             >
-              Submit
-            </Button>
-          </form>
+              <Button
+                type="submit"
+                variant="contained"
+                color="primary"
+                sx={{ mt: 2 }}
+              >
+                Submit
+              </Button>
+            </motion.div>
+          </motion.form>
         </Box>
       </Container>
       <Footer />
     </ThemeProvider>
   );
 };
-
 export default ContactUs;
