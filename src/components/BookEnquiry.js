@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import PropTypes from "prop-types";
 import CssBaseline from "@mui/material/CssBaseline";
 import Box from "@mui/material/Box";
@@ -8,13 +8,66 @@ import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
 import Container from "@mui/material/Container";
 import AppAppBar from "./AppAppBar";
-import getLPTheme from "../getLPTheme";
 import Footer from "./Footer";
 import Divider from "@mui/material/Divider";
 import TextField from "@mui/material/TextField";
 import { uniqueLocation } from "../utils/constant";
 import CircularProgress from "@mui/material/CircularProgress";
 import Modal from "@mui/material/Modal";
+import debounce from "lodash.debounce";
+
+// Custom futuristic theme
+const futuristicTheme = createTheme({
+  palette: {
+    mode: "dark",
+    primary: {
+      main: "#fff", // Teal
+    },
+    secondary: {
+      main: "#00bcd4", // Pink
+    },
+    background: {
+      default: "#121212",
+      paper: "#1e1e1e",
+    },
+  },
+  typography: {
+    fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+  },
+  components: {
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          borderRadius: "20px",
+          boxShadow: "0 4px 8px rgba(0, 0, 0, 0.3)",
+          "&:hover": {
+            backgroundColor: "#fff",
+            boxShadow: "0 6px 12px rgba(0, 0, 0, 0.3)",
+          },
+        },
+      },
+    },
+    MuiTextField: {
+      styleOverrides: {
+        root: {
+          borderRadius: "10px",
+          "& .MuiOutlinedInput-root": {
+            borderRadius: "10px",
+            "& fieldset": {
+              borderColor: "#fff",
+            },
+            "&:hover fieldset": {
+              borderColor: "#00bcd4",
+            },
+          },
+          "& .MuiInputLabel-root": {
+            color: "#fff",
+          },
+        },
+      },
+    },
+  },
+});
 
 function ToggleCustomTheme({ showCustomTheme, toggleCustomTheme }) {
   return (
@@ -38,7 +91,6 @@ ToggleCustomTheme.propTypes = {
 };
 
 const BookEnquiry = () => {
-  // console.log("uniqueLocation", uniqueLocation);
   const [mode, setMode] = useState("dark");
   const [showCustomTheme, setShowCustomTheme] = useState(true);
   const [formData, setFormData] = useState({
@@ -51,13 +103,14 @@ const BookEnquiry = () => {
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState({});
   const [showPickupLocationList, setShowPickupLocationList] = useState(false);
   const [showDropLocationList, setShowDropLocationList] = useState(false);
+  const [filteredLocations, setFilteredLocations] = useState([]);
+  const [dropFilteredLocations, setDropFilteredLocations] = useState([]);
   const [bookingId, setBookingId] = useState("");
 
-  const LPtheme = createTheme(getLPTheme(mode));
-  const defaultTheme = createTheme({ palette: { mode } });
+  const defaultTheme = futuristicTheme;
 
   const toggleColorMode = () => {
     setMode((prev) => (prev === "dark" ? "dark" : "dark"));
@@ -76,6 +129,46 @@ const BookEnquiry = () => {
       ...prevData,
       [name]: value,
     }));
+  };
+
+  const debouncedFilter = useCallback(
+    debounce((value) => {
+      const filtered = uniqueLocation.filter((location) =>
+        location.toLowerCase().includes(value.toLowerCase())
+      );
+      setFilteredLocations(filtered);
+      setShowPickupLocationList(true);
+    }, 300),
+    []
+  );
+
+  const handlePickupLocationChange = (e) => {
+    const { value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      pickupLocation: value,
+    }));
+    debouncedFilter(value);
+  };
+
+  const debouncedDropFilter = useCallback(
+    debounce((value) => {
+      const filtered = uniqueLocation.filter((location) =>
+        location.toLowerCase().includes(value.toLowerCase())
+      );
+      setDropFilteredLocations(filtered);
+      setShowDropLocationList(true);
+    }, 300),
+    []
+  );
+
+  const handleDropLocationChange = (e) => {
+    const { value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      dropLocation: value,
+    }));
+    debouncedDropFilter(value);
   };
 
   const handleSubmit = async (e) => {
@@ -152,26 +245,24 @@ const BookEnquiry = () => {
     setLoading(false);
   };
 
-  const handlePickupLocationChange = (e) => {
-    const { value } = e.target;
+  const handlePickupLocationSelect = (location) => {
     setFormData((prevData) => ({
       ...prevData,
-      pickupLocation: value,
+      pickupLocation: location,
     }));
     setShowPickupLocationList(false);
   };
 
-  const handleDropLocationChange = (e) => {
-    const { value } = e.target;
+  const handleDropLocationSelect = (location) => {
     setFormData((prevData) => ({
       ...prevData,
-      dropLocation: value,
+      dropLocation: location,
     }));
     setShowDropLocationList(false);
   };
 
   return (
-    <ThemeProvider theme={showCustomTheme ? LPtheme : defaultTheme}>
+    <ThemeProvider theme={showCustomTheme ? defaultTheme : defaultTheme}>
       <CssBaseline />
       <AppAppBar mode={mode} toggleColorMode={toggleColorMode} />
       <Container sx={{ mt: 20 }}>
@@ -206,53 +297,69 @@ const BookEnquiry = () => {
                     setTimeout(() => setShowPickupLocationList(false), 200)
                   }
                 />
-                <Box
-                  sx={{
-                    position: "absolute",
-                    width: "100%",
-                    marginTop: "1rem",
-                    maxHeight: "10rem",
-                    overflow: "auto",
-                    bgcolor: "background.paper",
-                    zIndex: 1000,
-                    borderRadius: "4px",
-                    boxShadow: "0 2px 10px rgba(0,0,0,0.1)",
-                    display: showPickupLocationList ? "block" : "none",
-                  }}
-                >
-                  {uniqueLocation
-                    .filter((location) =>
-                      location
-                        .toLowerCase()
-                        .includes(formData.pickupLocation.toLowerCase())
-                    )
-                    .map((location, index) => (
-                      <div
-                        key={index}
-                        onClick={() =>
-                          handlePickupLocationChange({
-                            target: { value: location },
-                          })
-                        }
-                      >
-                        <Typography
-                          sx={{
-                            padding: "0.5rem",
+                {showPickupLocationList && (
+                  <Box
+                    sx={{
+                      position: "absolute",
+                      width: {
+                        xs: '90%',  // 90% width for mobile view
+                        sm: '38%'   // 38% width for larger screens
+                      },
+                      marginTop: "1rem",
+                      maxHeight: "10rem",
+                      overflow: "auto",
+                      bgcolor: "background.paper",
+                      zIndex: 1000,
+                      borderRadius: "4px",
+                      boxShadow: "0 2px 10px rgba(0,0,0,0.1)",
+                    }}
+                  >
+                    {filteredLocations.length > 0 ? (
+                      filteredLocations.map((location, index) => (
+                        <div
+                          key={index}
+                          onClick={() => handlePickupLocationSelect(location)}
+                          style={{
+                            padding: "8px",
                             cursor: "pointer",
                           }}
                         >
-                          {location}
+                          <Typography
+                            component="span"
+                            variant="body1"
+                            dangerouslySetInnerHTML={{
+                              __html: location.replace(
+                                new RegExp(
+                                  `(${formData.pickupLocation})`,
+                                  "gi"
+                                ),
+                                "<strong>$1</strong>"
+                              ),
+                            }}
+                          />
+                        </div>
+                      ))
+                    ) : (
+                      <div
+                        style={{
+                          padding: "8px",
+                          textAlign: "center",
+                        }}
+                      >
+                        <Typography variant="body2" color="textSecondary">
+                          No results found
                         </Typography>
                       </div>
-                    ))}
-                </Box>
+                    )}
+                  </Box>
+                )}
               </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
                   id="outlined-basic-dropLocation"
                   label="Drop Location"
-                  hiddenLabel
                   size="small"
+                  hiddenLabel
                   variant="outlined"
                   aria-label="Drop Location"
                   placeholder="Drop Location"
@@ -268,59 +375,74 @@ const BookEnquiry = () => {
                     setTimeout(() => setShowDropLocationList(false), 200)
                   }
                 />
-                <Box
-                  sx={{
-                    position: "absolute",
-                    width: "100%",
-                    marginTop: "1rem",
-                    maxHeight: "10rem",
-                    overflow: "auto",
-                    bgcolor: "background.paper",
-                    zIndex: 1000,
-                    borderRadius: "4px",
-                    boxShadow: "0 2px 10px rgba(0,0,0,0.1)",
-                    display: showDropLocationList ? "block" : "none",
-                  }}
-                >
-                  {uniqueLocation
-                    .filter((location) =>
-                      location
-                        .toLowerCase()
-                        .includes(formData.dropLocation.toLowerCase())
-                    )
-                    .map((location, index) => (
-                      <div
-                        key={index}
-                        onClick={() =>
-                          handleDropLocationChange({
-                            target: { value: location },
-                          })
-                        }
-                      >
-                        <Typography
-                          sx={{
-                            padding: "0.5rem",
+                {showDropLocationList && (
+                  <Box
+                    sx={{
+                      position: "absolute",
+                      width: {
+                        xs: '90%',  // 90% width for mobile view
+                        sm: '38%'   // 38% width for larger screens
+                      },
+                      marginTop: "1rem",
+                      maxHeight: "10rem",
+                      overflow: "auto",
+                      bgcolor: "background.paper",
+                      zIndex: 1000,
+                      borderRadius: "4px",
+                      boxShadow: "0 2px 10px rgba(0,0,0,0.1)",
+                    }}
+                  >
+                    {dropFilteredLocations.length > 0 ? (
+                      dropFilteredLocations.map((location, index) => (
+                        <div
+                          key={index}
+                          onClick={() => handleDropLocationSelect(location)}
+                          style={{
+                            padding: "8px",
                             cursor: "pointer",
                           }}
                         >
-                          {location}
+                          <Typography
+                            component="span"
+                            variant="body1"
+                            dangerouslySetInnerHTML={{
+                              __html: location.replace(
+                                new RegExp(`(${formData.dropLocation})`, "gi"),
+                                "<strong>$1</strong>"
+                              ),
+                            }}
+                          />
+                        </div>
+                      ))
+                    ) : (
+                      <div
+                        style={{
+                          padding: "8px",
+                          textAlign: "center",
+                        }}
+                      >
+                        <Typography variant="body2" color="textSecondary">
+                          No results found
                         </Typography>
                       </div>
-                    ))}
-                </Box>
+                    )}
+                  </Box>
+                )}
               </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
                   id="outlined-basic-journeyDate"
                   label="Journey Date"
-                  type="date"
-                  hiddenLabel
                   size="small"
+                  hiddenLabel
                   variant="outlined"
                   aria-label="Journey Date"
+                  placeholder="Journey Date"
                   fullWidth
                   required
                   name="journeyDate"
+                  type="date"
+                  InputLabelProps={{ shrink: true }}
                   value={formData.journeyDate}
                   onChange={handleChange}
                   error={!!errorMessage.journeyDate}
@@ -331,8 +453,8 @@ const BookEnquiry = () => {
                 <TextField
                   id="outlined-basic-phoneNumber"
                   label="Phone Number"
-                  hiddenLabel
                   size="small"
+                  hiddenLabel
                   variant="outlined"
                   aria-label="Phone Number"
                   placeholder="Phone Number"
@@ -349,81 +471,68 @@ const BookEnquiry = () => {
                 <TextField
                   id="outlined-basic-message"
                   label="Message"
-                  hiddenLabel
                   size="small"
+                  hiddenLabel
                   variant="outlined"
                   aria-label="Message"
                   placeholder="Message"
                   fullWidth
                   multiline
                   rows={4}
-                  required
                   name="message"
                   value={formData.message}
                   onChange={handleChange}
                 />
               </Grid>
             </Grid>
-            <Button
-              type="submit"
-              variant="contained"
-              color="primary"
-              sx={{ mt: 2 }}
-            >
-              {loading ? (
-                <CircularProgress color="inherit" size={24} />
-              ) : (
-                "Submit"
-              )}
-            </Button>
-          </form>
-          <Modal
-            open={open}
-            onClose={handleClose}
-            aria-labelledby="modal-modal-title"
-            aria-describedby="modal-modal-description"
-          >
-            <Box
-              sx={{
-                position: "absolute",
-                width: 400,
-                bgcolor: "background.paper",
-                border: "2px solid #000",
-                boxShadow: 24,
-                p: 4,
-                top: "50%",
-                left: "50%",
-                transform: "translate(-50%, -50%)",
-              }}
-            >
-              <Typography
-                id="modal-modal-title"
-                variant="h6"
-                component="h2"
-                gutterBottom
+            <Box sx={{ display: "flex", justifyContent: "center", mt: 4 }}>
+              <Button
+                type="submit"
+                variant="contained"
+                color="primary"
+                disabled={loading}
+                sx={{ width: "200px" }}
               >
-                {successMessage && (
-                  <>
-                    Booking Successful
-                    <br />
-                    Booking Id: {bookingId}
-                    <br />
-                    We will get back to you soon.
-                  </>
+                {loading ? (
+                  <CircularProgress size={24} color="inherit" />
+                ) : (
+                  "Submit"
                 )}
-                {/* {errorMessage && (
-                  <>
-                    Booking Failed
-                    <br />
-                    {errorMessage}
-                  </>
-                )} */}
-              </Typography>
+              </Button>
             </Box>
-          </Modal>
+          </form>
         </Box>
       </Container>
       <Footer />
+      <Modal open={open} onClose={handleClose}>
+        <Box
+          sx={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            bgcolor: "background.paper",
+            border: "2px solid #000",
+            boxShadow: 24,
+            p: 4,
+          }}
+        >
+          {errorMessage && (
+            <Typography variant="h6" color="error">
+              {errorMessage}
+            </Typography>
+          )}
+          {successMessage && (
+            <Typography variant="h6" color="primary">
+              {successMessage}
+            </Typography>
+          )}
+        </Box>
+      </Modal>
+      <ToggleCustomTheme
+        showCustomTheme={showCustomTheme}
+        toggleCustomTheme={toggleCustomTheme}
+      />
     </ThemeProvider>
   );
 };

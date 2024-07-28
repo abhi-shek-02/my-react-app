@@ -96,8 +96,8 @@ const LandingPage = () => {
       <Hero start_location_List={start_location_List} />
       <Box sx={{ bgcolor: "background.default" }}>
         {/* <LogoCollection /> */}
-        <Features />
-        <Divider />
+        {/* <Features /> */}
+        {/* <Divider /> */}
         {/* <Testimonials /> */}
         <Divider />
         <Highlights />

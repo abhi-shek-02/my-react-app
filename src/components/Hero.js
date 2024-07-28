@@ -1,19 +1,114 @@
 import * as React from "react";
-// import { useHistory } from "react-router-dom";
-import { alpha } from "@mui/material";
-import PropTypes from "prop-types";
-
 import { useNavigate } from "react-router-dom";
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import Container from "@mui/material/Container";
-import Link from "@mui/material/Link";
-import Stack from "@mui/material/Stack";
-import TextField from "@mui/material/TextField";
-import Typography from "@mui/material/Typography";
+import {
+  Box,
+  Button,
+  Container,
+  Stack,
+  TextField,
+  Typography,
+  ThemeProvider,
+  createTheme,
+  CssBaseline,
+  InputAdornment,
+  IconButton,
+} from "@mui/material";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import LocationOnIcon from "@mui/icons-material/LocationOn";
+import PhoneIcon from "@mui/icons-material/Phone";
+import AccessTimeIcon from "@mui/icons-material/AccessTime";
+import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
+import { styled } from "@mui/system";
+
+// Custom futuristic theme
+const futuristicTheme = createTheme({
+  palette: {
+    mode: "dark",
+    primary: {
+      main: "#fff",
+    },
+    secondary: {
+      main: "#00bcd4",
+    },
+    background: {
+      default: "#121212",
+      paper: "#1e1e1e",
+    },
+  },
+  typography: {
+    fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+  },
+  components: {
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          borderRadius: "20px",
+          boxShadow: "0 4px 8px rgba(0, 0, 0, 0.3)",
+          "&:hover": {
+            backgroundColor: "#fff",
+            boxShadow: "0 6px 12px rgba(0, 0, 0, 0.3)",
+          },
+        },
+      },
+    },
+    MuiTextField: {
+      styleOverrides: {
+        root: {
+          borderRadius: "10px",
+          "& .MuiOutlinedInput-root": {
+            borderRadius: "10px",
+            "& fieldset": {
+              borderColor: "#fff",
+            },
+            "&:hover fieldset": {
+              borderColor: "#00bcd4",
+            },
+          },
+          "& .MuiInputLabel-root": {
+            color: "#fff",
+          },
+        },
+      },
+    },
+  },
+});
+
+const StyledContainer = styled(Container)(({ theme }) => ({
+  display: "flex",
+  justifyContent: "space-between",
+  alignItems: "center",
+  padding: theme.spacing(4),
+  // backgroundColor: theme.palette.background.default,
+  flexDirection: "column",
+  marginTop: theme.spacing(10),
+  [theme.breakpoints.up("md")]: {
+    flexDirection: "row",
+  },
+}));
+
+const StyledForm = styled("div")(({ theme }) => ({
+  backgroundColor: theme.palette.background.paper,
+  borderRadius: theme.shape.borderRadius,
+  boxShadow: theme.shadows[3],
+  padding: theme.spacing(3),
+  marginTop: theme.spacing(4),
+  width: "100%",
+  [theme.breakpoints.up("md")]: {
+    marginTop: 0,
+    width: "50%",
+  },
+}));
+
+const StyledButton = styled(Button)(({ theme }) => ({
+  backgroundColor: "#0959AA",
+  color: "#FFFFFF",
+  "&:hover": {
+    backgroundColor: theme.palette.secondary.dark,
+  },
+  marginTop: theme.spacing(2),
+}));
 
 export default function Hero({ start_location_List }) {
   const navigate = useNavigate();
@@ -90,263 +185,209 @@ export default function Hero({ start_location_List }) {
     }
   };
 
+  const handleContactUsClick = () => {
+    navigate("/contact");
+  };
+
   return (
-    <Box
-      id="hero"
-      sx={(theme) => ({
-        width: "100%",
-        backgroundImage:
-          theme.palette.mode === "light"
-            ? `linear-gradient(#02294F, ${alpha("#090E10", 0.0)})`
-            : `linear-gradient(#02294F, ${alpha("#090E10", 0.0)})`,
-        backgroundSize: "100% 20%",
-        backgroundRepeat: "no-repeat",
-      })}
-    >
-      <Container
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          pt: { xs: 14, sm: 20 },
-          pb: { xs: 8, sm: 12 },
-        }}
+    <ThemeProvider theme={futuristicTheme}>
+      <CssBaseline />
+      <Box
+        id="hero"
+        sx={(theme) => ({
+          width: "100%",
+          backgroundImage:
+            theme.palette.mode === "light"
+              ? `linear-gradient(#02294F, rgba(9, 14, 16, 0.0))`
+              : `linear-gradient(#02294F, rgba(9, 14, 16, 0.0))`,
+          backgroundSize: "100% 20%",
+          backgroundRepeat: "no-repeat",
+        })}
       >
-        <Stack spacing={2} useFlexGap sx={{ width: { xs: "100%", sm: "70%" } }}>
-          <Typography
-            variant="h1"
-            sx={{
-              display: "flex",
-              flexDirection: { xs: "column", md: "row" },
-              alignSelf: "center",
-              textAlign: "center",
-              fontSize: "clamp(3.5rem, 10vw, 4rem)",
-            }}
-          >
-            Outstation rides at your fare&nbsp;
-            <Typography
-              component="span"
-              variant="h1"
-              sx={{
-                fontSize: "clamp(3rem, 10vw, 4rem)",
-                color: (theme) =>
-                  theme.palette.mode === "light"
-                    ? "primary.main"
-                    : "primary.light",
-              }}
-            ></Typography>
-          </Typography>
-          <Typography
-            textAlign="center"
-            color="text.secondary"
-            sx={{ alignSelf: "center", width: { sm: "100%", md: "80%" } }}
-          >
-            Explore hundreds of intercity routes and choose one of our verified
-            drivers
-          </Typography>
-          <Stack
-            direction="column"
-            alignSelf="center"
-            spacing={1}
-            useFlexGap
-            sx={{ pt: 2, width: { xs: "100%", sm: "auto" } }}
-          >
-            <Box position="relative">
-              <TextField
-                id="current-location"
-                hiddenLabel
-                size="small"
-                variant="outlined"
-                aria-label="Enter Current Location"
-                placeholder="Enter Current Location"
-                inputProps={{
-                  autoComplete: "off",
-                  "aria-label": "Enter Current Location",
-                }}
-                value={currentLocation}
-                onChange={handleCurrentLocationInputChange}
-              />
-              {filteredCurrentLocations.length > 0 && (
-                <Box
-                  position="absolute"
-                  zIndex={1}
-                  top="calc(100% + 4px)"
-                  left={0}
-                  right={0}
-                  boxShadow={3}
-                  bgcolor="#ffffff"
-                  borderRadius={2}
-                  mt={1}
-                  border="1px solid #cccccc"
-                  overflow="hidden"
-                >
-                  <ul style={{ listStyleType: "none", padding: 0, margin: 0 }}>
-                    {filteredCurrentLocations.map((location, index) => (
-                      <React.Fragment key={index}>
-                        <li
-                          onClick={() => handleCurrentLocationSelect(location)}
-                          sx={{
-                            cursor: "pointer",
-                            padding: "12px 16px",
-                            textAlign: "center",
-                            transition: "background-color 0.3s",
-                            "&:hover": { backgroundColor: "#f5f5f5" },
-                          }}
-                        >
-                          {location}
-                        </li>
-                        {index !== filteredCurrentLocations.length - 1 && (
-                          <Box
-                            sx={{
-                              width: "100%",
-                              height: 1,
-                              bgcolor: "#f0f0f0",
-                            }}
-                          />
-                        )}
-                      </React.Fragment>
-                    ))}
-                  </ul>
-                </Box>
-              )}
-            </Box>
-            <Box position="relative">
-              <TextField
-                id="destination"
-                hiddenLabel
-                size="small"
-                variant="outlined"
-                aria-label="Enter Destination"
-                placeholder="Enter Destination"
-                inputProps={{
-                  autoComplete: "off",
-                  "aria-label": "Enter Destination",
-                }}
-                value={destination}
-                onChange={handleDestinationInputChange}
-              />
-              {filteredDestinationLocations.length > 0 && (
-                <Box
-                  position="absolute"
-                  zIndex={1}
-                  top="calc(100% + 4px)"
-                  left={0}
-                  right={0}
-                  boxShadow={3}
-                  bgcolor="#ffffff"
-                  borderRadius={2}
-                  mt={1}
-                  border="1px solid #cccccc"
-                  overflow="hidden"
-                >
-                  <ul style={{ listStyleType: "none", padding: 0, margin: 0 }}>
-                    {filteredDestinationLocations.map((location, index) => (
-                      <React.Fragment key={index}>
-                        <li
-                          onClick={() => handleDestinationSelect(location)}
-                          sx={{
-                            cursor: "pointer",
-                            padding: "12px 16px",
-                            textAlign: "center",
-                            transition: "background-color 0.3s",
-                            "&:hover": { backgroundColor: "#f5f5f5" },
-                          }}
-                        >
-                          {location}
-                        </li>
-                        {index !== filteredDestinationLocations.length - 1 && (
-                          <Box
-                            sx={{
-                              width: "100%",
-                              height: 1,
-                              bgcolor: "#f0f0f0",
-                            }}
-                          />
-                        )}
-                      </React.Fragment>
-                    ))}
-                  </ul>
-                </Box>
-              )}
-            </Box>
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <DatePicker
-                value={selectedDate}
-                onChange={handleDateChange}
-                inputFormat="DD/MM/YYYY"
-                renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    inputProps={{ ...params.inputProps, readOnly: true }}
-                    helperText="DD/MM/YYYY"
-                  />
-                )}
-              />
-            </LocalizationProvider>
-            <TextField
-              id="mobile-number"
-              hiddenLabel
-              size="small"
-              variant="outlined"
-              aria-label="Enter Mobile Number"
-              placeholder="Enter Mobile Number"
-              inputProps={{
-                autoComplete: "off",
-                "aria-label": "Enter Mobile Number",
-              }}
-              value={mobileNumber}
-              onChange={handleMobileNumberChange}
-            />
+        <StyledContainer>
+          <Box>
+            <Typography variant="h3" gutterBottom>
+              Taxi Service from Kolkata
+            </Typography>
+            <Typography variant="body1" gutterBottom>
+              Welcome to Oneway Cabwala, where every ride is a journey
+              redefined. As a leading name in the taxi business, we bring you
+              unparalleled convenience with our one-way cab services.
+            </Typography>
             <Button
               variant="contained"
               color="primary"
-              onClick={handleSearchNowClick}
+              onClick={handleContactUsClick}
             >
-              Search now
+              Contact Us
             </Button>
-            {validationError && (
-              <Typography color="error" sx={{ mt: 1 }}>
-                {validationError}
-              </Typography>
-            )}
-          </Stack>
-          <Typography
-            variant="caption"
-            textAlign="center"
-            sx={{ opacity: 0.8 }}
-          >
-            By clicking &quot;Start now&quot; you agree to our&nbsp;
-            <Link href="#" color="primary">
-              Terms & Conditions
-            </Link>
-            .
-          </Typography>
-        </Stack>
-        <Box
-          id="image"
-          sx={(theme) => ({
-            mt: { xs: 8, sm: 10 },
-            alignSelf: "center",
-            height: { xs: 200, sm: 700 },
-            width: "100%",
-            backgroundImage:
-              theme.palette.mode === "light"
-                ? 'url("/static/images/templates/templates-images/hero-light.png")'
-                : 'url("/static/images/templates/templates-images/hero-dark.png")',
-            backgroundSize: "cover",
-            borderRadius: "10px",
-            outline: "1px solid",
-            outlineColor:
-              theme.palette.mode === "light"
-                ? alpha("#BFCCD9", 0.5)
-                : alpha("#9CCCFC", 0.1),
-            boxShadow:
-              theme.palette.mode === "light"
-                ? `0 0 12px 8px ${alpha("#9CCCFC", 0.2)}`
-                : `0 0 24px 12px ${alpha("#033363", 0.2)}`,
-          })}
-        />
-      </Container>
-    </Box>
+          </Box>
+
+          <StyledForm>
+            <Typography variant="h6" gutterBottom>
+              Quick Booking Here
+            </Typography>
+            <Stack spacing={2}>
+              <Box position="relative">
+                <TextField
+                  fullWidth
+                  placeholder="Enter Current Location"
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <LocationOnIcon />
+                      </InputAdornment>
+                    ),
+                  }}
+                  value={currentLocation}
+                  onChange={handleCurrentLocationInputChange}
+                />
+                {filteredCurrentLocations.length > 0 && (
+                  <Box
+                    position="absolute"
+                    zIndex={1}
+                    top="calc(100% + 4px)"
+                    left={0}
+                    right={0}
+                    boxShadow={3}
+                    bgcolor="#ffffff"
+                    borderRadius={2}
+                    mt={1}
+                    border="1px solid #cccccc"
+                    overflow="hidden"
+                  >
+                    <ul
+                      style={{ listStyleType: "none", padding: 0, margin: 0 }}
+                    >
+                      {filteredCurrentLocations.map((location, index) => (
+                        <li
+                          key={index}
+                          onClick={() => handleCurrentLocationSelect(location)}
+                          style={{ padding: "8px", cursor: "pointer" }}
+                        >
+                          <Typography
+                            component="span"
+                            variant="body1"
+                            dangerouslySetInnerHTML={{
+                              __html: location.replace(
+                                new RegExp(`(${currentLocation})`, "gi"),
+                                "<strong>$1</strong>"
+                              ),
+                            }}
+                          />
+                        </li>
+                      ))}
+                    </ul>
+                  </Box>
+                )}
+              </Box>
+
+              <Box position="relative">
+                <TextField
+                  fullWidth
+                  placeholder="Enter Destination"
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <LocationOnIcon />
+                      </InputAdornment>
+                    ),
+                  }}
+                  value={destination}
+                  onChange={handleDestinationInputChange}
+                />
+                {filteredDestinationLocations.length > 0 && (
+                  <Box
+                    position="absolute"
+                    zIndex={1}
+                    top="calc(100% + 4px)"
+                    left={0}
+                    right={0}
+                    boxShadow={3}
+                    bgcolor="#ffffff"
+                    borderRadius={2}
+                    mt={1}
+                    border="1px solid #cccccc"
+                    overflow="hidden"
+                  >
+                    <ul
+                      style={{ listStyleType: "none", padding: 0, margin: 0 }}
+                    >
+                      {filteredDestinationLocations.map((location, index) => (
+                        <li
+                          key={index}
+                          onClick={() => handleDestinationSelect(location)}
+                          style={{ padding: "8px", cursor: "pointer" }}
+                        >
+                          <Typography
+                            component="span"
+                            variant="body1"
+                            dangerouslySetInnerHTML={{
+                              __html: location.replace(
+                                new RegExp(`(${destination})`, "gi"),
+                                "<strong>$1</strong>"
+                              ),
+                            }}
+                          />
+                        </li>
+                      ))}
+                    </ul>
+                  </Box>
+                )}
+              </Box>
+
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DatePicker
+                  value={selectedDate}
+                  onChange={handleDateChange}
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      fullWidth
+                      InputProps={{
+                        startAdornment: (
+                          <InputAdornment position="start">
+                            <CalendarTodayIcon />
+                          </InputAdornment>
+                        ),
+                      }}
+                    />
+                  )}
+                  disablePast
+                  inputFormat="DD/MM/YYYY"
+                />
+              </LocalizationProvider>
+
+              <TextField
+                fullWidth
+                placeholder="Enter Mobile Number"
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <PhoneIcon />
+                    </InputAdornment>
+                  ),
+                }}
+                value={mobileNumber}
+                onChange={handleMobileNumberChange}
+              />
+
+              <StyledButton
+                fullWidth
+                variant="contained"
+                onClick={handleSearchNowClick}
+              >
+                Search Now
+              </StyledButton>
+              {validationError && (
+                <Typography color="error" variant="body2">
+                  {validationError}
+                </Typography>
+              )}
+            </Stack>
+          </StyledForm>
+        </StyledContainer>
+      </Box>
+    </ThemeProvider>
   );
 }

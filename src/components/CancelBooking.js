@@ -25,7 +25,7 @@ const futuristicTheme = createTheme({
       main: "#00bcd4", // Pink
     },
     background: {
-      default: "#121212",
+      default: "#090E10",
       paper: "#1e1e1e",
     },
   },
@@ -196,7 +196,7 @@ const CancelBooking = () => {
                     label="Booking ID"
                     size="small"
                     variant="outlined"
-                    fullWidth
+                    width="100%"
                     name="name"
                     value={bookingId}
                     onChange={(e) => setBookingId(e.target.value)}
