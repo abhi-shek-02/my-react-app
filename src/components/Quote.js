@@ -23,13 +23,8 @@ import HygieneIcon from "@mui/icons-material/CleanHands";
 import Footer from "./Footer";
 import Dzire from "../assets/dzire.png";
 import Ertiga from "../assets/Ertiga.png";
-import DatePicker from "@mui/lab/DatePicker"; // Import DatePicker component
-import { DateTimePicker, LocalizationProvider } from "@mui/x-date-pickers";
-import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { useLocation } from "react-router-dom";
-
-// import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import dayjs from "dayjs";
 
 // Custom futuristic theme
 const futuristicTheme = createTheme({
@@ -133,10 +128,7 @@ export default function Quote() {
   const [formData, setFormData] = React.useState({
     pickupLocation: currentLocation || "",
     dropLocation: destination || "",
-    // journeyDate: selectedDate
-    //   ? new Date(selectedDate).toISOString().split("T")[0]
-    //   : "", // Format date to yyyy-mm-dd
-    journeyDate: "",
+    journeyDate: selectedDate || "",
     phoneNumber: mobileNumber || "",
     message: "",
   });
@@ -161,18 +153,7 @@ export default function Quote() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    // Validate form data
-    let errors = {};
-    if (!formData.pickupLocation)
-      errors.pickupLocation = "Pickup Location is required";
-    if (!formData.dropLocation)
-      errors.dropLocation = "Drop Location is required";
-    if (!formData.journeyDate) errors.journeyDate = "Journey Date is required";
-    if (!formData.phoneNumber) errors.phoneNumber = "Phone Number is required";
-    setErrorMessage(errors);
-
-    if (Object.keys(errors).length > 0) return;
+    if (!validateFormData()) return;
 
     setLoading(true);
     setErrorMessage({});
@@ -192,6 +173,24 @@ export default function Quote() {
     }
   };
 
+  const validateFormData = () => {
+    const errors = {};
+    const today = dayjs().startOf('day');
+    const journeyDate = dayjs(formData.journeyDate);
+
+    if (!formData.pickupLocation) errors.pickupLocation = "Pickup Location is required";
+    if (!formData.dropLocation) errors.dropLocation = "Drop Location is required";
+    if (!formData.journeyDate) {
+      errors.journeyDate = "Journey Date is required";
+    } else if (!journeyDate.isValid() || journeyDate.isBefore(today)) {
+      errors.journeyDate = "Journey Date must be today or later";
+    }
+    if (!formData.phoneNumber) errors.phoneNumber = "Phone Number is required";
+    setErrorMessage(errors);
+
+    return Object.keys(errors).length === 0;
+  };
+
   return (
     <ThemeProvider theme={futuristicTheme}>
       <CssBaseline />
@@ -208,6 +207,8 @@ export default function Quote() {
                   onChange={handleChange}
                   fullWidth
                   margin="normal"
+                  error={!!errorMessage.pickupLocation}
+                  helperText={errorMessage.pickupLocation}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -218,6 +219,8 @@ export default function Quote() {
                   onChange={handleChange}
                   fullWidth
                   margin="normal"
+                  error={!!errorMessage.dropLocation}
+                  helperText={errorMessage.dropLocation}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -236,6 +239,8 @@ export default function Quote() {
                   value={formData.journeyDate}
                   onChange={handleChange}
                   margin="normal"
+                  error={!!errorMessage.journeyDate}
+                  helperText={errorMessage.journeyDate}
                 />
               </Grid>
               <Grid
@@ -250,7 +255,9 @@ export default function Quote() {
               >
                 <Button
                   variant="contained"
-                  onClick={() => setEditMode(false)}
+                  onClick={() => {
+                    if (validateFormData()) setEditMode(false);
+                  }}
                   fullWidth
                 >
                   Save
