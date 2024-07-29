@@ -151,6 +151,29 @@ export default function Quote() {
     setFormData({ ...formData, journeyDate: date });
   };
 
+  const validateFormData = () => {
+    const errors = {};
+    const today = dayjs().startOf("day");
+    const journeyDate = dayjs(formData.journeyDate);
+
+    if (!formData.pickupLocation)
+      errors.pickupLocation = "Pickup Location is required";
+    if (!formData.dropLocation)
+      errors.dropLocation = "Drop Location is required";
+    if (formData.pickupLocation === formData.dropLocation)
+      errors.dropLocation =
+        "Drop Location cannot be the same as Pickup Location";
+    if (!formData.journeyDate) {
+      errors.journeyDate = "Journey Date is required";
+    } else if (!journeyDate.isValid() || journeyDate.isBefore(today)) {
+      errors.journeyDate = "Journey Date must be today or later";
+    }
+    if (!formData.phoneNumber) errors.phoneNumber = "Phone Number is required";
+    setErrorMessage(errors);
+
+    return Object.keys(errors).length === 0;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validateFormData()) return;
@@ -171,24 +194,6 @@ export default function Quote() {
     } finally {
       setLoading(false);
     }
-  };
-
-  const validateFormData = () => {
-    const errors = {};
-    const today = dayjs().startOf('day');
-    const journeyDate = dayjs(formData.journeyDate);
-
-    if (!formData.pickupLocation) errors.pickupLocation = "Pickup Location is required";
-    if (!formData.dropLocation) errors.dropLocation = "Drop Location is required";
-    if (!formData.journeyDate) {
-      errors.journeyDate = "Journey Date is required";
-    } else if (!journeyDate.isValid() || journeyDate.isBefore(today)) {
-      errors.journeyDate = "Journey Date must be today or later";
-    }
-    if (!formData.phoneNumber) errors.phoneNumber = "Phone Number is required";
-    setErrorMessage(errors);
-
-    return Object.keys(errors).length === 0;
   };
 
   return (

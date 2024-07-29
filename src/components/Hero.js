@@ -4,23 +4,17 @@ import {
   Box,
   Button,
   Container,
-  Stack,
   TextField,
   Typography,
   ThemeProvider,
   createTheme,
   CssBaseline,
-  InputAdornment,
-  IconButton,
+  Divider,
 } from "@mui/material";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import LocationOnIcon from "@mui/icons-material/LocationOn";
-import PhoneIcon from "@mui/icons-material/Phone";
-import AccessTimeIcon from "@mui/icons-material/AccessTime";
-import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
+
 import { styled } from "@mui/system";
+import { uniqueLocation } from "../utils/constant";
+import debounce from "lodash.debounce";
 
 // Custom futuristic theme
 const futuristicTheme = createTheme({
@@ -113,89 +107,124 @@ const StyledButton = styled(Button)(({ theme }) => ({
 export default function Hero({ start_location_List }) {
   const navigate = useNavigate();
 
-  const [filteredCurrentLocations, setFilteredCurrentLocations] =
-    React.useState([]);
-  const [filteredDestinationLocations, setFilteredDestinationLocations] =
-    React.useState([]);
-  const [currentLocation, setCurrentLocation] = React.useState("");
-  const [destination, setDestination] = React.useState("");
-  const [selectedDate, setSelectedDate] = React.useState(null);
-  const [mobileNumber, setMobileNumber] = React.useState("");
-  const [validationError, setValidationError] = React.useState("");
-
-  const handleCurrentLocationInputChange = (event) => {
-    const inputValue = event.target.value;
-    setCurrentLocation(inputValue);
-
-    const filtered = start_location_List.filter((location) =>
-      location.toLowerCase().includes(inputValue.toLowerCase())
-    );
-    setFilteredCurrentLocations(filtered);
-  };
-
-  const handleDestinationInputChange = (event) => {
-    const inputValue = event.target.value;
-    setDestination(inputValue);
-
-    const filtered = start_location_List.filter((location) =>
-      location.toLowerCase().includes(inputValue.toLowerCase())
-    );
-    setFilteredDestinationLocations(
-      filtered.filter((loc) => loc !== currentLocation)
-    );
-  };
-
-  const handleCurrentLocationSelect = (selectedLocation) => {
-    setCurrentLocation(selectedLocation);
-    setFilteredCurrentLocations([]);
-  };
-
-  const handleDestinationSelect = (selectedLocation) => {
-    setDestination(selectedLocation);
-    setFilteredDestinationLocations([]);
-  };
-
-  const handleDateChange = (date) => {
-    setSelectedDate(date);
-  };
-
-  const handleMobileNumberChange = (event) => {
-    const inputValue = event.target.value;
-    if (inputValue.length <= 10) {
-      setMobileNumber(inputValue);
-    }
-  };
-
-  const handleSearchNowClick = () => {
-    if (!currentLocation || !destination || !selectedDate || !mobileNumber) {
-      setValidationError("Please fill in all fields.");
-    } else if (currentLocation === destination) {
-      setValidationError(
-        "Current and destination locations cannot be the same."
-      );
-    } else if (!/^(\+91[\-\s]?)?[0]?(91)?[789]\d{9}$/i.test(mobileNumber)) {
-      setValidationError("Please enter a valid Indian mobile number.");
-    } else if (selectedDate < new Date()) {
-      setValidationError(
-        "Date of Journey should not be less than the current date."
-      );
-    } else {
-      setValidationError("");
-      navigate("/quote", {
-        state: {
-          currentLocation,
-          destination,
-          selectedDate,
-          mobileNumber,
-        },
-      });
-    }
-  };
+  const [showPickupLocationList, setShowPickupLocationList] =
+    React.useState(false);
+  const [showDropLocationList, setShowDropLocationList] = React.useState(false);
+  const [filteredLocations, setFilteredLocations] = React.useState([]);
+  const [dropFilteredLocations, setDropFilteredLocations] = React.useState([]);
+  const [formData, setFormData] = React.useState({
+    pickupLocation: "",
+    dropLocation: "",
+    journeyDate: "",
+    phoneNumber: "",
+  });
+  const [errorMessage, setErrorMessage] = React.useState({});
 
   const handleContactUsClick = () => {
     navigate("/contact");
   };
+  const handleDropLocationSelect = (location) => {
+    setFormData((prevData) => ({
+      ...prevData,
+      dropLocation: location,
+    }));
+    setShowDropLocationList(false);
+  };
+  const handlePickupLocationChange = (e) => {
+    const { value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      pickupLocation: value,
+    }));
+    debouncedFilter(value);
+  };
+  const debouncedFilter = React.useCallback(
+    debounce((value) => {
+      const filtered = uniqueLocation.filter((location) =>
+        location.toLowerCase().includes(value.toLowerCase())
+      );
+      setFilteredLocations(filtered);
+      setShowPickupLocationList(true);
+    }, 300),
+    []
+  );
+  const handlePickupLocationSelect = (location) => {
+    setFormData((prevData) => ({
+      ...prevData,
+      pickupLocation: location,
+    }));
+    setShowPickupLocationList(false);
+  };
+  const handleDropLocationChange = (e) => {
+    const { value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      dropLocation: value,
+    }));
+    debouncedDropFilter(value);
+  };
+  const debouncedDropFilter = React.useCallback(
+    debounce((value) => {
+      const filtered = uniqueLocation.filter((location) =>
+        location.toLowerCase().includes(value.toLowerCase())
+      );
+      setDropFilteredLocations(filtered);
+      setShowDropLocationList(true);
+    }, 300),
+    []
+  );
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
+    setErrorMessage("");
+
+    const validationErrors = {};
+    if (!formData.pickupLocation.trim()) {
+      validationErrors.pickupLocation = "Pickup Location is required";
+    }
+    if (!formData.dropLocation.trim()) {
+      validationErrors.dropLocation = "Drop Location is required";
+    }
+    if (!formData.journeyDate.trim()) {
+      validationErrors.journeyDate = "Journey Date is required";
+    }
+    if (!formData.phoneNumber.trim()) {
+      validationErrors.phoneNumber = "Phone Number is required";
+    }
+
+    if (formData.pickupLocation === formData.dropLocation) {
+      validationErrors.dropLocation =
+        "Pickup and Drop locations cannot be the same";
+    }
+
+    if (formData.phoneNumber.trim().length !== 10) {
+      validationErrors.phoneNumber = "Phone Number must be 10 digits";
+    }
+
+    setFormData((prevData) => ({
+      ...prevData,
+      message: "",
+    }));
+
+    setErrorMessage(validationErrors);
+    if (Object.keys(validationErrors).length === 0) {
+      navigate("/quote", {
+        state: {
+          currentLocation: formData.pickupLocation,
+          destination: formData.dropLocation,
+          selectedDate: formData.journeyDate?.split("-")?.reverse()?.join("-"),
+          mobileNumber: formData.phoneNumber,
+        },
+      });
+    }
+  };
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
   return (
     <ThemeProvider theme={futuristicTheme}>
       <CssBaseline />
@@ -234,164 +263,218 @@ export default function Hero({ start_location_List }) {
             <Typography variant="h6" gutterBottom>
               Quick Booking Here
             </Typography>
-            <Stack spacing={2}>
-              <Box position="relative">
-                <TextField
-                  fullWidth
-                  placeholder="Enter Current Location"
-                  InputProps={{
-                    startAdornment: (
-                      <InputAdornment position="start">
-                        <LocationOnIcon />
-                      </InputAdornment>
-                    ),
-                  }}
-                  value={currentLocation}
-                  onChange={handleCurrentLocationInputChange}
-                />
-                {filteredCurrentLocations.length > 0 && (
-                  <Box
-                    position="absolute"
-                    zIndex={1}
-                    top="calc(100% + 4px)"
-                    left={0}
-                    right={0}
-                    boxShadow={3}
-                    bgcolor="#000"
-                    borderRadius={2}
-                    mt={1}
-                    border="1px solid #cccccc"
-                    overflow="hidden"
-                  >
-                    <ul
-                      style={{ listStyleType: "none", padding: 0, margin: 0 }}
-                    >
-                      {filteredCurrentLocations.map((location, index) => (
-                        <li
-                          key={index}
-                          onClick={() => handleCurrentLocationSelect(location)}
-                          style={{ padding: "8px", cursor: "pointer" }}
-                        >
-                          <Typography
-                            component="span"
-                            variant="body1"
-                            dangerouslySetInnerHTML={{
-                              __html: location.replace(
-                                new RegExp(`(${currentLocation})`, "gi"),
-                                "<strong>$1</strong>"
-                              ),
-                            }}
-                          />
-                        </li>
-                      ))}
-                    </ul>
-                  </Box>
-                )}
-              </Box>
-
-              <Box position="relative">
-                <TextField
-                  fullWidth
-                  placeholder="Enter Destination"
-                  InputProps={{
-                    startAdornment: (
-                      <InputAdornment position="start">
-                        <LocationOnIcon />
-                      </InputAdornment>
-                    ),
-                  }}
-                  value={destination}
-                  onChange={handleDestinationInputChange}
-                />
-                {filteredDestinationLocations.length > 0 && (
-                  <Box
-                    position="absolute"
-                    zIndex={1}
-                    top="calc(100% + 4px)"
-                    left={0}
-                    right={0}
-                    boxShadow={3}
-                    bgcolor="#000"
-                    borderRadius={2}
-                    mt={1}
-                    border="1px solid #cccccc"
-                    overflow="hidden"
-                  >
-                    <ul
-                      style={{ listStyleType: "none", padding: 0, margin: 0 }}
-                    >
-                      {filteredDestinationLocations.map((location, index) => (
-                        <li
-                          key={index}
-                          onClick={() => handleDestinationSelect(location)}
-                          style={{ padding: "8px", cursor: "pointer" }}
-                        >
-                          <Typography
-                            component="span"
-                            variant="body1"
-                            dangerouslySetInnerHTML={{
-                              __html: location.replace(
-                                new RegExp(`(${destination})`, "gi"),
-                                "<strong>$1</strong>"
-                              ),
-                            }}
-                          />
-                        </li>
-                      ))}
-                    </ul>
-                  </Box>
-                )}
-              </Box>
-
-              <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <DatePicker
-                  value={selectedDate}
-                  onChange={handleDateChange}
-                  renderInput={(params) => (
-                    <TextField
-                      {...params}
-                      fullWidth
-                      InputProps={{
-                        startAdornment: (
-                          <InputAdornment position="start">
-                            <CalendarTodayIcon />
-                          </InputAdornment>
-                        ),
+            <Box sx={{ mt: 4 }}>
+              <form onSubmit={handleSubmit}>
+                <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+                  <TextField
+                    id="outlined-basic-pickupLocation"
+                    label="Pickup Location"
+                    hiddenLabel
+                    size="small"
+                    variant="outlined"
+                    aria-label="Pickup Location"
+                    placeholder="Pickup Location"
+                    fullWidth
+                    required
+                    name="pickupLocation"
+                    value={formData.pickupLocation}
+                    onChange={handlePickupLocationChange}
+                    error={!!errorMessage.pickupLocation}
+                    helperText={errorMessage.pickupLocation}
+                    onFocus={() => setShowPickupLocationList(true)}
+                    onBlur={() =>
+                      setTimeout(() => setShowPickupLocationList(false), 200)
+                    }
+                  />
+                  {showPickupLocationList && (
+                    <Box
+                      sx={{
+                        position: "absolute",
+                        width: {
+                          xs: "90%", // 90% width for mobile view
+                          sm: "22%", // 38% width for larger screens
+                        },
+                        marginTop: "3rem",
+                        maxHeight: "10rem",
+                        overflow: "auto",
+                        bgcolor: "background.paper",
+                        zIndex: 1000,
+                        borderRadius: "4px",
+                        boxShadow: "0 2px 10px rgba(0,0,0,0.1)",
                       }}
-                    />
+                    >
+                      {filteredLocations.length > 0 ? (
+                        filteredLocations.map((location, index) => (
+                          <div
+                            key={index}
+                            onClick={() => handlePickupLocationSelect(location)}
+                            style={{
+                              padding: "10px",
+                              cursor: "pointer",
+                            }}
+                          >
+                            <Typography
+                              component="span"
+                              variant="body1"
+                              dangerouslySetInnerHTML={{
+                                __html: location.replace(
+                                  new RegExp(
+                                    `(${formData.pickupLocation})`,
+                                    "gi"
+                                  ),
+                                  "<strong>$1</strong>"
+                                ),
+                              }}
+                            />
+                            <Divider />
+                          </div>
+                        ))
+                      ) : (
+                        <div
+                          style={{
+                            padding: "8px",
+                            textAlign: "center",
+                          }}
+                        >
+                          <Typography variant="body2" color="textSecondary">
+                            No results found
+                          </Typography>
+                        </div>
+                      )}
+                    </Box>
                   )}
-                  disablePast
-                  inputFormat="DD/MM/YYYY"
-                />
-              </LocalizationProvider>
 
-              <TextField
-                fullWidth
-                placeholder="Enter Mobile Number"
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      <PhoneIcon />
-                    </InputAdornment>
-                  ),
-                }}
-                value={mobileNumber}
-                onChange={handleMobileNumberChange}
-              />
+                  <TextField
+                    id="outlined-basic-dropLocation"
+                    label="Drop Location"
+                    size="small"
+                    hiddenLabel
+                    variant="outlined"
+                    aria-label="Drop Location"
+                    placeholder="Drop Location"
+                    fullWidth
+                    required
+                    name="dropLocation"
+                    value={formData.dropLocation}
+                    onChange={handleDropLocationChange}
+                    error={!!errorMessage.dropLocation}
+                    helperText={errorMessage.dropLocation}
+                    onFocus={() => setShowDropLocationList(true)}
+                    onBlur={() =>
+                      setTimeout(() => setShowDropLocationList(false), 200)
+                    }
+                  />
+                  {showDropLocationList && (
+                    <Box
+                      sx={{
+                        position: "absolute",
+                        width: {
+                          xs: "90%", // 90% width for mobile view
+                          sm: "22%", // 38% width for larger screens
+                        },
+                        marginTop: "6rem",
+                        maxHeight: "10rem",
+                        overflow: "auto",
+                        bgcolor: "background.paper",
+                        zIndex: 1000,
+                        borderRadius: "4px",
+                        boxShadow: "0 2px 10px rgba(0,0,0,0.1)",
+                      }}
+                    >
+                      {dropFilteredLocations.length > 0 ? (
+                        dropFilteredLocations.map((location, index) => (
+                          <div
+                            key={index}
+                            onClick={() => handleDropLocationSelect(location)}
+                            style={{
+                              padding: "10px",
+                              cursor: "pointer",
+                            }}
+                          >
+                            <Typography
+                              component="span"
+                              variant="body1"
+                              dangerouslySetInnerHTML={{
+                                __html: location.replace(
+                                  new RegExp(
+                                    `(${formData.dropLocation})`,
+                                    "gi"
+                                  ),
+                                  "<strong>$1</strong>"
+                                ),
+                              }}
+                            />
+                            <Divider />
+                          </div>
+                        ))
+                      ) : (
+                        <div
+                          style={{
+                            padding: "8px",
+                            textAlign: "center",
+                          }}
+                        >
+                          <Typography variant="body2" color="textSecondary">
+                            No results found
+                          </Typography>
+                        </div>
+                      )}
+                    </Box>
+                  )}
 
-              <StyledButton
-                fullWidth
-                variant="contained"
-                onClick={handleSearchNowClick}
-              >
-                Search Now
-              </StyledButton>
-              {validationError && (
-                <Typography color="error" variant="body2">
-                  {validationError}
-                </Typography>
-              )}
-            </Stack>
+                  <TextField
+                    id="outlined-basic-journeyDate"
+                    label="Journey Date"
+                    size="small"
+                    hiddenLabel
+                    variant="outlined"
+                    aria-label="Journey Date"
+                    placeholder="Journey Date"
+                    fullWidth
+                    required
+                    name="journeyDate"
+                    type="date"
+                    InputLabelProps={{ shrink: true }}
+                    value={formData.journeyDate}
+                    onChange={handleChange}
+                    error={!!errorMessage.journeyDate}
+                    helperText={errorMessage.journeyDate}
+                    inputProps={{
+                      min: new Date().toISOString().split("T")[0],
+                    }}
+                  />
+
+                  <TextField
+                    id="outlined-basic-phoneNumber"
+                    label="Phone Number"
+                    size="small"
+                    hiddenLabel
+                    variant="outlined"
+                    aria-label="Phone Number"
+                    placeholder="Phone Number"
+                    fullWidth
+                    required
+                    name="phoneNumber"
+                    value={formData.phoneNumber}
+                    onChange={handleChange}
+                    error={!!errorMessage.phoneNumber}
+                    helperText={errorMessage.phoneNumber}
+                  />
+                </Box>
+
+                <Box sx={{ display: "flex", justifyContent: "center", mt: 4 }}>
+                  <Button
+                    type="submit"
+                    variant="contained"
+                    color="primary"
+                    // disabled={loading}
+                    sx={{ width: "200px" }}
+                  >
+                    Submit
+                  </Button>
+                </Box>
+              </form>
+            </Box>
           </StyledForm>
         </StyledContainer>
       </Box>
