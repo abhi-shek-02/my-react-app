@@ -25,6 +25,7 @@ import Dzire from "../assets/dzire.png";
 import Ertiga from "../assets/Ertiga.png";
 import { useLocation } from "react-router-dom";
 import dayjs from "dayjs";
+import { PriceList } from "../utils/constant";
 
 // Custom futuristic theme
 const futuristicTheme = createTheme({
@@ -150,7 +151,60 @@ export default function Quote() {
   const handleDateChange = (date) => {
     setFormData({ ...formData, journeyDate: date });
   };
+  function getPrice(car_type, start_location, end_location) {
+    // Find the matching entry in the PriceList
+    const locationEntry = PriceList.find(
+      (entry) =>
+        entry.start_location === start_location &&
+        entry.end_location === end_location
+    );
 
+    // If no matching entry is found, return a default price or handle it as needed
+    if (!locationEntry) {
+      return "Pricing details are not available for this route. Call us on [123-456-7890](tel:1234567890) to get more details.";
+    }
+
+    // Find the price for the specified car type
+    const priceEntry = locationEntry.price.find((p) => p.car_type === car_type);
+
+    // If no matching price is found, return a default price or handle it as needed
+    if (!priceEntry) {
+      return "Pricing details are not available for this route. Call us on [123-456-7890](tel:1234567890) to get more details.";
+    }
+
+    // Return the price
+    return `₹ ${priceEntry.price}`;
+  }
+  function extractPrice(priceStr) {
+    // Check if the string starts with '₹' and has a space following it
+    if (priceStr.startsWith("₹ ")) {
+      // Remove the '₹ ' and return the remaining part
+      console.log("priceStr.substring(2).trim()", priceStr.substring(2).trim());
+      return priceStr.substring(2).trim(); // Remove '₹ ' which is 2 characters and trim any extra spaces
+    }
+    // If it does not start with '₹ ', return the original string or handle accordingly
+    return priceStr;
+  }
+  function addRandomAmount(getPrice, car_type, start_location, end_location) {
+    // Get the price from the getPrice function
+    const price = getPrice(car_type, start_location, end_location);
+    console.log("price", price);
+    // Check if the price is a valid number
+    if (isNaN(extractPrice(price))) {
+      console.log("----");
+      return "";
+    }
+
+    // Generate a random amount between 1500 and 2000
+    // const randomAmount = Math.floor(Math.random() * (2000 - 1500 + 1)) + 1543;
+    const randomAmount = 1543;
+
+    // Add the random amount to the price
+    const totalAmount = parseFloat(extractPrice(price)) + randomAmount;
+
+    // Return the total amount
+    return `₹ ${totalAmount}`;
+  }
   const validateFormData = () => {
     const errors = {};
     const today = dayjs().startOf("day");
@@ -383,14 +437,47 @@ export default function Quote() {
                         marginBottom: "8px",
                       }}
                     >
-                      ₹9220
+                      {addRandomAmount(
+                        getPrice,
+                        "booking_total_price_dzire",
+                        formData?.pickupLocation,
+                        formData?.dropLocation
+                      )}
                     </Typography>
                     <Typography
                       variant="h4"
                       color="#00ff00"
                       sx={{ marginBottom: "16px" }}
                     >
-                      ₹4610
+                      {getPrice(
+                        "booking_total_price_dzire",
+                        formData?.pickupLocation,
+                        formData?.dropLocation
+                      ).length > 10 ? (
+                        <Typography
+                          variant="h6"
+                          color="#ff8989"
+                          sx={{ marginBottom: "10px" }}
+                        >
+                          {getPrice(
+                            "booking_total_price_dzire",
+                            formData?.pickupLocation,
+                            formData?.dropLocation
+                          )}
+                        </Typography>
+                      ) : (
+                        <Typography
+                          variant="h4"
+                          color="#00ff00"
+                          sx={{ marginBottom: "16px" }}
+                        >
+                          {getPrice(
+                            "booking_total_price_dzire",
+                            formData?.pickupLocation,
+                            formData?.dropLocation
+                          )}
+                        </Typography>
+                      )}
                     </Typography>
                     <Typography variant="body1" sx={{ marginBottom: "8px" }}>
                       Dzire Or Similar
@@ -406,7 +493,11 @@ export default function Quote() {
                     >
                       Toll Tax: Required
                     </Typography>
-                    <Typography variant="body2" sx={{ marginBottom: "16px" }}>
+                    <Typography
+                      color="#00dfff"
+                      variant="body2"
+                      sx={{ marginBottom: "16px" }}
+                    >
                       Hidden Charge: N/A
                     </Typography>
                     <Button
@@ -449,15 +540,44 @@ export default function Quote() {
                         marginBottom: "8px",
                       }}
                     >
-                      ₹10794
+                      {addRandomAmount(
+                        getPrice,
+                        "booking_total_price_innova",
+                        formData?.pickupLocation,
+                        formData?.dropLocation
+                      )}
                     </Typography>
-                    <Typography
-                      variant="h4"
-                      color="#00ff00"
-                      sx={{ marginBottom: "16px" }}
-                    >
-                      ₹5397
-                    </Typography>
+
+                    {getPrice(
+                      "booking_total_price_innova",
+                      formData?.pickupLocation,
+                      formData?.dropLocation
+                    ).length > 10 ? (
+                      <Typography
+                        variant="h6"
+                        color="#ff8989"
+                        sx={{ marginBottom: "10px" }}
+                      >
+                        {getPrice(
+                          "booking_total_price_innova",
+                          formData?.pickupLocation,
+                          formData?.dropLocation
+                        )}
+                      </Typography>
+                    ) : (
+                      <Typography
+                        variant="h4"
+                        color="#00ff00"
+                        sx={{ marginBottom: "16px" }}
+                      >
+                        {getPrice(
+                          "booking_total_price_innova",
+                          formData?.pickupLocation,
+                          formData?.dropLocation
+                        )}
+                      </Typography>
+                    )}
+
                     <Typography variant="body1" sx={{ marginBottom: "8px" }}>
                       Innova, Ertiga Or Similar
                     </Typography>
@@ -472,7 +592,11 @@ export default function Quote() {
                     >
                       Toll Tax: Required
                     </Typography>
-                    <Typography variant="body2" sx={{ marginBottom: "16px" }}>
+                    <Typography
+                      variant="body2"
+                      sx={{ marginBottom: "16px" }}
+                      color="#00dfff"
+                    >
                       Hidden Charge: N/A
                     </Typography>
                     <Button
