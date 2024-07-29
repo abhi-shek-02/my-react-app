@@ -201,4 +201,5 @@ WHERE
   Booking
   Contact
   Cancel Booking
+  Customer details data
   
