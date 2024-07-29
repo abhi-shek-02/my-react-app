@@ -273,9 +273,9 @@
 //       paper: "#1e1e1e",
 //     },
 //   },
-//   typography: {
-//     fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
-//   },
+  // typography: {
+  //   fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+  // },
 //   components: {
 //     MuiButton: {
 //       styleOverrides: {
@@ -327,6 +327,9 @@ export const theme = createTheme({
       main: purple[500],
     },
   },
+  typography: {
+    fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+  },
   // Add other customizations here
 });
 
@@ -347,6 +350,9 @@ export const futuristicTheme = createTheme({
     text: {
       primary: "#ffffff",
       secondary: "#b0bec5",
+    },
+    typography: {
+      fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
     },
   },
   // Add other customizations here

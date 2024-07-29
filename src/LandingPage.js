@@ -90,7 +90,7 @@ const LandingPage = () => {
     setShowCustomTheme((prev) => !prev);
   };
   return (
-    <ThemeProvider theme={showCustomTheme ? LPtheme : defaultTheme}>
+    <ThemeProvider theme={showCustomTheme ? defaultTheme : defaultTheme}>
       <CssBaseline />
       <AppAppBar mode={mode} toggleColorMode={toggleColorMode} />
       <Hero start_location_List={start_location_List} />

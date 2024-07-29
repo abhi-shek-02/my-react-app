@@ -219,7 +219,7 @@ export default function FAQ() {
     () => createTheme({ palette: { mode } }),
     [mode]
   );
-  const theme = showCustomTheme ? LPtheme : defaultTheme;
+  const theme = showCustomTheme ? defaultTheme : defaultTheme;
 
   const handleChange = (panel) => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);

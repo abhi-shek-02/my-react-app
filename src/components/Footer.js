@@ -23,7 +23,13 @@ function Copyright() {
   return (
     <Typography variant="body2" color="text.secondary" mt={1}>
       {"Copyright © "}
-      <Link href="https://mui.com/">Sitemark&nbsp;</Link>
+      <Link
+        href="https://mui.com/"
+        color="inherit"
+        sx={{ textDecoration: "none" }}
+      >
+        Sitemark&nbsp;
+      </Link>
       {new Date().getFullYear()}
     </Typography>
   );
@@ -128,21 +134,37 @@ export default function Footer() {
           <Typography variant="body2" fontWeight={600}>
             Information
           </Typography>
-          <Link color="text.secondary" onClick={handleAboutUsClick}>
+          <Link
+            color="text.secondary"
+            onClick={handleAboutUsClick}
+            sx={{ cursor: "pointer", textDecoration: "none" }}
+          >
             About Us
           </Link>
-          <Link color="text.secondary" onClick={handleContactUsClick}>
+          <Link
+            color="text.secondary"
+            onClick={handleContactUsClick}
+            sx={{ cursor: "pointer", textDecoration: "none" }}
+          >
             Contact Us
           </Link>
-          <Link color="text.secondary" onClick={handleMissionVisionClick}>
+          <Link
+            color="text.secondary"
+            onClick={handleMissionVisionClick}
+            sx={{ cursor: "pointer", textDecoration: "none" }}
+          >
             Mission & Vision
           </Link>
-          <Link color="text.secondary" onClick={handleHowItWorksClick}>
+          <Link
+            color="text.secondary"
+            onClick={handleHowItWorksClick}
+            sx={{ cursor: "pointer", textDecoration: "none" }}
+          >
             How It Works
           </Link>
-          <Link color="text.secondary" onClick={handleFAQsClick}>
+          {/* <Link color="text.secondary" onClick={handleFAQsClick}>
             FAQs
-          </Link>
+          </Link> */}
         </Box>
         <Box
           sx={{
@@ -157,13 +179,25 @@ export default function Footer() {
           {/* <Link color="text.secondary" onClick={handleDriverPolicyClick}>
             Driver Policy
           </Link> */}
-          <Link color="text.secondary" onClick={handleTermsConditionsClick}>
+          <Link
+            color="text.secondary"
+            onClick={handleTermsConditionsClick}
+            sx={{ cursor: "pointer", textDecoration: "none" }}
+          >
             Terms & Conditions
           </Link>
-          <Link color="text.secondary" onClick={handleRefundPolicyClick}>
+          <Link
+            color="text.secondary"
+            onClick={handleRefundPolicyClick}
+            sx={{ cursor: "pointer", textDecoration: "none" }}
+          >
             Refund Policy
           </Link>
-          <Link color="text.secondary" onClick={handleCancelBookingClick}>
+          <Link
+            color="text.secondary"
+            onClick={handleCancelBookingClick}
+            sx={{ cursor: "pointer", textDecoration: "none" }}
+          >
             Cancel Booking
           </Link>
         </Box>
