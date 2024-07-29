@@ -53,7 +53,7 @@ To learn React, check out the [React documentation](https://reactjs.org/).
 <!-- Terms & Conditions - [20 MIN] -->
 
 <!-- SIGN up and sign in -->
-Price page
+<!-- Price page -->
 
 <!-- Driver Policy -->
 <!-- Privacy Policy --> 
@@ -62,4 +62,124 @@ web hosting
 testing
 APi hosting
 
+DB Design
+Table bookings {
+  id integer [primary key]
+  pickup_location varchar
+  drop_location varchar
+  phone_number varchar
+  date_of_journey date
+  message text
+  booking_id varchar [unique]
+  status varchar
+  created_at timestamp
+}
 
+Table contacts {
+  id integer [primary key]
+  name varchar
+  phone varchar
+  email varchar
+  subject varchar
+  message text
+  created_at timestamp
+}
+
+Table users {
+  id integer [primary key]
+  name varchar
+  email varchar [unique]
+  password varchar
+  created_at timestamp
+}
+
+Table booking_users {
+  user_id integer
+  booking_id varchar
+  created_at timestamp
+}
+
+Ref: bookings.booking_id < booking_users.booking_id // many-to-one
+Ref: users.id < booking_users.user_id // many-to-one
+
+
+
+
+
+Backend API
+
+
+const express = require('express');
+const app = express();
+const bodyParser = require('body-parser');
+const { Pool } = require('pg');
+const uuid = require('uuid');
+
+app.use(bodyParser.json());
+
+const pool = new Pool({
+  user: 'dbuser',
+  host: 'database.server.com',
+  database: 'mydb',
+  password: 'secretpassword',
+  port: 5432,
+});
+
+// Booking API
+app.post('/api/book', async (req, res) => {
+  const { pickup_location, drop_location, phone_number, date_of_journey, message } = req.body;
+  const booking_id = uuid.v4();
+  try {
+    await pool.query(
+      'INSERT INTO Bookings (pickup_location, drop_location, phone_number, date_of_journey, message, booking_id) VALUES ($1, $2, $3, $4, $5, $6)',
+      [pickup_location, drop_location, phone_number, date_of_journey, message, booking_id]
+    );
+    res.status(200).json({ booking_id });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Cancellation API
+app.post('/api/cancel', async (req, res) => {
+  const { booking_id } = req.body;
+  try {
+    await pool.query('UPDATE Bookings SET status = $1 WHERE booking_id = $2', ['cancelled', booking_id]);
+    res.status(200).json({ message: 'Booking cancelled successfully' });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Contact Us API
+app.post('/api/contact', async (req, res) => {
+  const { name, phone, email, subject, message } = req.body;
+  try {
+    await pool.query(
+      'INSERT INTO Contacts (name, phone, email, subject, message) VALUES ($1, $2, $3, $4, $5)',
+      [name, phone, email, subject, message]
+    );
+    res.status(200).json({ message: 'Contact form submitted successfully' });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+app.listen(3000, () => {
+  console.log('Server is running on port 3000');
+});
+
+
+
+
+SELECT 
+  b.date_of_journey, 
+  b.pickup_location, 
+  b.drop_location, 
+  b.booking_id
+FROM 
+  booking_users bu
+JOIN 
+  bookings b ON bu.booking_id = b.booking_id
+WHERE 
+  bu.user_id = <user_id>;

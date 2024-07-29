@@ -27,6 +27,8 @@ import DatePicker from "@mui/lab/DatePicker"; // Import DatePicker component
 import { DateTimePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { useLocation } from "react-router-dom";
+
 // import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 
 // Custom futuristic theme
@@ -122,14 +124,20 @@ const IconSection = styled(Box)(({ theme }) => ({
 
 export default function Quote() {
   const navigate = useNavigate();
+  const location = useLocation();
+  const { currentLocation, destination, selectedDate, mobileNumber } =
+    location.state || {};
 
   const [open, setOpen] = React.useState(false);
   const [editMode, setEditMode] = React.useState(false);
   const [formData, setFormData] = React.useState({
-    pickupLocation: "Puruliya",
-    dropLocation: "Kolkata, Airport",
-    journeyDate: "2024-07-29",
-    phoneNumber: "",
+    pickupLocation: currentLocation || "",
+    dropLocation: destination || "",
+    // journeyDate: selectedDate
+    //   ? new Date(selectedDate).toISOString().split("T")[0]
+    //   : "", // Format date to yyyy-mm-dd
+    journeyDate: "",
+    phoneNumber: mobileNumber || "",
     message: "",
   });
   const [errorMessage, setErrorMessage] = React.useState({});

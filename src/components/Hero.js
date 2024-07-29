@@ -181,7 +181,14 @@ export default function Hero({ start_location_List }) {
       );
     } else {
       setValidationError("");
-      navigate("/quote");
+      navigate("/quote", {
+        state: {
+          currentLocation,
+          destination,
+          selectedDate,
+          mobileNumber,
+        },
+      });
     }
   };
 

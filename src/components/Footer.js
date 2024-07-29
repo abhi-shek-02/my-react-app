@@ -598,9 +598,9 @@ export default function Footer() {
           <Typography variant="body2" fontWeight={600}>
             Quick Links
           </Typography>
-          <Link color="text.secondary" onClick={handleDriverPolicyClick}>
+          {/* <Link color="text.secondary" onClick={handleDriverPolicyClick}>
             Driver Policy
-          </Link>
+          </Link> */}
           <Link color="text.secondary" onClick={handleTermsConditionsClick}>
             Terms & Conditions
           </Link>
@@ -623,7 +623,7 @@ export default function Footer() {
         }}
       >
         <div>
-          <Link color="text.secondary" href="#">
+          {/* <Link color="text.secondary" href="#">
             Privacy Policy
           </Link>
           <Typography display="inline" sx={{ mx: 0.5, opacity: 0.5 }}>
@@ -631,7 +631,7 @@ export default function Footer() {
           </Typography>
           <Link color="text.secondary" href="/terms-conditions">
             Terms of Service
-          </Link>
+          </Link> */}
           <Copyright />
         </div>
         <Stack
