@@ -78,9 +78,6 @@ function ToggleCustomTheme({ showCustomTheme, toggleCustomTheme }) {
         mt: 2,
       }}
     >
-      <Button onClick={toggleCustomTheme} variant="contained" color="primary">
-        Toggle Custom Theme
-      </Button>
     </Box>
   );
 }
@@ -302,8 +299,8 @@ const BookEnquiry = () => {
                     sx={{
                       position: "absolute",
                       width: {
-                        xs: '90%',  // 90% width for mobile view
-                        sm: '38%'   // 38% width for larger screens
+                        xs: "90%", // 90% width for mobile view
+                        sm: "38%", // 38% width for larger screens
                       },
                       marginTop: "1rem",
                       maxHeight: "10rem",
@@ -380,8 +377,8 @@ const BookEnquiry = () => {
                     sx={{
                       position: "absolute",
                       width: {
-                        xs: '90%',  // 90% width for mobile view
-                        sm: '38%'   // 38% width for larger screens
+                        xs: "90%", // 90% width for mobile view
+                        sm: "38%", // 38% width for larger screens
                       },
                       marginTop: "1rem",
                       maxHeight: "10rem",

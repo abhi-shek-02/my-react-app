@@ -183,3 +183,22 @@ JOIN
   bookings b ON bu.booking_id = b.booking_id
 WHERE 
   bu.user_id = <user_id>;
+
+
+
+
+  AUTH 
+  DB
+  BACKEND APIS
+  DEPLOYMENT
+  LEGAL
+  BUSINESS REGISTRATION
+  TESTING
+  Logo Generation
+
+
+  APIS---------------
+  Booking
+  Contact
+  Cancel Booking
+  

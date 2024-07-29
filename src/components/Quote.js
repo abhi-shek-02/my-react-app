@@ -330,7 +330,7 @@ export default function Quote() {
                   variant="subtitle1"
                   sx={{ fontSize: { xs: "0.875rem", sm: "1rem" } }}
                 >
-                  {formData.journeyDate}
+                  {dayjs(formData.journeyDate).format("DD-MM-YYYY")}
                 </Typography>
               </Grid>
               <Grid item xs={12} sm={5}>

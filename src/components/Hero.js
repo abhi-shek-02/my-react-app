@@ -212,7 +212,7 @@ export default function Hero({ start_location_List }) {
         state: {
           currentLocation: formData.pickupLocation,
           destination: formData.dropLocation,
-          selectedDate: formData.journeyDate?.split("-")?.reverse()?.join("-"),
+          selectedDate: formData.journeyDate,
           mobileNumber: formData.phoneNumber,
         },
       });

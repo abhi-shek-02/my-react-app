@@ -3,12 +3,13 @@ import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 
 const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_AUTH_DOMAIN",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_STORAGE_BUCKET",
-  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-  appId: "YOUR_APP_ID",
+  apiKey: "AIzaSyDqiPNt2kFkTu-CckIcBecWR22evUTKt04",
+  authDomain: "mytaxi-c9c8a.firebaseapp.com",
+  projectId: "mytaxi-c9c8a",
+  storageBucket: "mytaxi-c9c8a.appspot.com",
+  messagingSenderId: "837996636412",
+  appId: "1:837996636412:web:ad73c3a684f296e4774f79",
+  measurementId: "G-YQSC8YTSHF",
 };
 
 const app = initializeApp(firebaseConfig);

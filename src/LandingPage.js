@@ -17,6 +17,7 @@ import Testimonials from "./components/Testimonials";
 import FAQ from "./components/FAQ";
 import Footer from "./components/Footer";
 import getLPTheme from "./getLPTheme";
+import { PriceList } from "./utils/constant";
 
 function ToggleCustomTheme({ showCustomTheme, toggleCustomTheme }) {
   return (
@@ -43,7 +44,7 @@ ToggleCustomTheme.propTypes = {
 const LandingPage = () => {
   const [mode, setMode] = React.useState("dark");
   const [showCustomTheme, setShowCustomTheme] = React.useState(true);
-  const [bookings, setBookings] = React.useState([]);
+  const [bookings, setBookings] = React.useState(PriceList);
   const [start_location_List, setStart_location_List] = React.useState([]);
   const [end_location_List, setEnd_location_List] = React.useState([]);
 
@@ -69,7 +70,7 @@ const LandingPage = () => {
       }
     };
 
-    fetchData();
+    // fetchData();
   }, []);
   React.useEffect(() => {
     const uniqueStartLocations = Array.from(
@@ -81,7 +82,7 @@ const LandingPage = () => {
     const uniqueLocations = Array.from(
       new Set([...uniqueStartLocations, ...uniqueEndLocations])
     );
-      console.log("uniqueLocations",uniqueLocations)
+    console.log("uniqueLocations", uniqueLocations);
     setStart_location_List(uniqueLocations);
     setEnd_location_List(uniqueLocations);
   }, [bookings]);
@@ -116,4 +117,3 @@ const LandingPage = () => {
 };
 
 export default LandingPage;
-
