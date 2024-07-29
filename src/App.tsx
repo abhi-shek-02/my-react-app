@@ -19,6 +19,7 @@ import { AuthProvider } from './contexts/AuthContext';
 import PrivateRoute from './components/PrivateRoute';
 import './App.css';
 import ForgotPassword from './components/ForgotPassword';
+import WebDashboard from './components/WebDashboard'; 
 
 function App() {
     const [mode, setMode] = React.useState('dark');
@@ -46,6 +47,7 @@ function App() {
           <Route path="/sign-up" element={<SignUp />} />
           <Route path="/protected-route" element={<PrivateRoute><ProtectedComponent /></PrivateRoute>} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/dashboard" element={<WebDashboard />} /> 
         </Routes>
       </AuthProvider>
     </Router>
