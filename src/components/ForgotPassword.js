@@ -1,3 +1,4 @@
+// src/components/ForgotPassword.js
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getAuth, sendPasswordResetEmail } from "firebase/auth";

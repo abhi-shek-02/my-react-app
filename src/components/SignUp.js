@@ -1,4 +1,4 @@
-// src/components/SignUp.tsx
+// src/components/SignUp.js
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { createUserWithEmailAndPassword } from "firebase/auth";
