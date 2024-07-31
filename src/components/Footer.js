@@ -1,4 +1,3 @@
-
 import * as React from "react";
 import { useNavigate } from "react-router-dom";
 import Box from "@mui/material/Box";
@@ -13,6 +12,7 @@ import Typography from "@mui/material/Typography";
 import FacebookIcon from "@mui/icons-material/GitHub";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import TwitterIcon from "@mui/icons-material/X";
+import Logo from "../assets/Logo3.png";
 
 const logoStyle = {
   width: "140px",
@@ -23,12 +23,8 @@ function Copyright() {
   return (
     <Typography variant="body2" color="text.secondary" mt={1}>
       {"Copyright © "}
-      <Link
-        href="https://mui.com/"
-        color="inherit"
-        sx={{ textDecoration: "none" }}
-      >
-        Sitemark&nbsp;
+      <Link href="/" color="inherit" sx={{ textDecoration: "none" }}>
+        ZingCab&nbsp;
       </Link>
       {new Date().getFullYear()}
     </Typography>
@@ -104,13 +100,7 @@ export default function Footer() {
           <Box sx={{ width: { xs: "100%", sm: "60%" } }}>
             <Box sx={{ ml: "-15px" }}>
               <Button onClick={() => navigate("/")} style={{ padding: 0 }}>
-                <img
-                  src={
-                    "https://assets-global.website-files.com/61ed56ae9da9fd7e0ef0a967/61f12e6faf73568658154dae_SitemarkDefault.svg"
-                  }
-                  style={logoStyle}
-                  alt="logo of sitemark"
-                />
+                <img src={Logo} style={logoStyle} alt="logo of sitemark" />
               </Button>
             </Box>
             <Typography variant="body2" fontWeight={600} gutterBottom>

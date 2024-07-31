@@ -10,7 +10,17 @@ import {
   createTheme,
   CssBaseline,
   Divider,
+  List,
+  ListItem,
+  ListItemText,
 } from "@mui/material";
+import { Public, Build } from "@mui/icons-material"; // Importing icons
+import {
+  DirectionsCar,
+  Repeat,
+  AccessTime,
+  FlightTakeoff,
+} from "@mui/icons-material";
 
 import { styled } from "@mui/system";
 import { uniqueLocation } from "../utils/constant";
@@ -91,7 +101,7 @@ const StyledForm = styled("div")(({ theme }) => ({
   width: "100%",
   [theme.breakpoints.up("md")]: {
     marginTop: 0,
-    width: "50%",
+    width: "30%",
   },
 }));
 
@@ -243,12 +253,39 @@ export default function Hero({ start_location_List }) {
         <StyledContainer>
           <Box>
             <Typography variant="h3" gutterBottom>
-              Taxi Service from Kolkata
+              Experience{" "}
+              <span
+                style={{
+                  fontSize: "4rem",
+                  fontWeight: "bold",
+                  color: "#00bcd4",
+                }}
+              >
+                ZingCab
+              </span>
             </Typography>
             <Typography variant="body1" gutterBottom>
-              Welcome to Oneway Cabwala, where every ride is a journey
-              redefined. As a leading name in the taxi business, we bring you
-              unparalleled convenience with our one-way cab services.
+              <Typography
+                variant="h6"
+                gutterBottom
+                sx={{
+                  display: { xs: "none", sm: "block" }, // Hides on extra-small screens (mobile view)
+                }}
+              >
+                The gold standard of rides
+              </Typography>
+              <Typography variant="h6" gutterBottom>
+                We bring you unparalleled convenience with our{" "}
+                <span
+                  style={{
+                    // fontSize: "4rem",
+                    fontWeight: "bold",
+                    color: "#00bcd4",
+                  }}
+                >
+                  one-way cab services
+                </span>
+              </Typography>
             </Typography>
             <Button
               variant="contained"
@@ -260,17 +297,89 @@ export default function Hero({ start_location_List }) {
           </Box>
 
           <StyledForm>
-            <Typography variant="h6" gutterBottom>
-              Quick Booking Here
+            <Box
+              sx={{
+                display: "flex",
+                // backgroundColor: "#f5f5f5",
+                // p: 2,
+                borderRadius: 1,
+              }}
+            >
+              <Box
+                sx={{
+                  flex: 1,
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  // p: 2,
+                  // backgroundColor: "#F4A261",
+                  // borderRadius: 1,
+                }}
+              >
+                <DirectionsCar sx={{ color: "#00bcd4", fontSize: 32 }} />
+                <Typography sx={{ color: "#f0f0f0", fontSize: 13 }}>
+                  One Way
+                </Typography>
+              </Box>
+              <Box
+                sx={{
+                  flex: 1,
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  // p: 2,
+                  // backgroundColor: "#f0f0f0",
+                  // borderRadius: 1,
+                }}
+              >
+                <Repeat sx={{ color: "#00bcd4", fontSize: 32 }} />
+                <Typography sx={{ color: "#f0f0f0", fontSize: 13 }}>
+                  Round Trip
+                </Typography>
+              </Box>
+              {/* <Box
+                sx={{
+                  flex: 1,
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  // p: 2,
+                  // backgroundColor: "#f0f0f0",
+                  // borderRadius: 1,
+                }}
+              >
+                <AccessTime sx={{ color: "#00bcd4", fontSize: 32 }} />
+                <Typography sx={{ color: "#f0f0f0", fontSize: 13 }}>
+                  Rental
+                </Typography>
+              </Box> */}
+              <Box
+                sx={{
+                  flex: 1,
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  // p: 2,
+                  // backgroundColor: "#f0f0f0",
+                  // borderRadius: 1,
+                }}
+              >
+                <FlightTakeoff sx={{ color: "#00bcd4", fontSize: 32 }} />
+                <Typography sx={{ color: "#f0f0f0", fontSize: 13 }}>
+                  Airport
+                </Typography>
+              </Box>
+            </Box>
+            <Typography variant="h6" gutterBottom sx={{ mt: 2 }}>
+              Book Your Ride
             </Typography>
-            <Box sx={{ mt: 4 }}>
+            <Box sx={{ mt: 2 }}>
               <form onSubmit={handleSubmit}>
                 <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
                   <TextField
                     id="outlined-basic-pickupLocation"
                     label="Pickup Location"
                     hiddenLabel
-                    size="small"
                     variant="outlined"
                     aria-label="Pickup Location"
                     placeholder="Pickup Location"
@@ -347,7 +456,6 @@ export default function Hero({ start_location_List }) {
                   <TextField
                     id="outlined-basic-dropLocation"
                     label="Drop Location"
-                    size="small"
                     hiddenLabel
                     variant="outlined"
                     aria-label="Drop Location"
@@ -425,7 +533,6 @@ export default function Hero({ start_location_List }) {
                   <TextField
                     id="outlined-basic-journeyDate"
                     label="Journey Date"
-                    size="small"
                     hiddenLabel
                     variant="outlined"
                     aria-label="Journey Date"
@@ -447,7 +554,6 @@ export default function Hero({ start_location_List }) {
                   <TextField
                     id="outlined-basic-phoneNumber"
                     label="Phone Number"
-                    size="small"
                     hiddenLabel
                     variant="outlined"
                     aria-label="Phone Number"

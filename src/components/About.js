@@ -56,7 +56,7 @@ const About = () => {
           About Us
         </Typography>
         <Typography variant="body1" align="center" paragraph>
-          Introducing Ride4You, your go-to choice for affordable intercity cab
+          Introducing ZingCab, your go-to choice for affordable intercity cab
           services in West Bengal. With expertise, we've emerged as a leading
           player in the industry, driven by our belief that "Return Fare is Not
           Fair."
@@ -70,25 +70,25 @@ const About = () => {
           way people travel between cities.
         </Typography>
         <Typography variant="body1" align="center" paragraph>
-          At Ride4You, we offer a solution that's both convenient and
-          economical. By connecting travelers with empty-seated cars making
-          one-sided journeys, we ensure that you pay for only the distance you
-          travel. No more overcrowded carpools or inflated return fares—just
-          comfortable rides at the most competitive rates.
+          At ZingCab, we offer a solution that's both convenient and economical.
+          By connecting travelers with empty-seated cars making one-sided
+          journeys, we ensure that you pay for only the distance you travel. No
+          more overcrowded carpools or inflated return fares—just comfortable
+          rides at the most competitive rates.
         </Typography>
         <Typography variant="body2" align="center">
           Driven by our passion for enhancing the travel experience, we've
           fine-tuned our processes over the years to provide our customers with
           the best possible service. Whether you're a resident or a visitor,
-          Ride4You promises to deliver unmatched affordability without
+          ZingCab promises to deliver unmatched affordability without
           compromising on quality or comfort.
         </Typography>
         <Typography variant="body2" align="center">
-          With Ride4You, you'll not only save money but also precious time. Say
+          With ZingCab, you'll not only save money but also precious time. Say
           goodbye to the hassle of finding transportation and hello to seamless,
           stress-free travel. Whether you're exploring new destinations or
-          commuting for work, Ride4You is here to make your journey memorable
-          for all the right reasons.
+          commuting for work, ZingCab is here to make your journey memorable for
+          all the right reasons.
         </Typography>
       </Container>
       <Divider />

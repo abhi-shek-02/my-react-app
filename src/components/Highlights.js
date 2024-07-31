@@ -73,12 +73,12 @@ export default function Highlights() {
           }}
         >
           <Typography component="h2" variant="h4">
-            Why Ride4You?
+            Why ZingCab?
           </Typography>
           <Typography variant="body1" sx={{ color: "grey.400" }}>
-            Ride4You facilitates one-sided trips for customers by connecting
-            them with cars that would otherwise return empty, ensuring efficient
-            and cost-effective travel experiences with "One Way Trip..One Way
+            ZingCab facilitates one-sided trips for customers by connecting them
+            with cars that would otherwise return empty, ensuring efficient and
+            cost-effective travel experiences with "One Way Trip..One Way
             Payment" policy.
           </Typography>
         </Box>

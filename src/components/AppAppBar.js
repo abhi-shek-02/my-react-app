@@ -13,11 +13,13 @@ import MenuItem from "@mui/material/MenuItem";
 import Drawer from "@mui/material/Drawer";
 import MenuIcon from "@mui/icons-material/Menu";
 import ToggleColorMode from "./ToggleColorMode";
+import Logo from "../assets/Logo3.png";
 
 const logoStyle = {
-  width: "140px",
+  width: "115px",
   height: "auto",
   cursor: "pointer",
+  margin: "5px",
 };
 
 function AppAppBar({ mode, toggleColorMode }) {
@@ -83,7 +85,7 @@ function AppAppBar({ mode, toggleColorMode }) {
               alignItems: "center",
               justifyContent: "space-between",
               flexShrink: 0,
-              borderRadius: "999px",
+              borderRadius: "25px",
               bgcolor:
                 theme.palette.mode === "light"
                   ? "rgba(255, 255, 255, 0.4)"
@@ -108,13 +110,7 @@ function AppAppBar({ mode, toggleColorMode }) {
               }}
             >
               <Button onClick={handleHomeClick} style={{ padding: 0 }}>
-                <img
-                  src={
-                    "https://assets-global.website-files.com/61ed56ae9da9fd7e0ef0a967/61f12e6faf73568658154dae_SitemarkDefault.svg"
-                  }
-                  style={logoStyle}
-                  alt="logo of sitemark"
-                />
+                <img src={Logo} style={logoStyle} alt="logo of sitemark" />
               </Button>
 
               <Box sx={{ display: { xs: "none", md: "flex" } }}>
@@ -175,6 +171,7 @@ function AppAppBar({ mode, toggleColorMode }) {
                 component="a"
                 href="/sign-in"
                 target="_blank"
+                sx={{ color: "#00bcd4" }}
               >
                 Sign in
               </Button>
@@ -185,6 +182,7 @@ function AppAppBar({ mode, toggleColorMode }) {
                 component="a"
                 href="/sign-up"
                 target="_blank"
+                sx={{ background: "#00bcd4" }}
               >
                 Sign up
               </Button>
@@ -241,7 +239,7 @@ function AppAppBar({ mode, toggleColorMode }) {
                       component="a"
                       href="/sign-up"
                       target="_blank"
-                      sx={{ width: "100%" }}
+                      sx={{ width: "100%", background: "#00bcd4" }}
                     >
                       Sign up
                     </Button>
@@ -253,7 +251,7 @@ function AppAppBar({ mode, toggleColorMode }) {
                       component="a"
                       href="/sign-in"
                       target="_blank"
-                      sx={{ width: "100%" }}
+                      sx={{ width: "100%", color: "#00bcd4" }}
                     >
                       Sign in
                     </Button>
