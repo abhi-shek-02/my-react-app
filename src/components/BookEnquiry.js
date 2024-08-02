@@ -264,10 +264,11 @@ const BookEnquiry = () => {
       <AppAppBar mode={mode} toggleColorMode={toggleColorMode} />
       <Container sx={{ mt: 20 }}>
         <Typography variant="h2" align="center" gutterBottom>
-          Please fill up below details to confirm your Enquiry Booking
+          Thank you for choosing us!❤️
         </Typography>
         <Typography variant="body1" align="center" gutterBottom>
-          We will inform you if any cab is available as per your criteria.
+          Please confirm your booking details below. We’ll be in touch shortly
+          to finalize everything for your journey.
         </Typography>
         <Divider />
         <Box sx={{ mt: 4 }}>
