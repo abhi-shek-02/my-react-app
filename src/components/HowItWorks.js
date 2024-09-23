@@ -1,3 +1,5 @@
+
+
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -56,12 +58,7 @@ const HowItWorks = () => {
       <AppAppBar mode={mode} toggleColorMode={toggleColorMode} />
 
       <Container sx={{ mt: 20 }}>
-        <Typography
-          variant="h2"
-          align="center"
-          gutterBottom
-          sx={{ color: "rgb(0, 188, 212)" }}
-        >
+        <Typography variant="h2" align="center" gutterBottom>
           How It Works
         </Typography>
         <Typography variant="body1" align="center" gutterBottom>
