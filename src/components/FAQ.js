@@ -251,9 +251,10 @@ export default function FAQ() {
           sx={{
             width: { sm: "100%", md: "60%" },
             textAlign: { sm: "left", md: "center" },
+            fontSize: "1.9rem",
           }}
         >
-          Frequently asked questions
+          HOW CAN WE HELP YOU?
         </Typography>
         <Box sx={{ width: "100%" }}>
           <Accordion

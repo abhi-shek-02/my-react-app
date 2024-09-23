@@ -77,8 +77,7 @@ function ToggleCustomTheme({ showCustomTheme, toggleCustomTheme }) {
         justifyContent: "center",
         mt: 2,
       }}
-    >
-    </Box>
+    ></Box>
   );
 }
 
@@ -263,9 +262,15 @@ const BookEnquiry = () => {
       <CssBaseline />
       <AppAppBar mode={mode} toggleColorMode={toggleColorMode} />
       <Container sx={{ mt: 20 }}>
-        <Typography variant="h2" align="center" gutterBottom>
-          Thank you for choosing us!❤️
+        <Typography
+          variant="h2"
+          align="center"
+          gutterBottom
+          sx={{ color: "rgb(0, 188, 212)" }}
+        >
+          Thank you for choosing us!️
         </Typography>
+        {/* ❤ */}
         <Typography variant="body1" align="center" gutterBottom>
           Please confirm your booking details below. We’ll be in touch shortly
           to finalize everything for your journey.

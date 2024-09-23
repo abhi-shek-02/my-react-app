@@ -187,7 +187,12 @@ const ContactUs = () => {
           variants={fadeIn}
           transition={{ duration: 1 }}
         >
-          <Typography variant="h2" align="center" gutterBottom>
+          <Typography
+            variant="h2"
+            align="center"
+            gutterBottom
+            sx={{ color: "rgb(0, 188, 212)" }}
+          >
             Contact Us
           </Typography>
           <Typography variant="body1" align="center" gutterBottom>
