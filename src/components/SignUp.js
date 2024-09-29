@@ -29,7 +29,7 @@ const StyledPaper = styled(Paper)(({ theme }) => ({
   boxShadow: theme.shadows[8],
   borderRadius: theme.shape.borderRadius,
   position: "relative",
-  background: "#121212",
+  // background: "#121212",
 }));
 
 const AnimatedBox = styled(motion.div)(({ theme }) => ({

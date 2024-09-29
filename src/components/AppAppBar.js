@@ -13,7 +13,7 @@ import MenuItem from "@mui/material/MenuItem";
 import Drawer from "@mui/material/Drawer";
 import MenuIcon from "@mui/icons-material/Menu";
 import ToggleColorMode from "./ToggleColorMode";
-import Logo from "../assets/Logo3.png";
+import Logo from "../assets/ICON.png";
 
 const logoStyle = {
   width: "115px",
@@ -65,6 +65,20 @@ function AppAppBar({ mode, toggleColorMode }) {
   const handleHomeClick = () => {
     navigate("/");
   };
+  const handleCancelBooking = () => {
+    navigate("/cancel-booking");
+  };
+  const handleTermsConditions = () => {
+    navigate("/terms-conditions");
+  };
+  const handleRefundPolicy = () => {
+    navigate("/refund-policy");
+  };
+  const handleMissionAndVision = () => {
+    navigate("/mission-and-vision");
+  };
+
+  // /terms-conditions
 
   return (
     <div>
@@ -73,11 +87,13 @@ function AppAppBar({ mode, toggleColorMode }) {
         sx={{
           boxShadow: 0,
           bgcolor: "transparent",
-          backgroundImage: "none",
+          backgroundImage: "#FAFBFF",
           mt: 2,
+          bgcolor: "#FAFBFF",
+          backgroundColor: "#FAFBFF",
         }}
       >
-        <Container maxWidth="lg">
+        <Container maxWidth="lg" sx={{ bgcolor: "#FAFBFF" }}>
           <Toolbar
             variant="regular"
             sx={(theme) => ({
@@ -86,18 +102,13 @@ function AppAppBar({ mode, toggleColorMode }) {
               justifyContent: "space-between",
               flexShrink: 0,
               borderRadius: "25px",
-              bgcolor:
-                theme.palette.mode === "light"
-                  ? "rgba(255, 255, 255, 0.4)"
-                  : "rgba(0, 0, 0, 0.4)",
+              bgcolor: "#FAFBFF",
+
               backdropFilter: "blur(24px)",
               maxHeight: 40,
               border: "1px solid",
               borderColor: "divider",
-              boxShadow:
-                theme.palette.mode === "light"
-                  ? `0 0 1px rgba(85, 166, 246, 0.1), 1px 1.5px 2px -1px rgba(85, 166, 246, 0.15), 4px 4px 12px -2.5px rgba(85, 166, 246, 0.15)`
-                  : "0 0 1px rgba(2, 31, 59, 0.7), 1px 1.5px 2px -1px rgba(2, 31, 59, 0.65), 4px 4px 12px -2.5px rgba(2, 31, 59, 0.65)",
+              boxShadow: `0 0 1px rgba(85, 166, 246, 0.1), 1px 1.5px 2px -1px rgba(85, 166, 246, 0.15), 4px 4px 12px -2.5px rgba(85, 166, 246, 0.15)`,
             })}
           >
             <Box
@@ -107,10 +118,21 @@ function AppAppBar({ mode, toggleColorMode }) {
                 alignItems: "center",
                 ml: "-18px",
                 px: 0,
+                backgroundColor: "#FAFBFF",
               }}
             >
               <Button onClick={handleHomeClick} style={{ padding: 0 }}>
-                <img src={Logo} style={logoStyle} alt="logo of sitemark" />
+                {/* <img src={Logo} alt="logo of sitemark" /> */}
+                <img
+                  src={Logo}
+                  alt="logo of sitemark"
+                  style={{
+                    height: "50px",
+                    width: "auto",
+                    cursor: "pointer",
+                    margin: "5px",
+                  }}
+                />
               </Button>
 
               <Box sx={{ display: { xs: "none", md: "flex" } }}>
@@ -163,8 +185,8 @@ function AppAppBar({ mode, toggleColorMode }) {
                 alignItems: "center",
               }}
             >
-              <ToggleColorMode mode={mode} toggleColorMode={toggleColorMode} />
-              <Button
+              {/* <ToggleColorMode mode={mode} toggleColorMode={toggleColorMode} /> */}
+              {/* <Button
                 color="primary"
                 variant="text"
                 size="small"
@@ -185,7 +207,7 @@ function AppAppBar({ mode, toggleColorMode }) {
                 sx={{ background: "#00bcd4" }}
               >
                 Sign up
-              </Button>
+              </Button> */}
             </Box>
             <Box sx={{ display: { sm: "", md: "none" } }}>
               <Button
@@ -231,9 +253,23 @@ function AppAppBar({ mode, toggleColorMode }) {
                   <MenuItem onClick={() => handleBookEnquiryClick()}>
                     Book Your Enquiry
                   </MenuItem>
+                  <MenuItem onClick={() => handleCancelBooking()}>
+                    Cancel Booking
+                  </MenuItem>
+                  <MenuItem onClick={() => handleTermsConditions()}>
+                    Terms Conditions
+                  </MenuItem>
+                  <MenuItem onClick={() => handleRefundPolicy()}>
+                    Refund Policy
+                  </MenuItem>
+                  <MenuItem onClick={() => handleMissionAndVision()}>
+                    Mission And Vision
+                  </MenuItem>
+                  {/* handleTermsConditions */}
+                  {/* handleMissionAndVision */}
                   <Divider />
                   <MenuItem>
-                    <Button
+                    {/* <Button
                       color="primary"
                       variant="contained"
                       component="a"
@@ -242,10 +278,10 @@ function AppAppBar({ mode, toggleColorMode }) {
                       sx={{ width: "100%", background: "#00bcd4" }}
                     >
                       Sign up
-                    </Button>
+                    </Button> */}
                   </MenuItem>
                   <MenuItem>
-                    <Button
+                    {/* <Button
                       color="primary"
                       variant="outlined"
                       component="a"
@@ -254,7 +290,7 @@ function AppAppBar({ mode, toggleColorMode }) {
                       sx={{ width: "100%", color: "#00bcd4" }}
                     >
                       Sign in
-                    </Button>
+                    </Button> */}
                   </MenuItem>
                 </Box>
               </Drawer>

@@ -13,6 +13,8 @@ import {
   List,
   ListItem,
   ListItemText,
+  InputAdornment,
+  IconButton,
 } from "@mui/material";
 import { Public, Build } from "@mui/icons-material"; // Importing icons
 import {
@@ -26,82 +28,37 @@ import { styled } from "@mui/system";
 import { uniqueLocation } from "../utils/constant";
 import debounce from "lodash.debounce";
 
+import LocationOnIcon from "@mui/icons-material/LocationOn";
+import DateRangeIcon from "@mui/icons-material/DateRange";
+import SwapVertIcon from "@mui/icons-material/SwapVert";
+
 // Custom futuristic theme
-const futuristicTheme = createTheme({
-  palette: {
-    mode: "dark",
-    primary: {
-      main: "#fff",
-    },
-    secondary: {
-      main: "#00bcd4",
-    },
-    background: {
-      default: "#121212",
-      paper: "#1e1e1e",
-    },
-  },
-  typography: {
-    fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
-  },
-  components: {
-    MuiButton: {
-      styleOverrides: {
-        root: {
-          borderRadius: "20px",
-          boxShadow: "0 4px 8px rgba(0, 0, 0, 0.3)",
-          "&:hover": {
-            backgroundColor: "#fff",
-            boxShadow: "0 6px 12px rgba(0, 0, 0, 0.3)",
-          },
-        },
-      },
-    },
-    MuiTextField: {
-      styleOverrides: {
-        root: {
-          borderRadius: "10px",
-          "& .MuiOutlinedInput-root": {
-            borderRadius: "10px",
-            "& fieldset": {
-              borderColor: "#fff",
-            },
-            "&:hover fieldset": {
-              borderColor: "#00bcd4",
-            },
-          },
-          "& .MuiInputLabel-root": {
-            color: "#fff",
-          },
-        },
-      },
-    },
-  },
-});
 
 const StyledContainer = styled(Container)(({ theme }) => ({
   display: "flex",
   justifyContent: "space-between",
   alignItems: "center",
   padding: theme.spacing(4),
-  // backgroundColor: theme.palette.background.default,
+  backgroundColor: "#FAFBFF",
   flexDirection: "column",
-  marginTop: theme.spacing(10),
+  marginTop: "90px",
   [theme.breakpoints.up("md")]: {
     flexDirection: "row",
   },
 }));
 
 const StyledForm = styled("div")(({ theme }) => ({
-  backgroundColor: theme.palette.background.paper,
-  borderRadius: theme.shape.borderRadius,
-  boxShadow: theme.shadows[3],
+  backgroundColor: "#FAFBFF",
+  borderRadius: 20,
+  boxShadow: "0 15px 30px 0 rgba(0, 0, 0, 0.1)",
+
   padding: theme.spacing(3),
-  marginTop: theme.spacing(4),
+  marginTop: "20px",
   width: "100%",
   [theme.breakpoints.up("md")]: {
     marginTop: 0,
     width: "30%",
+    boxShadow: "0 15px 30px 0 rgba(0, 0, 0, 0.1)",
   },
 }));
 
@@ -236,29 +193,27 @@ export default function Hero({ start_location_List }) {
     }));
   };
   return (
-    <ThemeProvider theme={futuristicTheme}>
-      <CssBaseline />
+    <Container sx={{ marginTop: -1 }}>
+      {/* <CssBaseline /> */}
       <Box
         id="hero"
         sx={(theme) => ({
           width: "100%",
-          backgroundImage:
-            theme.palette.mode === "light"
-              ? `linear-gradient(#02294F, rgba(9, 14, 16, 0.0))`
-              : `linear-gradient(#02294F, rgba(9, 14, 16, 0.0))`,
+          // backgroundImage:
+          bgcolor: "#FAFBFF",
           backgroundSize: "100% 20%",
           backgroundRepeat: "no-repeat",
         })}
       >
         <StyledContainer>
           <Box>
-            <Typography variant="h3" gutterBottom>
+            <Typography variant="h3" gutterBottom sx={{ color: "#4C4B5E" }}>
               Experience{" "}
               <span
                 style={{
                   fontSize: "4rem",
                   fontWeight: "bold",
-                  color: "#00bcd4",
+                  color: "#095ff0",
                 }}
               >
                 ZingCab
@@ -269,18 +224,18 @@ export default function Hero({ start_location_List }) {
                 variant="h6"
                 gutterBottom
                 sx={{
-                  display: { xs: "none", sm: "block" }, // Hides on extra-small screens (mobile view)
+                  display: { xs: "none", sm: "block", color: "#4C4B5E" }, // Hides on extra-small screens (mobile view)
                 }}
               >
                 The gold standard of rides
               </Typography>
-              <Typography variant="h6" gutterBottom>
+              <Typography variant="h6" gutterBottom sx={{ color: "#4C4B5E" }}>
                 We bring you unparalleled convenience with our{" "}
                 <span
                   style={{
                     // fontSize: "4rem",
                     fontWeight: "bold",
-                    color: "#00bcd4",
+                    color: "#095ff0",
                   }}
                 >
                   one-way cab services
@@ -291,6 +246,10 @@ export default function Hero({ start_location_List }) {
               variant="contained"
               color="primary"
               onClick={handleContactUsClick}
+              sx={{
+                background: "linear-gradient(135deg, #1598f9 0%, #095ff0 100%)",
+                borderRadius: 20,
+              }}
             >
               Contact Us
             </Button>
@@ -311,13 +270,14 @@ export default function Hero({ start_location_List }) {
                   display: "flex",
                   flexDirection: "column",
                   alignItems: "center",
-                  // p: 2,
+                  // p: 1,
                   // backgroundColor: "#F4A261",
-                  // borderRadius: 1,
+                  // borderRadius: 20,
+                  // boxShadow: "0 2px 10px rgba(0,0,0,0.1)",
                 }}
               >
-                <DirectionsCar sx={{ color: "#00bcd4", fontSize: 32 }} />
-                <Typography sx={{ color: "#f0f0f0", fontSize: 13 }}>
+                <DirectionsCar sx={{ color: "#095ff0", fontSize: 32 }} />
+                <Typography sx={{ color: "#4c4b5e", fontSize: 13 }}>
                   One Way
                 </Typography>
               </Box>
@@ -327,13 +287,15 @@ export default function Hero({ start_location_List }) {
                   display: "flex",
                   flexDirection: "column",
                   alignItems: "center",
-                  // p: 2,
+                  // p: 1,
                   // backgroundColor: "#f0f0f0",
-                  // borderRadius: 1,
+
+                  // borderRadius: 20,
+                  // boxShadow: "0 2px 10px rgba(0,0,0,0.1)",
                 }}
               >
-                <Repeat sx={{ color: "#00bcd4", fontSize: 32 }} />
-                <Typography sx={{ color: "#f0f0f0", fontSize: 13 }}>
+                <Repeat sx={{ color: "#095ff0", fontSize: 32 }} />
+                <Typography sx={{ color: "#4c4b5e", fontSize: 13 }}>
                   Round Trip
                 </Typography>
               </Box>
@@ -348,8 +310,8 @@ export default function Hero({ start_location_List }) {
                   // borderRadius: 1,
                 }}
               >
-                <AccessTime sx={{ color: "#00bcd4", fontSize: 32 }} />
-                <Typography sx={{ color: "#f0f0f0", fontSize: 13 }}>
+                <AccessTime sx={{ color: "#095ff0", fontSize: 32 }} />
+                <Typography sx={{ color: "#4c4b5e", fontSize: 13 }}>
                   Rental
                 </Typography>
               </Box> */}
@@ -359,20 +321,156 @@ export default function Hero({ start_location_List }) {
                   display: "flex",
                   flexDirection: "column",
                   alignItems: "center",
-                  // p: 2,
+                  // p: 1,
                   // backgroundColor: "#f0f0f0",
                   // borderRadius: 1,
+                  // borderRadius: 20,
+                  // boxShadow: "0 2px 10px rgba(0,0,0,0.1)",
                 }}
               >
-                <FlightTakeoff sx={{ color: "#00bcd4", fontSize: 32 }} />
-                <Typography sx={{ color: "#f0f0f0", fontSize: 13 }}>
+                <FlightTakeoff sx={{ color: "#095ff0", fontSize: 32 }} />
+                <Typography sx={{ color: "#4c4b5e", fontSize: 13 }}>
                   Airport
                 </Typography>
               </Box>
             </Box>
-            <Typography variant="h6" gutterBottom sx={{ mt: 2 }}>
-              Book Your Ride
+            <Typography
+              variant="h6"
+              gutterBottom
+              sx={{ mt: 2, fontSize: 17, color: "#4C4B5E" }}
+            >
+              Where would you like to travel to?
             </Typography>
+
+            <Box
+              sx={{
+                mt: 2,
+                // p: 1,
+                // backgroundColor: "#fff",
+                // borderRadius: "12px",
+                // boxShadow: "0 2px 10px rgba(0,0,0,0.1)",
+              }}
+            >
+              <form onSubmit={handleSubmit}>
+                <Box sx={{ display: "flex", flexDirection: "column", gap: 3 }}>
+                  {/* Pickup Location */}
+                  <TextField
+                    id="outlined-basic-pickupLocation"
+                    placeholder="Pickup Location"
+                    variant="outlined"
+                    fullWidth
+                    required
+                    value={formData.pickupLocation}
+                    onChange={handlePickupLocationChange}
+                    InputProps={{
+                      startAdornment: (
+                        <InputAdornment position="start">
+                          <LocationOnIcon sx={{ color: "#095ff0" }} />
+                        </InputAdornment>
+                      ),
+                      sx: { borderRadius: "15px" },
+                    }}
+                    error={!!errorMessage.pickupLocation}
+                    helperText={errorMessage.pickupLocation}
+                  />
+
+                  {/* Drop Location */}
+                  <TextField
+                    id="outlined-basic-dropLocation"
+                    placeholder="Drop Location"
+                    variant="outlined"
+                    fullWidth
+                    required
+                    value={formData.dropLocation}
+                    onChange={handleDropLocationChange}
+                    InputProps={{
+                      startAdornment: (
+                        <InputAdornment position="start">
+                          <LocationOnIcon sx={{ color: "#095ff0" }} />
+                        </InputAdornment>
+                      ),
+                      endAdornment: (
+                        <InputAdornment position="end">
+                          <IconButton>
+                            <SwapVertIcon sx={{ color: "#095ff0" }} />
+                          </IconButton>
+                        </InputAdornment>
+                      ),
+                      sx: { borderRadius: "15px" },
+                    }}
+                    error={!!errorMessage.dropLocation}
+                    helperText={errorMessage.dropLocation}
+                  />
+
+                  {/* Journey Date */}
+                  <TextField
+                    id="outlined-basic-journeyDate"
+                    type="date"
+                    fullWidth
+                    required
+                    value={formData.journeyDate}
+                    onChange={handleChange}
+                    InputProps={{
+                      startAdornment: (
+                        <InputAdornment position="start">
+                          <DateRangeIcon sx={{ color: "#095ff0" }} />
+                        </InputAdornment>
+                      ),
+                      sx: { borderRadius: "15px" },
+                    }}
+                    inputProps={{
+                      min: new Date().toISOString().split("T")[0],
+                    }}
+                    error={!!errorMessage.journeyDate}
+                    helperText={errorMessage.journeyDate}
+                  />
+
+                  {/* Phone Number */}
+                  <TextField
+                    id="outlined-basic-phoneNumber"
+                    placeholder="Phone Number"
+                    variant="outlined"
+                    fullWidth
+                    required
+                    value={formData.phoneNumber}
+                    onChange={handleChange}
+                    InputProps={{
+                      sx: { borderRadius: "15px" },
+                    }}
+                    error={!!errorMessage.phoneNumber}
+                    helperText={errorMessage.phoneNumber}
+                  />
+                </Box>
+
+                {/* Submit Button */}
+                <Box sx={{ display: "flex", justifyContent: "center", mt: 4 }}>
+                  <Button
+                    type="submit"
+                    variant="contained"
+                    color="primary"
+                    // disabled={loading}
+                    // sx={{ width: "200px" }}
+                    sx={{
+                      background:
+                        "linear-gradient(135deg, #1598f9 0%, #095ff0 100%)",
+                      // borderRadius: 20,
+                      width: "200px",
+                    }}
+                  >
+                    Book Your Ride
+                  </Button>
+                </Box>
+              </form>
+            </Box>
+          </StyledForm>
+        </StyledContainer>
+      </Box>
+    </Container>
+  );
+}
+
+{
+  /* 
             <Box sx={{ mt: 2 }}>
               <form onSubmit={handleSubmit}>
                 <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
@@ -406,7 +504,7 @@ export default function Hero({ start_location_List }) {
                         marginTop: "3rem",
                         maxHeight: "10rem",
                         overflow: "auto",
-                        bgcolor: "background.paper",
+                        bgcolor: "#FFFFFF",
                         zIndex: 1000,
                         borderRadius: "4px",
                         boxShadow: "0 2px 10px rgba(0,0,0,0.1)",
@@ -574,16 +672,17 @@ export default function Hero({ start_location_List }) {
                     variant="contained"
                     color="primary"
                     // disabled={loading}
-                    sx={{ width: "200px" }}
+                    // sx={{ width: "200px" }}
+                    sx={{
+                      background:
+                        "linear-gradient(135deg, #1598f9 0%, #095ff0 100%)",
+                      // borderRadius: 20,
+                      width: "200px",
+                    }}
                   >
-                    Submit
+                    Book Your Ride
                   </Button>
                 </Box>
               </form>
-            </Box>
-          </StyledForm>
-        </StyledContainer>
-      </Box>
-    </ThemeProvider>
-  );
+            </Box> */
 }

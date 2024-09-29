@@ -13,6 +13,7 @@ import Divider from "@mui/material/Divider";
 import TextField from "@mui/material/TextField";
 import { motion } from "framer-motion";
 import CustomModal from "./CustomModal"; // Import your custom modal component
+import { InputAdornment } from "@mui/material";
 
 // Custom futuristic theme
 const futuristicTheme = createTheme({
@@ -160,17 +161,15 @@ const CancelBooking = () => {
   };
 
   return (
-    <ThemeProvider theme={showCustomTheme ? defaultTheme : defaultTheme}>
-      <CssBaseline />
-      <AppAppBar mode={mode} toggleColorMode={toggleColorMode} />
-      <Container sx={{ mt: 20 }}>
+    <Container sx={{ mt: 0, bgcolor: "#FAFBFF" }}>
+      <Container sx={{ mt: 14 }}>
         <motion.div
           initial="hidden"
           animate="visible"
           variants={fadeIn}
           transition={{ duration: 1 }}
         >
-          <Typography variant="h3" gutterBottom>
+          <Typography variant="h3" sx={{ color: "#095ff0", mt: 10 }}>
             Cancel Booking
           </Typography>
           <Divider sx={{ mb: 2 }} />
@@ -201,6 +200,35 @@ const CancelBooking = () => {
                     value={bookingId}
                     onChange={(e) => setBookingId(e.target.value)}
                     required
+                    InputProps={{
+                      startAdornment: (
+                        <InputAdornment position="start">
+                          {/* <PersonIcon sx={{ color: "#095ff0" }} />{" "} */}
+                          {/* Optional: Person Icon */}
+                        </InputAdornment>
+                      ),
+                      sx: { borderRadius: "15px" }, // Apply the same rounded border
+                    }}
+                    sx={{
+                      "& .MuiOutlinedInput-root": {
+                        borderRadius: "15px", // Consistent rounded corner design
+                        "& fieldset": {
+                          // borderColor: "#095ff0",
+                        },
+                        "&:hover fieldset": {
+                          borderColor: "#095ff0",
+                        },
+                        "&.Mui-focused fieldset": {
+                          borderColor: "#095ff0",
+                        },
+                      },
+                      "& .MuiInputLabel-root": {
+                        // color: "#095ff0",
+                      },
+                      "& .MuiInputLabel-root.Mui-focused": {
+                        color: "#095ff0",
+                      },
+                    }}
                   />
                 </motion.div>
               </Grid>
@@ -216,7 +244,11 @@ const CancelBooking = () => {
                 type="submit"
                 variant="contained"
                 color="primary"
-                sx={{ mt: 2 }}
+                sx={{
+                  mt: 2,
+                  background:
+                    "linear-gradient(135deg, #1598f9 0%, #095ff0 100%)",
+                }}
               >
                 Submit
               </Button>
@@ -231,7 +263,7 @@ const CancelBooking = () => {
 
       {/* Modal */}
       <CustomModal open={showModal} onClose={closeModal} />
-    </ThemeProvider>
+    </Container>
   );
 };
 

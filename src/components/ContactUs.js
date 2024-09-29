@@ -12,59 +12,60 @@ import Footer from "./Footer";
 import Divider from "@mui/material/Divider";
 import TextField from "@mui/material/TextField";
 import { motion } from "framer-motion";
+import { InputAdornment } from "@mui/material";
 
 // Custom futuristic theme
-const futuristicTheme = createTheme({
-  palette: {
-    mode: "dark",
-    primary: {
-      main: "#fff", // Teal
-    },
-    secondary: {
-      main: "#00bcd4", // Pink
-    },
-    background: {
-      default: "#090E10",
-      paper: "#1e1e1e",
-    },
-  },
-  typography: {
-    fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
-  },
-  components: {
-    MuiButton: {
-      styleOverrides: {
-        root: {
-          borderRadius: "20px",
-          boxShadow: "0 4px 8px rgba(0, 0, 0, 0.3)",
-          "&:hover": {
-            backgroundColor: "#fff",
-            boxShadow: "0 6px 12px rgba(0, 0, 0, 0.3)",
-          },
-        },
-      },
-    },
-    MuiTextField: {
-      styleOverrides: {
-        root: {
-          borderRadius: "10px",
-          "& .MuiOutlinedInput-root": {
-            borderRadius: "10px",
-            "& fieldset": {
-              borderColor: "#fff",
-            },
-            "&:hover fieldset": {
-              borderColor: "#00bcd4",
-            },
-          },
-          "& .MuiInputLabel-root": {
-            color: "#fff",
-          },
-        },
-      },
-    },
-  },
-});
+// const futuristicTheme = createTheme({
+//   palette: {
+//     mode: "dark",
+//     primary: {
+//       main: "#fff", // Teal
+//     },
+//     secondary: {
+//       main: "#00bcd4", // Pink
+//     },
+//     background: {
+//       default: "#090E10",
+//       paper: "#1e1e1e",
+//     },
+//   },
+//   typography: {
+//     fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+//   },
+//   components: {
+//     MuiButton: {
+//       styleOverrides: {
+//         root: {
+//           borderRadius: "20px",
+//           boxShadow: "0 4px 8px rgba(0, 0, 0, 0.3)",
+//           "&:hover": {
+//             backgroundColor: "#fff",
+//             boxShadow: "0 6px 12px rgba(0, 0, 0, 0.3)",
+//           },
+//         },
+//       },
+//     },
+//     MuiTextField: {
+//       styleOverrides: {
+//         root: {
+//           borderRadius: "10px",
+//           "& .MuiOutlinedInput-root": {
+//             borderRadius: "10px",
+//             "& fieldset": {
+//               borderColor: "#fff",
+//             },
+//             "&:hover fieldset": {
+//               borderColor: "#00bcd4",
+//             },
+//           },
+//           "& .MuiInputLabel-root": {
+//             color: "#fff",
+//           },
+//         },
+//       },
+//     },
+//   },
+// });
 
 // Motion variants
 const fadeIn = {
@@ -77,30 +78,8 @@ const slideUp = {
   visible: { opacity: 1, y: 0 },
 };
 
-// Toggle custom theme component
-function ToggleCustomTheme({ showCustomTheme, toggleCustomTheme }) {
-  return (
-    <Box
-      sx={{
-        display: "flex",
-        justifyContent: "center",
-        mt: 2,
-      }}
-    >
-      <Button onClick={toggleCustomTheme} variant="contained" color="secondary">
-        Toggle Custom Theme
-      </Button>
-    </Box>
-  );
-}
-
-ToggleCustomTheme.propTypes = {
-  showCustomTheme: PropTypes.bool.isRequired,
-  toggleCustomTheme: PropTypes.func.isRequired,
-};
-
 const ContactUs = () => {
-  const [mode, setMode] = useState("dark");
+  // const [mode, setMode] = useState("dark");
   const [showCustomTheme, setShowCustomTheme] = useState(true);
   const [formData, setFormData] = useState({
     name: "",
@@ -110,15 +89,10 @@ const ContactUs = () => {
     email: "",
   });
   const [errors, setErrors] = useState({});
-  const defaultTheme = futuristicTheme;
 
-  const toggleColorMode = () => {
-    setMode((prev) => (prev === "dark" ? "light" : "dark"));
-  };
-
-  const toggleCustomTheme = () => {
-    setShowCustomTheme((prev) => !prev);
-  };
+  // const toggleColorMode = () => {
+  //   setMode((prev) => (prev === "dark" ? "light" : "dark"));
+  // };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -177,17 +151,20 @@ const ContactUs = () => {
   };
 
   return (
-    <ThemeProvider theme={showCustomTheme ? defaultTheme : defaultTheme}>
-      <CssBaseline />
-      <AppAppBar mode={mode} toggleColorMode={toggleColorMode} />
-      <Container sx={{ mt: 20 }}>
+    <Container sx={{ backgroundColor: "#FAFBFF" }}>
+      <Container sx={{ mt: 12, backgroundColor: "#FAFBFF" }}>
+        <AppAppBar />
         <motion.div
           initial="hidden"
           animate="visible"
           variants={fadeIn}
           transition={{ duration: 1 }}
         >
-          <Typography variant="h2" align="center" gutterBottom>
+          <Typography
+            variant="h2"
+            align="center"
+            sx={{ color: "#095ff0", mt: 11 }}
+          >
             Contact Us
           </Typography>
           <Typography variant="body1" align="center" gutterBottom>
@@ -197,7 +174,15 @@ const ContactUs = () => {
           </Typography>
           <Divider sx={{ mb: 2 }} />
         </motion.div>
-        <Box sx={{ mt: 4 }}>
+        <Box
+          sx={{
+            mt: 5,
+            p: 5,
+            // backgroundColor: "#fff",
+            borderRadius: "30px",
+            boxShadow: "0 2px 10px rgba(0,0,0,0.1)",
+          }}
+        >
           <motion.form
             onSubmit={handleSubmit}
             initial="hidden"
@@ -213,6 +198,20 @@ const ContactUs = () => {
                   variants={slideUp}
                   transition={{ duration: 0.8 }}
                 >
+                  {/* <TextField
+                    id="outlined-basic-name"
+                    label="Your Name"
+                    size="small"
+                    variant="outlined"
+                    fullWidth
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    error={!!errors.name}
+                    helperText={errors.name}
+                    required
+                  /> */}
+
                   <TextField
                     id="outlined-basic-name"
                     label="Your Name"
@@ -225,6 +224,35 @@ const ContactUs = () => {
                     error={!!errors.name}
                     helperText={errors.name}
                     required
+                    InputProps={{
+                      startAdornment: (
+                        <InputAdornment position="start">
+                          {/* <PersonIcon sx={{ color: "#095ff0" }} />{" "} */}
+                          {/* Optional: Person Icon */}
+                        </InputAdornment>
+                      ),
+                      sx: { borderRadius: "15px" }, // Apply the same rounded border
+                    }}
+                    sx={{
+                      "& .MuiOutlinedInput-root": {
+                        borderRadius: "15px", // Consistent rounded corner design
+                        "& fieldset": {
+                          // borderColor: "#095ff0",
+                        },
+                        "&:hover fieldset": {
+                          borderColor: "#095ff0",
+                        },
+                        "&.Mui-focused fieldset": {
+                          borderColor: "#095ff0",
+                        },
+                      },
+                      "& .MuiInputLabel-root": {
+                        // color: "#095ff0",
+                      },
+                      "& .MuiInputLabel-root.Mui-focused": {
+                        color: "#095ff0",
+                      },
+                    }}
                   />
                 </motion.div>
               </Grid>
@@ -247,6 +275,35 @@ const ContactUs = () => {
                     error={!!errors.phone}
                     helperText={errors.phone}
                     required
+                    InputProps={{
+                      startAdornment: (
+                        <InputAdornment position="start">
+                          {/* <PersonIcon sx={{ color: "#095ff0" }} />{" "} */}
+                          {/* Optional: Person Icon */}
+                        </InputAdornment>
+                      ),
+                      sx: { borderRadius: "15px" }, // Apply the same rounded border
+                    }}
+                    sx={{
+                      "& .MuiOutlinedInput-root": {
+                        borderRadius: "15px", // Consistent rounded corner design
+                        "& fieldset": {
+                          // borderColor: "#095ff0",
+                        },
+                        "&:hover fieldset": {
+                          borderColor: "#095ff0",
+                        },
+                        "&.Mui-focused fieldset": {
+                          borderColor: "#095ff0",
+                        },
+                      },
+                      "& .MuiInputLabel-root": {
+                        // color: "#095ff0",
+                      },
+                      "& .MuiInputLabel-root.Mui-focused": {
+                        color: "#095ff0",
+                      },
+                    }}
                   />
                 </motion.div>
               </Grid>
@@ -266,6 +323,35 @@ const ContactUs = () => {
                     name="email"
                     value={formData.email}
                     onChange={handleChange}
+                    InputProps={{
+                      startAdornment: (
+                        <InputAdornment position="start">
+                          {/* <PersonIcon sx={{ color: "#095ff0" }} />{" "} */}
+                          {/* Optional: Person Icon */}
+                        </InputAdornment>
+                      ),
+                      sx: { borderRadius: "15px" }, // Apply the same rounded border
+                    }}
+                    sx={{
+                      "& .MuiOutlinedInput-root": {
+                        borderRadius: "15px", // Consistent rounded corner design
+                        "& fieldset": {
+                          // borderColor: "#095ff0",
+                        },
+                        "&:hover fieldset": {
+                          borderColor: "#095ff0",
+                        },
+                        "&.Mui-focused fieldset": {
+                          borderColor: "#095ff0",
+                        },
+                      },
+                      "& .MuiInputLabel-root": {
+                        // color: "#095ff0",
+                      },
+                      "& .MuiInputLabel-root.Mui-focused": {
+                        color: "#095ff0",
+                      },
+                    }}
                   />
                 </motion.div>
               </Grid>
@@ -288,6 +374,35 @@ const ContactUs = () => {
                     error={!!errors.subject}
                     helperText={errors.subject}
                     required
+                    InputProps={{
+                      startAdornment: (
+                        <InputAdornment position="start">
+                          {/* <PersonIcon sx={{ color: "#095ff0" }} />{" "} */}
+                          {/* Optional: Person Icon */}
+                        </InputAdornment>
+                      ),
+                      sx: { borderRadius: "15px" }, // Apply the same rounded border
+                    }}
+                    sx={{
+                      "& .MuiOutlinedInput-root": {
+                        borderRadius: "15px", // Consistent rounded corner design
+                        "& fieldset": {
+                          // borderColor: "#095ff0",
+                        },
+                        "&:hover fieldset": {
+                          borderColor: "#095ff0",
+                        },
+                        "&.Mui-focused fieldset": {
+                          borderColor: "#095ff0",
+                        },
+                      },
+                      "& .MuiInputLabel-root": {
+                        // color: "#095ff0",
+                      },
+                      "& .MuiInputLabel-root.Mui-focused": {
+                        color: "#095ff0",
+                      },
+                    }}
                   />
                 </motion.div>
               </Grid>
@@ -312,6 +427,35 @@ const ContactUs = () => {
                     error={!!errors.message}
                     helperText={errors.message}
                     required
+                    InputProps={{
+                      startAdornment: (
+                        <InputAdornment position="start">
+                          {/* <PersonIcon sx={{ color: "#095ff0" }} />{" "} */}
+                          {/* Optional: Person Icon */}
+                        </InputAdornment>
+                      ),
+                      sx: { borderRadius: "15px" }, // Apply the same rounded border
+                    }}
+                    sx={{
+                      "& .MuiOutlinedInput-root": {
+                        borderRadius: "15px", // Consistent rounded corner design
+                        "& fieldset": {
+                          // borderColor: "#095ff0",
+                        },
+                        "&:hover fieldset": {
+                          borderColor: "#095ff0",
+                        },
+                        "&.Mui-focused fieldset": {
+                          borderColor: "#095ff0",
+                        },
+                      },
+                      "& .MuiInputLabel-root": {
+                        // color: "#095ff0",
+                      },
+                      "& .MuiInputLabel-root.Mui-focused": {
+                        color: "#095ff0",
+                      },
+                    }}
                   />
                 </motion.div>
               </Grid>
@@ -327,7 +471,11 @@ const ContactUs = () => {
                 type="submit"
                 variant="contained"
                 color="primary"
-                sx={{ mt: 2 }}
+                sx={{
+                  mt: 2,
+                  background:
+                    "linear-gradient(135deg, #1598f9 0%, #095ff0 100%)",
+                }}
               >
                 Submit
               </Button>
@@ -335,8 +483,9 @@ const ContactUs = () => {
           </motion.form>
         </Box>
       </Container>
+      {/* </ThemeProvider> */}
       <Footer />
-    </ThemeProvider>
+    </Container>
   );
 };
 export default ContactUs;

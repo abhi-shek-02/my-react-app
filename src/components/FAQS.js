@@ -7,7 +7,7 @@ import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
 import Container from "@mui/material/Container";
 import AppAppBar from "./AppAppBar";
-import getLPTheme from "../getLPTheme";
+// import getLPTheme from "../getLPTheme";
 import Footer from "./Footer";
 import Divider from "@mui/material/Divider";
 import CustomModal from "./CustomModal"; // Import your custom modal component
@@ -36,7 +36,7 @@ const CancelBooking = () => {
   const [bookingId, setBookingId] = useState(""); // State variable to store booking ID
   const [isLoading, setIsLoading] = useState(false); // State variable to manage loader visibility
   const [showModal, setShowModal] = useState(false); // State variable to manage modal visibility
-  const LPtheme = createTheme(getLPTheme(mode));
+  // const LPtheme = createTheme(getLPTheme(mode));
   const defaultTheme = createTheme({ palette: { mode } });
 
   const toggleColorMode = () => {

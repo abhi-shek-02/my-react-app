@@ -15,6 +15,7 @@ import { uniqueLocation } from "../utils/constant";
 import CircularProgress from "@mui/material/CircularProgress";
 import Modal from "@mui/material/Modal";
 import debounce from "lodash.debounce";
+import { InputAdornment } from "@mui/material";
 
 // Custom futuristic theme
 const futuristicTheme = createTheme({
@@ -77,8 +78,7 @@ function ToggleCustomTheme({ showCustomTheme, toggleCustomTheme }) {
         justifyContent: "center",
         mt: 2,
       }}
-    >
-    </Box>
+    ></Box>
   );
 }
 
@@ -259,19 +259,30 @@ const BookEnquiry = () => {
   };
 
   return (
-    <ThemeProvider theme={showCustomTheme ? defaultTheme : defaultTheme}>
-      <CssBaseline />
-      <AppAppBar mode={mode} toggleColorMode={toggleColorMode} />
-      <Container sx={{ mt: 20 }}>
-        <Typography variant="h2" align="center" gutterBottom>
-          Thank you for choosing us!❤️
+    <Container>
+      {/* <CssBaseline /> */}
+      {/* <AppAppBar mode={mode} toggleColorMode={toggleColorMode} /> */}
+      <Container sx={{ mt: 12 }}>
+        <Typography
+          variant="h4"
+          align="center"
+          sx={{ mt: 12, color: "#095ff0", fontSize: 40 }}
+        >
+          Thank you for choosing us!
         </Typography>
-        <Typography variant="body1" align="center" gutterBottom>
+        <Typography variant="body1" align="center" sx={{ mt: 3, mb: 3 }}>
           Please confirm your booking details below. We’ll be in touch shortly
           to finalize everything for your journey.
         </Typography>
         <Divider />
-        <Box sx={{ mt: 4 }}>
+        <Box
+          sx={{
+            mt: 6,
+            borderRadius: "30px",
+            boxShadow: "0 2px 10px rgba(0,0,0,0.1)",
+            p: 5,
+          }}
+        >
           <form onSubmit={handleSubmit}>
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
@@ -294,6 +305,35 @@ const BookEnquiry = () => {
                   onBlur={() =>
                     setTimeout(() => setShowPickupLocationList(false), 200)
                   }
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        {/* <PersonIcon sx={{ color: "#095ff0" }} />{" "} */}
+                        {/* Optional: Person Icon */}
+                      </InputAdornment>
+                    ),
+                    sx: { borderRadius: "15px" }, // Apply the same rounded border
+                  }}
+                  sx={{
+                    "& .MuiOutlinedInput-root": {
+                      borderRadius: "15px", // Consistent rounded corner design
+                      "& fieldset": {
+                        // borderColor: "#095ff0",
+                      },
+                      "&:hover fieldset": {
+                        borderColor: "#095ff0",
+                      },
+                      "&.Mui-focused fieldset": {
+                        borderColor: "#095ff0",
+                      },
+                    },
+                    "& .MuiInputLabel-root": {
+                      // color: "#095ff0",
+                    },
+                    "& .MuiInputLabel-root.Mui-focused": {
+                      color: "#095ff0",
+                    },
+                  }}
                 />
                 {showPickupLocationList && (
                   <Box
@@ -372,6 +412,26 @@ const BookEnquiry = () => {
                   onBlur={() =>
                     setTimeout(() => setShowDropLocationList(false), 200)
                   }
+                  sx={{
+                    "& .MuiOutlinedInput-root": {
+                      borderRadius: "15px", // Consistent rounded corner design
+                      "& fieldset": {
+                        // borderColor: "#095ff0",
+                      },
+                      "&:hover fieldset": {
+                        borderColor: "#095ff0",
+                      },
+                      "&.Mui-focused fieldset": {
+                        borderColor: "#095ff0",
+                      },
+                    },
+                    "& .MuiInputLabel-root": {
+                      // color: "#095ff0",
+                    },
+                    "& .MuiInputLabel-root.Mui-focused": {
+                      color: "#095ff0",
+                    },
+                  }}
                 />
                 {showDropLocationList && (
                   <Box
@@ -445,6 +505,26 @@ const BookEnquiry = () => {
                   onChange={handleChange}
                   error={!!errorMessage.journeyDate}
                   helperText={errorMessage.journeyDate}
+                  sx={{
+                    "& .MuiOutlinedInput-root": {
+                      borderRadius: "15px", // Consistent rounded corner design
+                      "& fieldset": {
+                        // borderColor: "#095ff0",
+                      },
+                      "&:hover fieldset": {
+                        borderColor: "#095ff0",
+                      },
+                      "&.Mui-focused fieldset": {
+                        borderColor: "#095ff0",
+                      },
+                    },
+                    "& .MuiInputLabel-root": {
+                      // color: "#095ff0",
+                    },
+                    "& .MuiInputLabel-root.Mui-focused": {
+                      color: "#095ff0",
+                    },
+                  }}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -463,6 +543,26 @@ const BookEnquiry = () => {
                   onChange={handleChange}
                   error={!!errorMessage.phoneNumber}
                   helperText={errorMessage.phoneNumber}
+                  sx={{
+                    "& .MuiOutlinedInput-root": {
+                      borderRadius: "15px", // Consistent rounded corner design
+                      "& fieldset": {
+                        // borderColor: "#095ff0",
+                      },
+                      "&:hover fieldset": {
+                        borderColor: "#095ff0",
+                      },
+                      "&.Mui-focused fieldset": {
+                        borderColor: "#095ff0",
+                      },
+                    },
+                    "& .MuiInputLabel-root": {
+                      // color: "#095ff0",
+                    },
+                    "& .MuiInputLabel-root.Mui-focused": {
+                      color: "#095ff0",
+                    },
+                  }}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -480,6 +580,26 @@ const BookEnquiry = () => {
                   name="message"
                   value={formData.message}
                   onChange={handleChange}
+                  sx={{
+                    "& .MuiOutlinedInput-root": {
+                      borderRadius: "15px", // Consistent rounded corner design
+                      "& fieldset": {
+                        // borderColor: "#095ff0",
+                      },
+                      "&:hover fieldset": {
+                        borderColor: "#095ff0",
+                      },
+                      "&.Mui-focused fieldset": {
+                        borderColor: "#095ff0",
+                      },
+                    },
+                    "& .MuiInputLabel-root": {
+                      // color: "#095ff0",
+                    },
+                    "& .MuiInputLabel-root.Mui-focused": {
+                      color: "#095ff0",
+                    },
+                  }}
                 />
               </Grid>
             </Grid>
@@ -489,7 +609,12 @@ const BookEnquiry = () => {
                 variant="contained"
                 color="primary"
                 disabled={loading}
-                sx={{ width: "200px" }}
+                sx={{
+                  width: "200px",
+                  background:
+                    "linear-gradient(135deg, #1598f9 0%, #095ff0 100%)",
+                  borderRadius: 20,
+                }}
               >
                 {loading ? (
                   <CircularProgress size={24} color="inherit" />
@@ -531,7 +656,7 @@ const BookEnquiry = () => {
         showCustomTheme={showCustomTheme}
         toggleCustomTheme={toggleCustomTheme}
       />
-    </ThemeProvider>
+    </Container>
   );
 };
 

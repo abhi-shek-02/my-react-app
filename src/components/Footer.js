@@ -12,10 +12,10 @@ import Typography from "@mui/material/Typography";
 import FacebookIcon from "@mui/icons-material/GitHub";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import TwitterIcon from "@mui/icons-material/X";
-import Logo from "../assets/Logo3.png";
+import Logo from "../assets/ICON.png";
 
 const logoStyle = {
-  width: "140px",
+  width: "90px",
   height: "auto",
 };
 
@@ -79,6 +79,7 @@ export default function Footer() {
         gap: { xs: 4, sm: 8 },
         py: { xs: 8, sm: 10 },
         textAlign: { sm: "center", md: "left" },
+        backgroundColor: "#FAFBFF",
       }}
     >
       <Box

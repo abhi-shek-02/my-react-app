@@ -16,43 +16,14 @@ import Features from "./components/Features";
 import Testimonials from "./components/Testimonials";
 import FAQ from "./components/FAQ";
 import Footer from "./components/Footer";
-import getLPTheme from "./getLPTheme";
+// import getLPTheme from "./getLPTheme";
 import { PriceList } from "./utils/constant";
-
-function ToggleCustomTheme({ showCustomTheme, toggleCustomTheme }) {
-  return (
-    <Box
-      sx={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        width: "100dvw",
-        position: "fixed",
-        bottom: 24,
-      }}
-    ></Box>
-  );
-}
-
-ToggleCustomTheme.propTypes = {
-  showCustomTheme: PropTypes.shape({
-    valueOf: PropTypes.func.isRequired,
-  }).isRequired,
-  toggleCustomTheme: PropTypes.func.isRequired,
-};
+import { Container } from "@mui/material";
 
 const LandingPage = () => {
-  const [mode, setMode] = React.useState("dark");
-  const [showCustomTheme, setShowCustomTheme] = React.useState(true);
   const [bookings, setBookings] = React.useState(PriceList);
   const [start_location_List, setStart_location_List] = React.useState([]);
   const [end_location_List, setEnd_location_List] = React.useState([]);
-
-  const LPtheme = createTheme(getLPTheme(mode));
-  const defaultTheme = createTheme({ palette: { mode } });
-  const toggleColorMode = () => {
-    setMode((prev) => (prev === "light" ? "dark" : "dark"));
-  };
 
   React.useEffect(() => {
     const fetchData = async () => {
@@ -87,32 +58,24 @@ const LandingPage = () => {
     setEnd_location_List(uniqueLocations);
   }, [bookings]);
 
-  const toggleCustomTheme = () => {
-    setShowCustomTheme((prev) => !prev);
-  };
   return (
-    <ThemeProvider theme={showCustomTheme ? defaultTheme : defaultTheme}>
-      <CssBaseline />
-      <AppAppBar mode={mode} toggleColorMode={toggleColorMode} />
+    <Box sx={{ bgcolor: "#FAFBFF" }}>
+      <AppAppBar />
       <Hero start_location_List={start_location_List} />
       <Box sx={{ bgcolor: "background.default" }}>
         {/* <LogoCollection /> */}
         {/* <Features /> */}
-        {/* <Divider /> */}
+        <Divider />
         {/* <Testimonials /> */}
-        <Divider />
+        {/* <Divider /> */}
         <Highlights />
-        <Divider />
+        {/* <Divider /> */}
         <Divider />
         <FAQ />
         <Divider />
         <Footer />
       </Box>
-      <ToggleCustomTheme
-        showCustomTheme={showCustomTheme}
-        toggleCustomTheme={toggleCustomTheme}
-      />
-    </ThemeProvider>
+    </Box>
   );
 };
 
