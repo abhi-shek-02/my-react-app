@@ -263,7 +263,6 @@ const RefundPolicy = () => {
                 Policy, please contact us:
               </ListItem>
               <ListItem>
-                By visiting this page on our website:{" "}
                 <a href="http://www.ZingCab.com/contact">
                   www.ZingCab.com/contact
                 </a>

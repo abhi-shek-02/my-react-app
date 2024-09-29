@@ -144,11 +144,8 @@ const TermsAndCondition = () => {
         </Container>
       </Box>
 
-      <Divider sx={{ mt: 5 }} />
+      <Divider sx={{ mt: 15 }} />
       <Footer />
-
-      {isLoading && <div>Loading...</div>}
-      <CustomModal open={showModal} onClose={closeModal} />
     </Container>
   );
 };
