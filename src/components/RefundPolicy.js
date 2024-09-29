@@ -24,7 +24,7 @@
 //         <Typography variant="body1" align="center" paragraph>
 //           For any reason, You are not completely satisfied with your booking or
 //           have multiple itineraries for the same trip, we invite you to review
-//           our Refund Policy. LiftDedoo believes in helping its customers as much
+//           our Refund Policy. ZingCab believes in helping its customers as much
 //           as possible and has, therefore, a reliable cancellation and refund
 //           policy.
 //         </Typography>
@@ -65,7 +65,7 @@
 //           not possible.
 //         </Typography>
 //         <Typography variant="body1" align="center" paragraph>
-//           LiftDedoo will not be responsible for any delay of service in case of
+//           ZingCab will not be responsible for any delay of service in case of
 //           any natural calamity, Strike, Road Jam, agitation, etc. Moreover, we
 //           have the rights to cancel/change the booking of vehicle at any point
 //           of time.
@@ -76,7 +76,7 @@
 //         <Typography variant="body1" align="center" paragraph>
 //           In a situation where the driver’s vehicle breaks down on the trip, you
 //           may ask the driver to find an alternative hire service for you.
-//           Liftdedoo holds no responsibility in such situations for making any
+//           ZingCab holds no responsibility in such situations for making any
 //           special arrangements whatsoever. If the driver fails to arrange any
 //           alternative hire service for you, you may be liable to pay an
 //           appropriate fare for the part of the trip covered by the driver, as

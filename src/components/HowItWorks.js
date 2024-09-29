@@ -66,7 +66,7 @@
 // // // //           such cases is to book a taxi. But is it safe to book a random cab,
 // // // //           especially when you are traveling with family? Obviously No! Every
 // // // //           person is looking for a reliable experience that prioritizes their
-// // // //           needs and concerns. Therefore, LiftDedoo offers an unparalleled
+// // // //           needs and concerns. Therefore, ZingCab offers an unparalleled
 // // // //           experience to customers when they are making cab bookings online.
 // // // //         </Typography>
 // // // //         <Typography variant="body1" align="center" gutterBottom>
@@ -222,7 +222,7 @@
 // // //           such cases is to book a taxi. But is it safe to book a random cab,
 // // //           especially when you are traveling with family? Obviously No! Every
 // // //           person is looking for a reliable experience that prioritizes their
-// // //           needs and concerns. Therefore, LiftDedoo offers an unparalleled
+// // //           needs and concerns. Therefore, ZingCab offers an unparalleled
 // // //           experience to customers when they are making cab bookings online.
 // // //         </Typography>
 
@@ -347,7 +347,7 @@
 // //       {/* Second Zigzag Section */}
 // //       <Box display="flex" alignItems="center" sx={{ my: 4 }}>
 // //         <Typography variant="body1" sx={{ flex: 1 }}>
-// //           Therefore, LiftDedoo offers an unparalleled experience to customers
+// //           Therefore, ZingCab offers an unparalleled experience to customers
 // //           when they are making cab bookings online. Whenever a customer makes a
 // //           booking with us, they put a lot of trust in us. Our well-behaved,
 // //           professional, and registered cab drivers save you from all unpleasant
@@ -482,7 +482,7 @@
 //       {/* Second Zigzag Section */}
 //       <Box display="flex" alignItems="center" sx={{ my: 4 }}>
 //         <Typography variant="body1" sx={{ flex: 1 }}>
-//           Therefore, LiftDedoo offers an unparalleled experience to customers
+//           Therefore, ZingCab offers an unparalleled experience to customers
 //           when they are making cab bookings online. Whenever a customer makes a
 //           booking with us, they put a lot of trust in us. Our well-behaved,
 //           professional, and registered cab drivers save you from all unpleasant
@@ -612,7 +612,7 @@ const HowItWorks = () => {
       <Grid container spacing={2} sx={{ my: 4 }} alignItems="center">
         <Grid item xs={12} sm={6}>
           <Typography variant="body1">
-            Therefore, LiftDedoo offers an unparalleled experience to customers
+            Therefore, ZingCab offers an unparalleled experience to customers
             when they are making cab bookings online. Whenever a customer makes
             a booking with us, they put a lot of trust in us. Our well-behaved,
             professional, and registered cab drivers save you from all
