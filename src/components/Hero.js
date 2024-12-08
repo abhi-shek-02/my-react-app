@@ -69,6 +69,12 @@ export default function Hero() {
       ...prevData,
       dropLocation: value,
     }));
+    if (value !== formData.dropLocation) {
+      setErrorMessage((prevErrors) => ({
+        ...prevErrors,
+        dropLocation: "",
+      }));
+    }
   };
   const handlePickupLocationChange = (e) => {
     const { value } = e.target;
@@ -76,6 +82,13 @@ export default function Hero() {
       ...prevData,
       pickupLocation: value,
     }));
+    // Clear the error when drop location changes
+    if (value !== formData.pickupLocation) {
+      setErrorMessage((prevErrors) => ({
+        ...prevErrors,
+        dropLocation: "",
+      }));
+    }
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -252,10 +265,9 @@ export default function Hero() {
                     id="pickup-location"
                     select
                     label="Pickup Location"
-                    placeholder="Select Pickup Location"
                     fullWidth
                     required
-                    value={formData.pickupLocation}
+                    value={formData.pickupLocation || ""} // Ensure the value is always defined
                     onChange={handlePickupLocationChange}
                     InputProps={{
                       startAdornment: (
@@ -265,9 +277,25 @@ export default function Hero() {
                       ),
                       sx: { borderRadius: "15px" },
                     }}
+                    SelectProps={{
+                      displayEmpty: true,
+                      renderValue: (selected) => {
+                        if (!selected) {
+                          return (
+                            <span style={{ color: "#aaa" }}>
+                              Select Pickup Location
+                            </span>
+                          );
+                        }
+                        return selected;
+                      },
+                    }}
                     error={!!errorMessage.pickupLocation}
                     helperText={errorMessage.pickupLocation}
                   >
+                    <MenuItem value="" disabled>
+                      Select Pickup Location
+                    </MenuItem>
                     {pickUpLocationArray.map((location) => (
                       <MenuItem key={location} value={location}>
                         {location}
@@ -280,10 +308,9 @@ export default function Hero() {
                     id="drop-location"
                     select
                     label="Drop Location"
-                    placeholder="Select Drop Location"
                     fullWidth
                     required
-                    value={formData.dropLocation}
+                    value={formData.dropLocation || ""} // Ensure the value is always defined
                     onChange={handleDropLocationChange}
                     InputProps={{
                       startAdornment: (
@@ -300,9 +327,25 @@ export default function Hero() {
                       ),
                       sx: { borderRadius: "15px" },
                     }}
+                    SelectProps={{
+                      displayEmpty: true, // Ensures placeholder-like behavior
+                      renderValue: (selected) => {
+                        if (!selected) {
+                          return (
+                            <span style={{ color: "#aaa" }}>
+                              Select Drop Location
+                            </span>
+                          );
+                        }
+                        return selected;
+                      },
+                    }}
                     error={!!errorMessage.dropLocation}
                     helperText={errorMessage.dropLocation}
                   >
+                    <MenuItem value="" disabled>
+                      Select Drop Location
+                    </MenuItem>
                     {dropLocationArray.map((location) => (
                       <MenuItem key={location} value={location}>
                         {location}
