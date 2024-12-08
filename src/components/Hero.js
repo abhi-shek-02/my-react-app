@@ -8,13 +8,13 @@ import {
   Typography,
   InputAdornment,
   IconButton,
+  MenuItem,
 } from "@mui/material";
 
 import { DirectionsCar, Repeat, FlightTakeoff } from "@mui/icons-material";
 
 import { styled } from "@mui/system";
 import { uniqueLocation } from "../utils/constant";
-import debounce from "lodash.debounce";
 
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import DateRangeIcon from "@mui/icons-material/DateRange";
@@ -48,14 +48,8 @@ const StyledForm = styled("div")(({ theme }) => ({
   },
 }));
 
-export default function Hero({ start_location_List }) {
+export default function Hero() {
   const navigate = useNavigate();
-
-  const [showPickupLocationList, setShowPickupLocationList] =
-    React.useState(false);
-  const [showDropLocationList, setShowDropLocationList] = React.useState(false);
-  const [filteredLocations, setFilteredLocations] = React.useState([]);
-  const [dropFilteredLocations, setDropFilteredLocations] = React.useState([]);
   const [formData, setFormData] = React.useState({
     pickupLocation: "",
     dropLocation: "",
@@ -63,41 +57,11 @@ export default function Hero({ start_location_List }) {
     phoneNumber: "",
   });
   const [errorMessage, setErrorMessage] = React.useState({});
+  const pickUpLocationArray = [...uniqueLocation];
+  const dropLocationArray = [...uniqueLocation];
 
   const handleContactUsClick = () => {
     navigate("/contact");
-  };
-  const handleDropLocationSelect = (location) => {
-    setFormData((prevData) => ({
-      ...prevData,
-      dropLocation: location,
-    }));
-    setShowDropLocationList(false);
-  };
-  const handlePickupLocationChange = (e) => {
-    const { value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      pickupLocation: value,
-    }));
-    debouncedFilter(value);
-  };
-  const debouncedFilter = React.useCallback(
-    debounce((value) => {
-      const filtered = uniqueLocation.filter((location) =>
-        location.toLowerCase().includes(value.toLowerCase())
-      );
-      setFilteredLocations(filtered);
-      setShowPickupLocationList(true);
-    }, 300),
-    []
-  );
-  const handlePickupLocationSelect = (location) => {
-    setFormData((prevData) => ({
-      ...prevData,
-      pickupLocation: location,
-    }));
-    setShowPickupLocationList(false);
   };
   const handleDropLocationChange = (e) => {
     const { value } = e.target;
@@ -105,18 +69,14 @@ export default function Hero({ start_location_List }) {
       ...prevData,
       dropLocation: value,
     }));
-    debouncedDropFilter(value);
   };
-  const debouncedDropFilter = React.useCallback(
-    debounce((value) => {
-      const filtered = uniqueLocation.filter((location) =>
-        location.toLowerCase().includes(value.toLowerCase())
-      );
-      setDropFilteredLocations(filtered);
-      setShowDropLocationList(true);
-    }, 300),
-    []
-  );
+  const handlePickupLocationChange = (e) => {
+    const { value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      pickupLocation: value,
+    }));
+  };
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -161,13 +121,6 @@ export default function Hero({ start_location_List }) {
         },
       });
     }
-  };
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
   };
   return (
     <Container sx={{ marginTop: -1 }}>
@@ -332,9 +285,10 @@ export default function Hero({ start_location_List }) {
                 <Box sx={{ display: "flex", flexDirection: "column", gap: 3 }}>
                   {/* Pickup Location */}
                   <TextField
-                    id="outlined-basic-pickupLocation"
-                    placeholder="Pickup Location"
-                    variant="outlined"
+                    id="pickup-location"
+                    select
+                    label="Pickup Location"
+                    placeholder="Select Pickup Location"
                     fullWidth
                     required
                     value={formData.pickupLocation}
@@ -349,13 +303,20 @@ export default function Hero({ start_location_List }) {
                     }}
                     error={!!errorMessage.pickupLocation}
                     helperText={errorMessage.pickupLocation}
-                  />
+                  >
+                    {pickUpLocationArray.map((location) => (
+                      <MenuItem key={location} value={location}>
+                        {location}
+                      </MenuItem>
+                    ))}
+                  </TextField>
 
                   {/* Drop Location */}
                   <TextField
-                    id="outlined-basic-dropLocation"
-                    placeholder="Drop Location"
-                    variant="outlined"
+                    id="drop-location"
+                    select
+                    label="Drop Location"
+                    placeholder="Select Drop Location"
                     fullWidth
                     required
                     value={formData.dropLocation}
@@ -377,7 +338,13 @@ export default function Hero({ start_location_List }) {
                     }}
                     error={!!errorMessage.dropLocation}
                     helperText={errorMessage.dropLocation}
-                  />
+                  >
+                    {dropLocationArray.map((location) => (
+                      <MenuItem key={location} value={location}>
+                        {location}
+                      </MenuItem>
+                    ))}
+                  </TextField>
 
                   {/* Journey Date */}
                   <TextField
@@ -386,7 +353,9 @@ export default function Hero({ start_location_List }) {
                     fullWidth
                     required
                     value={formData.journeyDate}
-                    onChange={handleChange}
+                    onChange={(e) =>
+                      setFormData({ ...formData, journeyDate: e.target.value })
+                    }
                     InputProps={{
                       startAdornment: (
                         <InputAdornment position="start">
@@ -410,7 +379,23 @@ export default function Hero({ start_location_List }) {
                     fullWidth
                     required
                     value={formData.phoneNumber}
-                    onChange={handleChange}
+                    onChange={(e) => {
+                      const value = e.target.value;
+
+                      // Regular expression for validating Indian phone numbers
+                      const phoneRegex = /^[6-9]\d{0,9}$/;
+
+                      // Validate phone number length and format
+                      if (phoneRegex.test(value) || value === "") {
+                        setFormData({ ...formData, phoneNumber: value });
+                        setErrorMessage({ ...errorMessage, phoneNumber: "" }); // Clear error message if valid
+                      } else {
+                        setErrorMessage({
+                          ...errorMessage,
+                          phoneNumber: "Invalid phone number format",
+                        });
+                      }
+                    }}
                     InputProps={{
                       sx: { borderRadius: "15px" },
                     }}
