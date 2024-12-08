@@ -442,80 +442,41 @@ export default function Quote() {
 
               <Grid container spacing={2}>
                 <Grid item xs={12} sm={6}>
-                  <CarCard sx={{ padding: 3, margin: 2 }}>
+                  <CarCard sx={{ padding: 2, margin: 1 }}>
                     <img
                       src={Dzire}
                       alt="Dzire or Similar"
                       style={{
                         width: "100%",
-                        maxWidth: "270px",
-                        height: "170px",
+                        maxWidth: "100%", // Adjust width for responsiveness
+                        height: "auto", // Maintain aspect ratio
                         objectFit: "cover",
                         marginBottom: "16px",
                       }}
                     />
-                    {/* <Typography
-                      variant="h6"
-                      color="textSecondary"
-                      sx={{
-                        textDecoration: "line-through",
-                        marginBottom: "8px",
-                      }}
-                    >
-                      {addRandomAmount(
-                        getPrice,
-                        "booking_total_price_dzire",
-                        formData?.pickupLocation,
-                        formData?.dropLocation
-                      )}
-                    </Typography> */}
                     <Typography
                       variant="h4"
-                      color="#00ff00"
-                      sx={{ marginBottom: "16px" }}
+                      sx={{
+                        marginBottom: "16px",
+                        background:
+                          "linear-gradient(135deg, #1598f9 0%, #095ff0 100%)",
+                        WebkitBackgroundClip: "text",
+                        backgroundClip: "text",
+                        color: "transparent",
+                      }}
                     >
                       {getPrice(
                         "booking_total_price_dzire",
                         formData?.pickupLocation,
                         formData?.dropLocation
-                      ).length > 10 ? (
-                        <Typography
-                          variant="h6"
-                          color="#ff8989"
-                          sx={{ marginBottom: "10px" }}
-                        >
-                          {getPrice(
-                            "booking_total_price_dzire",
-                            formData?.pickupLocation,
-                            formData?.dropLocation
-                          )}
-                        </Typography>
-                      ) : (
-                        <Typography
-                          variant="h4"
-                          sx={{
-                            marginBottom: "16px",
-                            background:
-                              "linear-gradient(135deg, #1598f9 0%, #095ff0 100%)",
-                            WebkitBackgroundClip: "text", // For WebKit-based browsers (Chrome, Safari)
-                            backgroundClip: "text", // For modern browsers
-                            color: "transparent", // Make the text color transparent to show the gradient
-                          }}
-                        >
-                          {getPrice(
-                            "booking_total_price_dzire",
-                            formData?.pickupLocation,
-                            formData?.dropLocation
-                          )}
-                        </Typography>
                       )}
                     </Typography>
                     <Typography variant="body1" sx={{ marginBottom: "8px" }}>
                       Dzire Or Similar
                     </Typography>
                     <Typography variant="body2" sx={{ marginBottom: "8px" }}>
-                      Note: Rs 125/- Night charge will apply before 6AM morning
-                      and after 11PM night
+                      Note: Rs 125/- Night charge will apply before 6AM and
+                      after 11PM
                     </Typography>
                     <Typography
                       variant="body2"
@@ -525,8 +486,8 @@ export default function Quote() {
                       Toll Tax: Required
                     </Typography>
                     <Typography
-                      color="#095ff0"
                       variant="body2"
+                      color="#095ff0"
                       sx={{ marginBottom: "16px" }}
                     >
                       Hidden Charge: N/A
@@ -536,7 +497,7 @@ export default function Quote() {
                       color="primary"
                       onClick={handleOpen}
                       sx={{
-                        padding: "10px 20px",
+                        padding: { xs: "8px 16px", sm: "10px 20px" }, // Adjust for mobile
                         borderRadius: "20px",
                         boxShadow: "0 4px 8px rgba(0, 0, 0, 0.3)",
                         background:
@@ -553,76 +514,41 @@ export default function Quote() {
                 </Grid>
 
                 <Grid item xs={12} sm={6}>
-                  <CarCard sx={{ padding: 3, margin: 2 }}>
+                  <CarCard sx={{ padding: 2, margin: 1 }}>
                     <img
                       src={Ertiga}
                       alt="Innova, Ertiga or Similar"
                       style={{
                         width: "100%",
-                        maxWidth: "350px",
-                        height: "200px",
+                        maxWidth: "100%", // Adjust for responsiveness
+                        height: "auto", // Maintain aspect ratio
                         objectFit: "cover",
                         marginBottom: "16px",
                       }}
                     />
-                    {/* <Typography
-                      variant="h6"
-                      color="textSecondary"
+                    <Typography
+                      variant="h4"
                       sx={{
-                        textDecoration: "line-through",
-                        marginBottom: "8px",
+                        marginBottom: "16px",
+                        background:
+                          "linear-gradient(135deg, #1598f9 0%, #095ff0 100%)",
+                        WebkitBackgroundClip: "text",
+                        backgroundClip: "text",
+                        color: "transparent",
                       }}
                     >
-                      {addRandomAmount(
-                        getPrice,
+                      {getPrice(
                         "booking_total_price_innova",
                         formData?.pickupLocation,
                         formData?.dropLocation
                       )}
-                    </Typography> */}
-
-                    {getPrice(
-                      "booking_total_price_innova",
-                      formData?.pickupLocation,
-                      formData?.dropLocation
-                    ).length > 10 ? (
-                      <Typography
-                        variant="h6"
-                        color="#ff8989"
-                        sx={{ marginBottom: "10px" }}
-                      >
-                        {getPrice(
-                          "booking_total_price_innova",
-                          formData?.pickupLocation,
-                          formData?.dropLocation
-                        )}
-                      </Typography>
-                    ) : (
-                      <Typography
-                        variant="h4"
-                        sx={{
-                          marginBottom: "16px",
-                          background:
-                            "linear-gradient(135deg, #1598f9 0%, #095ff0 100%)",
-                          WebkitBackgroundClip: "text", // For WebKit-based browsers (Chrome, Safari)
-                          backgroundClip: "text", // For modern browsers
-                          color: "transparent", // Make the text color transparent to show the gradient
-                        }}
-                      >
-                        {getPrice(
-                          "booking_total_price_innova",
-                          formData?.pickupLocation,
-                          formData?.dropLocation
-                        )}
-                      </Typography>
-                    )}
-
+                    </Typography>
                     <Typography variant="body1" sx={{ marginBottom: "8px" }}>
                       Innova, Ertiga Or Similar
                     </Typography>
                     <Typography variant="body2" sx={{ marginBottom: "8px" }}>
-                      Note: Rs 125/- Night charge will apply before 6AM morning
-                      and after 11PM night
+                      Note: Rs 125/- Night charge will apply before 6AM and
+                      after 11PM
                     </Typography>
                     <Typography
                       variant="body2"
@@ -633,8 +559,8 @@ export default function Quote() {
                     </Typography>
                     <Typography
                       variant="body2"
-                      sx={{ marginBottom: "16px" }}
                       color="#095ff0"
+                      sx={{ marginBottom: "16px" }}
                     >
                       Hidden Charge: N/A
                     </Typography>
@@ -643,7 +569,7 @@ export default function Quote() {
                       color="primary"
                       onClick={handleOpen}
                       sx={{
-                        padding: "10px 20px",
+                        padding: { xs: "8px 16px", sm: "10px 20px" },
                         borderRadius: "20px",
                         boxShadow: "0 4px 8px rgba(0, 0, 0, 0.3)",
                         background:
