@@ -413,8 +413,14 @@ export default function Quote() {
                       ) : (
                         <Typography
                           variant="h4"
-                          color="#00ff00"
-                          sx={{ marginBottom: "16px" }}
+                          sx={{
+                            marginBottom: "16px",
+                            background:
+                              "linear-gradient(135deg, #1598f9 0%, #095ff0 100%)",
+                            WebkitBackgroundClip: "text", // For WebKit-based browsers (Chrome, Safari)
+                            backgroundClip: "text", // For modern browsers
+                            color: "transparent", // Make the text color transparent to show the gradient
+                          }}
                         >
                           {getPrice(
                             "booking_total_price_dzire",
@@ -453,6 +459,8 @@ export default function Quote() {
                         padding: "10px 20px",
                         borderRadius: "20px",
                         boxShadow: "0 4px 8px rgba(0, 0, 0, 0.3)",
+                        background:
+                          "linear-gradient(135deg, #1598f9 0%, #095ff0 100%)",
                         "&:hover": {
                           backgroundColor: "#00bcd4",
                           boxShadow: "0 6px 12px rgba(0, 0, 0, 0.3)",
@@ -512,8 +520,14 @@ export default function Quote() {
                     ) : (
                       <Typography
                         variant="h4"
-                        color="#00ff00"
-                        sx={{ marginBottom: "16px" }}
+                        sx={{
+                          marginBottom: "16px",
+                          background:
+                            "linear-gradient(135deg, #1598f9 0%, #095ff0 100%)",
+                          WebkitBackgroundClip: "text", // For WebKit-based browsers (Chrome, Safari)
+                          backgroundClip: "text", // For modern browsers
+                          color: "transparent", // Make the text color transparent to show the gradient
+                        }}
                       >
                         {getPrice(
                           "booking_total_price_innova",
@@ -552,6 +566,8 @@ export default function Quote() {
                         padding: "10px 20px",
                         borderRadius: "20px",
                         boxShadow: "0 4px 8px rgba(0, 0, 0, 0.3)",
+                        background:
+                          "linear-gradient(135deg, #1598f9 0%, #095ff0 100%)",
                         "&:hover": {
                           backgroundColor: "#00bcd4",
                           boxShadow: "0 6px 12px rgba(0, 0, 0, 0.3)",
