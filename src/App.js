@@ -1,5 +1,5 @@
 //src/App.tsx
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import LandingPage from "./LandingPage";
 import About from "./components/About";
@@ -21,8 +21,20 @@ import PrivateRoute from "./components/PrivateRoute";
 import "./App.css";
 import ForgotPassword from "./components/ForgotPassword";
 import WebDashboard from "./components/WebDashboard";
+import ScreenLoader from "./components/ScreenLoader";
 
 function App() {
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 800);
+
+    return () => clearTimeout(timer); 
+  }, []);
+  if (loading) {
+    return <ScreenLoader />;
+  }
   return (
     <Router>
       <AuthProvider>
