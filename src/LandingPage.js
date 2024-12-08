@@ -53,7 +53,6 @@ const LandingPage = () => {
     const uniqueLocations = Array.from(
       new Set([...uniqueStartLocations, ...uniqueEndLocations])
     );
-    console.log("uniqueLocations", uniqueLocations);
     setStart_location_List(uniqueLocations);
     setEnd_location_List(uniqueLocations);
   }, [bookings]);
