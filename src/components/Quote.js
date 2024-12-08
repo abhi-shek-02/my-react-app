@@ -15,6 +15,7 @@ import {
   Modal,
   CircularProgress,
   InputAdornment,
+  MenuItem,
 } from "@mui/material";
 import { styled } from "@mui/system";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
@@ -25,7 +26,7 @@ import Dzire from "../assets/dzire.png";
 import Ertiga from "../assets/Ertiga.png";
 import { useLocation } from "react-router-dom";
 import dayjs from "dayjs";
-import { PriceList } from "../utils/constant";
+import { PriceList, uniqueLocation } from "../utils/constant";
 
 // Custom futuristic theme
 
@@ -82,7 +83,11 @@ export default function Quote() {
   const [loading, setLoading] = React.useState(false);
   const [successMessage, setSuccessMessage] = React.useState("");
   const [bookingId, setBookingId] = React.useState("");
-
+  React.useEffect(() => {
+    if (location.state == null) {
+      window.location.href = `${window.location.origin}`;
+    }
+  }, [location, location.state]);
   const handleOpen = () => setOpen(true);
   const handleClose = () => {
     setOpen(false);
@@ -93,9 +98,6 @@ export default function Quote() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleDateChange = (date) => {
-    setFormData({ ...formData, journeyDate: date });
-  };
   function getPrice(car_type, start_location, end_location) {
     // Find the matching entry in the PriceList
     const locationEntry = PriceList.find(
@@ -119,36 +121,6 @@ export default function Quote() {
 
     // Return the price
     return `₹ ${priceEntry.price}`;
-  }
-  function extractPrice(priceStr) {
-    // Check if the string starts with '₹' and has a space following it
-    if (priceStr.startsWith("₹ ")) {
-      // Remove the '₹ ' and return the remaining part
-      console.log("priceStr.substring(2).trim()", priceStr.substring(2).trim());
-      return priceStr.substring(2).trim(); // Remove '₹ ' which is 2 characters and trim any extra spaces
-    }
-    // If it does not start with '₹ ', return the original string or handle accordingly
-    return priceStr;
-  }
-  function addRandomAmount(getPrice, car_type, start_location, end_location) {
-    // Get the price from the getPrice function
-    const price = getPrice(car_type, start_location, end_location);
-    console.log("price", price);
-    // Check if the price is a valid number
-    if (isNaN(extractPrice(price))) {
-      console.log("----");
-      return "";
-    }
-
-    // Generate a random amount between 1500 and 2000
-    // const randomAmount = Math.floor(Math.random() * (2000 - 1500 + 1)) + 1543;
-    const randomAmount = 1543;
-
-    // Add the random amount to the price
-    const totalAmount = parseFloat(extractPrice(price)) + randomAmount;
-
-    // Return the total amount
-    return `₹ ${totalAmount}`;
   }
   const validateFormData = () => {
     const errors = {};
@@ -195,113 +167,221 @@ export default function Quote() {
     }
   };
 
+  const handlePickupLocationChange = (e) => {
+    const { value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      pickupLocation: value,
+    }));
+
+    if (value === formData.dropLocation) {
+      setErrorMessage((prevErrors) => ({
+        ...prevErrors,
+        dropLocation: "Pickup and Drop locations cannot be the same",
+      }));
+    } else {
+      setErrorMessage((prevErrors) => ({
+        ...prevErrors,
+        dropLocation: "",
+      }));
+    }
+  };
+
+  const handleDropLocationChange = (e) => {
+    const { value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      dropLocation: value,
+    }));
+
+    if (value === formData.pickupLocation) {
+      setErrorMessage((prevErrors) => ({
+        ...prevErrors,
+        dropLocation: "Pickup and Drop locations cannot be the same",
+      }));
+    } else {
+      setErrorMessage((prevErrors) => ({
+        ...prevErrors,
+        dropLocation: "",
+      }));
+    }
+  };
   return (
     <Container sx={{ marginTop: 10 }}>
       {/* <CssBaseline /> */}
       <Container maxWidth="lg" sx={{ marginTop: 0 }}>
         {/* Header */}
         <Header>
-          {editMode ? (
-            <Grid container spacing={2}>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  label="Pickup Location"
-                  name="pickupLocation"
-                  value={formData.pickupLocation}
-                  onChange={handleChange}
-                  fullWidth
-                  margin="normal"
-                  error={!!errorMessage.pickupLocation}
-                  helperText={errorMessage.pickupLocation}
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  label="Drop Location"
-                  name="dropLocation"
-                  value={formData.dropLocation}
-                  onChange={handleChange}
-                  fullWidth
-                  margin="normal"
-                  error={!!errorMessage.dropLocation}
-                  helperText={errorMessage.dropLocation}
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  id="outlined-basic-journeyDate"
-                  label="Journey Date"
-                  hiddenLabel
-                  variant="outlined"
-                  aria-label="Journey Date"
-                  placeholder="Journey Date"
-                  fullWidth
-                  required
-                  name="journeyDate"
-                  type="date"
-                  InputLabelProps={{ shrink: true }}
-                  value={formData.journeyDate}
-                  onChange={handleChange}
-                  margin="normal"
-                  error={!!errorMessage.journeyDate}
-                  helperText={errorMessage.journeyDate}
-                />
-              </Grid>
-              <Grid
-                item
-                xs={12}
-                sm={6}
-                sx={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "flex-end",
-                }}
-              >
-                <Button
-                  variant="contained"
-                  onClick={() => {
-                    if (validateFormData()) setEditMode(false);
+          <Grid container spacing={2}>
+            {editMode ? (
+              <>
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    select
+                    label="Pickup Location"
+                    name="pickupLocation"
+                    value={formData.pickupLocation || ""}
+                    onChange={handlePickupLocationChange}
+                    fullWidth
+                    margin="normal"
+                    error={!!errorMessage.pickupLocation}
+                    helperText={errorMessage.pickupLocation}
+                    InputProps={{
+                      startAdornment: (
+                        <InputAdornment position="start">
+                          <LocationOnIcon sx={{ color: "#095ff0" }} />
+                        </InputAdornment>
+                      ),
+                    }}
+                    SelectProps={{
+                      displayEmpty: true,
+                      renderValue: (selected) => {
+                        if (!selected) {
+                          return (
+                            <span style={{ color: "#aaa" }}>
+                              Select Pickup Location
+                            </span>
+                          );
+                        }
+                        return selected;
+                      },
+                    }}
+                  >
+                    <MenuItem value="" disabled>
+                      Select Pickup Location
+                    </MenuItem>
+                    {uniqueLocation.map((location) => (
+                      <MenuItem key={location} value={location}>
+                        {location}
+                      </MenuItem>
+                    ))}
+                  </TextField>
+                </Grid>
+
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    select
+                    label="Drop Location"
+                    name="dropLocation"
+                    value={formData.dropLocation || ""}
+                    onChange={handleDropLocationChange}
+                    fullWidth
+                    margin="normal"
+                    error={!!errorMessage.dropLocation}
+                    helperText={errorMessage.dropLocation}
+                    InputProps={{
+                      startAdornment: (
+                        <InputAdornment position="start">
+                          <LocationOnIcon sx={{ color: "#095ff0" }} />
+                        </InputAdornment>
+                      ),
+                    }}
+                    SelectProps={{
+                      displayEmpty: true,
+                      renderValue: (selected) => {
+                        if (!selected) {
+                          return (
+                            <span style={{ color: "#aaa" }}>
+                              Select Drop Location
+                            </span>
+                          );
+                        }
+                        return selected;
+                      },
+                    }}
+                  >
+                    <MenuItem value="" disabled>
+                      Select Drop Location
+                    </MenuItem>
+                    {uniqueLocation.map((location) => (
+                      <MenuItem key={location} value={location}>
+                        {location}
+                      </MenuItem>
+                    ))}
+                  </TextField>
+                </Grid>
+
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    id="outlined-basic-journeyDate"
+                    label="Journey Date"
+                    hiddenLabel
+                    variant="outlined"
+                    aria-label="Journey Date"
+                    placeholder="Journey Date"
+                    fullWidth
+                    required
+                    name="journeyDate"
+                    type="date"
+                    InputLabelProps={{ shrink: true }}
+                    value={formData.journeyDate}
+                    onChange={handleChange}
+                    margin="normal"
+                    error={!!errorMessage.journeyDate}
+                    helperText={errorMessage.journeyDate}
+                  />
+                </Grid>
+
+                <Grid
+                  item
+                  xs={12}
+                  sm={6}
+                  sx={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "flex-end",
                   }}
-                  fullWidth
                 >
-                  Save
-                </Button>
-              </Grid>
-            </Grid>
-          ) : (
-            <Grid container spacing={2}>
-              <Grid item xs={12} sm={4}>
-                <Typography
-                  variant="subtitle1"
-                  sx={{ fontSize: { xs: "0.875rem", sm: "1rem" } }}
+                  <Button
+                    variant="contained"
+                    onClick={() => {
+                      if (validateFormData()) setEditMode(false);
+                    }}
+                    fullWidth
+                    sx={{
+                      background:
+                        "linear-gradient(135deg, #1598f9 0%, #095ff0 100%)",
+                    }}
+                  >
+                    Save
+                  </Button>
+                </Grid>
+              </>
+            ) : (
+              <>
+                <Grid item xs={12} sm={4}>
+                  <Typography
+                    variant="subtitle1"
+                    sx={{ fontSize: { xs: "0.875rem", sm: "1rem" } }}
+                  >
+                    {formData.journeyDate}
+                  </Typography>
+                </Grid>
+                <Grid item xs={12} sm={5}>
+                  <Typography
+                    variant="h6"
+                    sx={{ fontSize: { xs: "1rem", sm: "1.25rem" } }}
+                  >
+                    {formData.pickupLocation} ➞ {formData.dropLocation}
+                  </Typography>
+                </Grid>
+                <Grid
+                  item
+                  xs={12}
+                  sm={3}
+                  sx={{ textAlign: { xs: "center", sm: "right" } }}
                 >
-                  {dayjs(formData.journeyDate).format("DD-MM-YYYY")}
-                </Typography>
-              </Grid>
-              <Grid item xs={12} sm={5}>
-                <Typography
-                  variant="h6"
-                  sx={{ fontSize: { xs: "1rem", sm: "1.25rem" } }}
-                >
-                  {formData.pickupLocation} ➞ {formData.dropLocation}
-                </Typography>
-              </Grid>
-              <Grid
-                item
-                xs={12}
-                sm={3}
-                sx={{ textAlign: { xs: "center", sm: "right" } }}
-              >
-                <Button
-                  variant="outlined"
-                  onClick={() => setEditMode(true)}
-                  fullWidth
-                >
-                  Edit
-                </Button>
-              </Grid>
-            </Grid>
-          )}
+                  <Button
+                    variant="outlined"
+                    onClick={() => setEditMode(true)}
+                    fullWidth
+                  >
+                    Edit
+                  </Button>
+                </Grid>
+              </>
+            )}
+          </Grid>
         </Header>
 
         <Divider />
@@ -374,7 +454,7 @@ export default function Quote() {
                         marginBottom: "16px",
                       }}
                     />
-                    <Typography
+                    {/* <Typography
                       variant="h6"
                       color="textSecondary"
                       sx={{
@@ -388,7 +468,7 @@ export default function Quote() {
                         formData?.pickupLocation,
                         formData?.dropLocation
                       )}
-                    </Typography>
+                    </Typography> */}
                     <Typography
                       variant="h4"
                       color="#00ff00"
@@ -445,7 +525,7 @@ export default function Quote() {
                       Toll Tax: Required
                     </Typography>
                     <Typography
-                      color="#00dfff"
+                      color="#095ff0"
                       variant="body2"
                       sx={{ marginBottom: "16px" }}
                     >
@@ -485,7 +565,7 @@ export default function Quote() {
                         marginBottom: "16px",
                       }}
                     />
-                    <Typography
+                    {/* <Typography
                       variant="h6"
                       color="textSecondary"
                       sx={{
@@ -499,7 +579,7 @@ export default function Quote() {
                         formData?.pickupLocation,
                         formData?.dropLocation
                       )}
-                    </Typography>
+                    </Typography> */}
 
                     {getPrice(
                       "booking_total_price_innova",
@@ -554,7 +634,7 @@ export default function Quote() {
                     <Typography
                       variant="body2"
                       sx={{ marginBottom: "16px" }}
-                      color="#00dfff"
+                      color="#095ff0"
                     >
                       Hidden Charge: N/A
                     </Typography>
@@ -615,6 +695,7 @@ export default function Quote() {
               InputLabelProps={{
                 shrink: true,
               }}
+              disabled
             />
             <TextField
               label="Drop Location"
@@ -629,6 +710,7 @@ export default function Quote() {
               InputLabelProps={{
                 shrink: true,
               }}
+              disabled
             />
             <TextField
               label="Journey Date"
@@ -643,6 +725,7 @@ export default function Quote() {
               }}
               error={!!errorMessage.journeyDate}
               helperText={errorMessage.journeyDate}
+              disabled
             />
             <TextField
               label="Phone Number"
@@ -657,6 +740,7 @@ export default function Quote() {
               InputLabelProps={{
                 shrink: true,
               }}
+              disabled
             />
             <TextField
               label="Message"
