@@ -389,7 +389,12 @@ export default function Quote() {
         {/* Main Content */}
         <Grid container>
           {/* Filters Section */}
-          <Grid item xs={12} sm={3}>
+          <Grid
+            item
+            xs={12}
+            sm={3}
+            sx={{ display: { xs: "none", sm: "block" } }}
+          >
             <FiltersSection>
               <Typography variant="h6">Filters</Typography>
               <Box mt={2}>
@@ -407,48 +412,30 @@ export default function Quote() {
           <Grid item xs={12} sm={9}>
             <ResultSection>
               <Typography variant="h5">Search Result</Typography>
-              <Typography variant="h6">
+              <Typography
+                variant="h6"
+                sx={{ display: { xs: "none", sm: "block" } }}
+              >
                 Your Safety Is Our Main Priority
               </Typography>
-              <IconSection>
-                <Box sx={{ textAlign: "center", padding: 2 }}>
-                  <LocationOnIcon
-                    fontSize="large"
-                    sx={{ color: "#095ff0", marginBottom: 1 }}
-                  />
-                  <Typography variant="body1" color="textPrimary">
-                    Safe Arrival
-                  </Typography>
-                </Box>
-                <Box sx={{ textAlign: "center", padding: 2 }}>
-                  <LocalHospitalIcon
-                    fontSize="large"
-                    sx={{ color: "#095ff0", marginBottom: 1 }}
-                  />
-                  <Typography variant="body1" color="textPrimary">
-                    Sanitized Cabs
-                  </Typography>
-                </Box>
-                <Box sx={{ textAlign: "center", padding: 2 }}>
-                  <HygieneIcon
-                    fontSize="large"
-                    sx={{ color: "#095ff0", marginBottom: 1 }}
-                  />
-                  <Typography variant="body1" color="textPrimary">
-                    Clean & Safe
-                  </Typography>
-                </Box>
-              </IconSection>
 
               <Grid container spacing={2}>
                 <Grid item xs={12} sm={6}>
-                  <CarCard sx={{ padding: 2, margin: 1 }}>
+                  <CarCard
+                    sx={{
+                      padding: 2,
+                      margin: 1,
+                      width: "100%", // Ensure it takes full width on small screens
+                      maxWidth: { xs: "100%", sm: "95%", md: "90%" }, // Increase width on small screens, limit it for larger screens
+                      minWidth: { xs: "100%", sm: "80%" }, // Set minimum width for better control on mobile
+                      boxSizing: "border-box", // To include padding and margin in the width calculation
+                    }}
+                  >
                     <img
                       src={Dzire}
                       alt="Dzire or Similar"
                       style={{
                         width: "100%",
-                        maxWidth: "100%", // Adjust width for responsiveness
                         height: "auto", // Maintain aspect ratio
                         objectFit: "cover",
                         marginBottom: "16px",
@@ -497,7 +484,7 @@ export default function Quote() {
                       color="primary"
                       onClick={handleOpen}
                       sx={{
-                        padding: { xs: "8px 16px", sm: "10px 20px" }, // Adjust for mobile
+                        padding: { xs: "12px 24px", sm: "10px 20px" }, // Adjusted padding for mobile
                         borderRadius: "20px",
                         boxShadow: "0 4px 8px rgba(0, 0, 0, 0.3)",
                         background:
@@ -514,13 +501,21 @@ export default function Quote() {
                 </Grid>
 
                 <Grid item xs={12} sm={6}>
-                  <CarCard sx={{ padding: 2, margin: 1 }}>
+                  <CarCard
+                    sx={{
+                      padding: 2,
+                      margin: 1,
+                      width: "100%", // Ensure it takes full width on small screens
+                      maxWidth: { xs: "100%", sm: "95%", md: "90%" }, // Increase width on small screens, limit it for larger screens
+                      minWidth: { xs: "100%", sm: "80%" }, // Set minimum width for better control on mobile
+                      boxSizing: "border-box", // To include padding and margin in the width calculation
+                    }}
+                  >
                     <img
                       src={Ertiga}
                       alt="Innova, Ertiga or Similar"
                       style={{
                         width: "100%",
-                        maxWidth: "100%", // Adjust for responsiveness
                         height: "auto", // Maintain aspect ratio
                         objectFit: "cover",
                         marginBottom: "16px",
@@ -569,7 +564,7 @@ export default function Quote() {
                       color="primary"
                       onClick={handleOpen}
                       sx={{
-                        padding: { xs: "8px 16px", sm: "10px 20px" },
+                        padding: { xs: "12px 24px", sm: "10px 20px" }, // Adjusted padding for mobile
                         borderRadius: "20px",
                         boxShadow: "0 4px 8px rgba(0, 0, 0, 0.3)",
                         background:
