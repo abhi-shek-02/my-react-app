@@ -6,23 +6,11 @@ import {
   Container,
   TextField,
   Typography,
-  ThemeProvider,
-  createTheme,
-  CssBaseline,
-  Divider,
-  List,
-  ListItem,
-  ListItemText,
   InputAdornment,
   IconButton,
 } from "@mui/material";
-import { Public, Build } from "@mui/icons-material"; // Importing icons
-import {
-  DirectionsCar,
-  Repeat,
-  AccessTime,
-  FlightTakeoff,
-} from "@mui/icons-material";
+
+import { DirectionsCar, Repeat, FlightTakeoff } from "@mui/icons-material";
 
 import { styled } from "@mui/system";
 import { uniqueLocation } from "../utils/constant";
@@ -31,8 +19,6 @@ import debounce from "lodash.debounce";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import DateRangeIcon from "@mui/icons-material/DateRange";
 import SwapVertIcon from "@mui/icons-material/SwapVert";
-
-// Custom futuristic theme
 
 const StyledContainer = styled(Container)(({ theme }) => ({
   display: "flex",
@@ -60,15 +46,6 @@ const StyledForm = styled("div")(({ theme }) => ({
     width: "30%",
     boxShadow: "0 15px 30px 0 rgba(0, 0, 0, 0.1)",
   },
-}));
-
-const StyledButton = styled(Button)(({ theme }) => ({
-  backgroundColor: "#0959AA",
-  color: "#FFFFFF",
-  "&:hover": {
-    backgroundColor: theme.palette.secondary.dark,
-  },
-  marginTop: theme.spacing(2),
 }));
 
 export default function Hero({ start_location_List }) {
@@ -251,7 +228,7 @@ export default function Hero({ start_location_List }) {
                 borderRadius: 20,
               }}
             >
-              Contact Us
+              Call us Now
             </Button>
           </Box>
 
@@ -467,222 +444,4 @@ export default function Hero({ start_location_List }) {
       </Box>
     </Container>
   );
-}
-
-{
-  /* 
-            <Box sx={{ mt: 2 }}>
-              <form onSubmit={handleSubmit}>
-                <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
-                  <TextField
-                    id="outlined-basic-pickupLocation"
-                    label="Pickup Location"
-                    hiddenLabel
-                    variant="outlined"
-                    aria-label="Pickup Location"
-                    placeholder="Pickup Location"
-                    fullWidth
-                    required
-                    name="pickupLocation"
-                    value={formData.pickupLocation}
-                    onChange={handlePickupLocationChange}
-                    error={!!errorMessage.pickupLocation}
-                    helperText={errorMessage.pickupLocation}
-                    onFocus={() => setShowPickupLocationList(true)}
-                    onBlur={() =>
-                      setTimeout(() => setShowPickupLocationList(false), 200)
-                    }
-                  />
-                  {showPickupLocationList && (
-                    <Box
-                      sx={{
-                        position: "absolute",
-                        width: {
-                          xs: "90%", // 90% width for mobile view
-                          sm: "22%", // 38% width for larger screens
-                        },
-                        marginTop: "3rem",
-                        maxHeight: "10rem",
-                        overflow: "auto",
-                        bgcolor: "#FFFFFF",
-                        zIndex: 1000,
-                        borderRadius: "4px",
-                        boxShadow: "0 2px 10px rgba(0,0,0,0.1)",
-                      }}
-                    >
-                      {filteredLocations.length > 0 ? (
-                        filteredLocations.map((location, index) => (
-                          <div
-                            key={index}
-                            onClick={() => handlePickupLocationSelect(location)}
-                            style={{
-                              padding: "10px",
-                              cursor: "pointer",
-                            }}
-                          >
-                            <Typography
-                              component="span"
-                              variant="body1"
-                              dangerouslySetInnerHTML={{
-                                __html: location.replace(
-                                  new RegExp(
-                                    `(${formData.pickupLocation})`,
-                                    "gi"
-                                  ),
-                                  "<strong>$1</strong>"
-                                ),
-                              }}
-                            />
-                            <Divider />
-                          </div>
-                        ))
-                      ) : (
-                        <div
-                          style={{
-                            padding: "8px",
-                            textAlign: "center",
-                          }}
-                        >
-                          <Typography variant="body2" color="textSecondary">
-                            No results found
-                          </Typography>
-                        </div>
-                      )}
-                    </Box>
-                  )}
-
-                  <TextField
-                    id="outlined-basic-dropLocation"
-                    label="Drop Location"
-                    hiddenLabel
-                    variant="outlined"
-                    aria-label="Drop Location"
-                    placeholder="Drop Location"
-                    fullWidth
-                    required
-                    name="dropLocation"
-                    value={formData.dropLocation}
-                    onChange={handleDropLocationChange}
-                    error={!!errorMessage.dropLocation}
-                    helperText={errorMessage.dropLocation}
-                    onFocus={() => setShowDropLocationList(true)}
-                    onBlur={() =>
-                      setTimeout(() => setShowDropLocationList(false), 200)
-                    }
-                  />
-                  {showDropLocationList && (
-                    <Box
-                      sx={{
-                        position: "absolute",
-                        width: {
-                          xs: "90%", // 90% width for mobile view
-                          sm: "22%", // 38% width for larger screens
-                        },
-                        marginTop: "6rem",
-                        maxHeight: "10rem",
-                        overflow: "auto",
-                        bgcolor: "background.paper",
-                        zIndex: 1000,
-                        borderRadius: "4px",
-                        boxShadow: "0 2px 10px rgba(0,0,0,0.1)",
-                      }}
-                    >
-                      {dropFilteredLocations.length > 0 ? (
-                        dropFilteredLocations.map((location, index) => (
-                          <div
-                            key={index}
-                            onClick={() => handleDropLocationSelect(location)}
-                            style={{
-                              padding: "10px",
-                              cursor: "pointer",
-                            }}
-                          >
-                            <Typography
-                              component="span"
-                              variant="body1"
-                              dangerouslySetInnerHTML={{
-                                __html: location.replace(
-                                  new RegExp(
-                                    `(${formData.dropLocation})`,
-                                    "gi"
-                                  ),
-                                  "<strong>$1</strong>"
-                                ),
-                              }}
-                            />
-                            <Divider />
-                          </div>
-                        ))
-                      ) : (
-                        <div
-                          style={{
-                            padding: "8px",
-                            textAlign: "center",
-                          }}
-                        >
-                          <Typography variant="body2" color="textSecondary">
-                            No results found
-                          </Typography>
-                        </div>
-                      )}
-                    </Box>
-                  )}
-
-                  <TextField
-                    id="outlined-basic-journeyDate"
-                    label="Journey Date"
-                    hiddenLabel
-                    variant="outlined"
-                    aria-label="Journey Date"
-                    placeholder="Journey Date"
-                    fullWidth
-                    required
-                    name="journeyDate"
-                    type="date"
-                    InputLabelProps={{ shrink: true }}
-                    value={formData.journeyDate}
-                    onChange={handleChange}
-                    error={!!errorMessage.journeyDate}
-                    helperText={errorMessage.journeyDate}
-                    inputProps={{
-                      min: new Date().toISOString().split("T")[0],
-                    }}
-                  />
-
-                  <TextField
-                    id="outlined-basic-phoneNumber"
-                    label="Phone Number"
-                    hiddenLabel
-                    variant="outlined"
-                    aria-label="Phone Number"
-                    placeholder="Phone Number"
-                    fullWidth
-                    required
-                    name="phoneNumber"
-                    value={formData.phoneNumber}
-                    onChange={handleChange}
-                    error={!!errorMessage.phoneNumber}
-                    helperText={errorMessage.phoneNumber}
-                  />
-                </Box>
-
-                <Box sx={{ display: "flex", justifyContent: "center", mt: 4 }}>
-                  <Button
-                    type="submit"
-                    variant="contained"
-                    color="primary"
-                    // disabled={loading}
-                    // sx={{ width: "200px" }}
-                    sx={{
-                      background:
-                        "linear-gradient(135deg, #1598f9 0%, #095ff0 100%)",
-                      // borderRadius: 20,
-                      width: "200px",
-                    }}
-                  >
-                    Book Your Ride
-                  </Button>
-                </Box>
-              </form>
-            </Box> */
 }
