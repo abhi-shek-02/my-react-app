@@ -1,8 +1,5 @@
 import React, { useState, useCallback } from "react";
-import PropTypes from "prop-types";
-import CssBaseline from "@mui/material/CssBaseline";
 import Box from "@mui/material/Box";
-import { ThemeProvider, createTheme } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
@@ -17,79 +14,7 @@ import Modal from "@mui/material/Modal";
 import debounce from "lodash.debounce";
 import { InputAdornment } from "@mui/material";
 
-// Custom futuristic theme
-const futuristicTheme = createTheme({
-  palette: {
-    mode: "dark",
-    primary: {
-      main: "#fff", // Teal
-    },
-    secondary: {
-      main: "#00bcd4", // Pink
-    },
-    background: {
-      default: "#090E10",
-      paper: "#1e1e1e",
-    },
-  },
-  typography: {
-    fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
-  },
-  components: {
-    MuiButton: {
-      styleOverrides: {
-        root: {
-          borderRadius: "20px",
-          boxShadow: "0 4px 8px rgba(0, 0, 0, 0.3)",
-          "&:hover": {
-            backgroundColor: "#fff",
-            boxShadow: "0 6px 12px rgba(0, 0, 0, 0.3)",
-          },
-        },
-      },
-    },
-    MuiTextField: {
-      styleOverrides: {
-        root: {
-          borderRadius: "10px",
-          "& .MuiOutlinedInput-root": {
-            borderRadius: "10px",
-            "& fieldset": {
-              borderColor: "#fff",
-            },
-            "&:hover fieldset": {
-              borderColor: "#00bcd4",
-            },
-          },
-          "& .MuiInputLabel-root": {
-            color: "#fff",
-          },
-        },
-      },
-    },
-  },
-});
-
-function ToggleCustomTheme({ showCustomTheme, toggleCustomTheme }) {
-  return (
-    <Box
-      sx={{
-        display: "flex",
-        justifyContent: "center",
-        mt: 2,
-      }}
-    ></Box>
-  );
-}
-
-ToggleCustomTheme.propTypes = {
-  showCustomTheme: PropTypes.bool.isRequired,
-  toggleCustomTheme: PropTypes.func.isRequired,
-};
-
 const BookEnquiry = () => {
-  const [mode, setMode] = useState("dark");
-  const [showCustomTheme, setShowCustomTheme] = useState(true);
   const [formData, setFormData] = useState({
     pickupLocation: "",
     dropLocation: "",
@@ -106,16 +31,6 @@ const BookEnquiry = () => {
   const [filteredLocations, setFilteredLocations] = useState([]);
   const [dropFilteredLocations, setDropFilteredLocations] = useState([]);
   const [bookingId, setBookingId] = useState("");
-
-  const defaultTheme = futuristicTheme;
-
-  const toggleColorMode = () => {
-    setMode((prev) => (prev === "dark" ? "dark" : "dark"));
-  };
-
-  const toggleCustomTheme = () => {
-    setShowCustomTheme((prev) => !prev);
-  };
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -652,10 +567,6 @@ const BookEnquiry = () => {
           )}
         </Box>
       </Modal>
-      <ToggleCustomTheme
-        showCustomTheme={showCustomTheme}
-        toggleCustomTheme={toggleCustomTheme}
-      />
     </Container>
   );
 };
