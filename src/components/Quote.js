@@ -671,10 +671,10 @@ export default function Quote() {
             top: "50%",
             left: "50%",
             transform: "translate(-50%, -50%)",
-            width: 400,
+            width: { xs: "80%", sm: 400 }, // Adjust width for smaller screens
             bgcolor: "background.paper",
             boxShadow: 24,
-            p: 4,
+            p: { xs: 2, sm: 4 }, // Adjust padding for smaller screens
             borderRadius: 2,
           }}
         >
@@ -753,18 +753,31 @@ export default function Quote() {
               rows={3}
             />
             <Box
-              sx={{ display: "flex", justifyContent: "space-between", mt: 2 }}
+              sx={{
+                display: "flex",
+                flexDirection: { xs: "column", sm: "row" }, // Stack buttons on smaller screens
+                justifyContent: "space-between",
+                mt: 2,
+              }}
             >
-              <Button onClick={handleClose} color="secondary">
-                Cancel
-              </Button>
               <Button
                 type="submit"
                 variant="contained"
                 color="primary"
                 disabled={loading}
+                sx={{
+                  background:
+                    "linear-gradient(135deg, #1598f9 0%, #095ff0 100%)",
+                }}
               >
                 {loading ? <CircularProgress size={24} /> : "Submit"}
+              </Button>
+              <Button
+                onClick={handleClose}
+                color="secondary"
+                sx={{ mb: { xs: 1, sm: 0 } }} // Add margin between buttons on smaller screens
+              >
+                Close
               </Button>
             </Box>
             {successMessage && (
