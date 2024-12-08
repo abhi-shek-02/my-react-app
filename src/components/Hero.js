@@ -124,7 +124,6 @@ export default function Hero() {
   };
   return (
     <Container sx={{ marginTop: -1 }}>
-      {/* <CssBaseline /> */}
       <Box
         id="hero"
         sx={(theme) => ({
@@ -163,7 +162,6 @@ export default function Hero() {
                 We bring you unparalleled convenience with our{" "}
                 <span
                   style={{
-                    // fontSize: "4rem",
                     fontWeight: "bold",
                     color: "#095ff0",
                   }}
@@ -189,8 +187,7 @@ export default function Hero() {
             <Box
               sx={{
                 display: "flex",
-                // backgroundColor: "#f5f5f5",
-                // p: 2,
+
                 borderRadius: 1,
               }}
             >
@@ -200,10 +197,6 @@ export default function Hero() {
                   display: "flex",
                   flexDirection: "column",
                   alignItems: "center",
-                  // p: 1,
-                  // backgroundColor: "#F4A261",
-                  // borderRadius: 20,
-                  // boxShadow: "0 2px 10px rgba(0,0,0,0.1)",
                 }}
               >
                 <DirectionsCar sx={{ color: "#095ff0", fontSize: 32 }} />
@@ -217,11 +210,6 @@ export default function Hero() {
                   display: "flex",
                   flexDirection: "column",
                   alignItems: "center",
-                  // p: 1,
-                  // backgroundColor: "#f0f0f0",
-
-                  // borderRadius: 20,
-                  // boxShadow: "0 2px 10px rgba(0,0,0,0.1)",
                 }}
               >
                 <Repeat sx={{ color: "#095ff0", fontSize: 32 }} />
@@ -229,33 +217,13 @@ export default function Hero() {
                   Round Trip
                 </Typography>
               </Box>
-              {/* <Box
-                sx={{
-                  flex: 1,
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                  // p: 2,
-                  // backgroundColor: "#f0f0f0",
-                  // borderRadius: 1,
-                }}
-              >
-                <AccessTime sx={{ color: "#095ff0", fontSize: 32 }} />
-                <Typography sx={{ color: "#4c4b5e", fontSize: 13 }}>
-                  Rental
-                </Typography>
-              </Box> */}
+
               <Box
                 sx={{
                   flex: 1,
                   display: "flex",
                   flexDirection: "column",
                   alignItems: "center",
-                  // p: 1,
-                  // backgroundColor: "#f0f0f0",
-                  // borderRadius: 1,
-                  // borderRadius: 20,
-                  // boxShadow: "0 2px 10px rgba(0,0,0,0.1)",
                 }}
               >
                 <FlightTakeoff sx={{ color: "#095ff0", fontSize: 32 }} />
@@ -275,10 +243,6 @@ export default function Hero() {
             <Box
               sx={{
                 mt: 2,
-                // p: 1,
-                // backgroundColor: "#fff",
-                // borderRadius: "12px",
-                // boxShadow: "0 2px 10px rgba(0,0,0,0.1)",
               }}
             >
               <form onSubmit={handleSubmit}>
@@ -382,10 +346,8 @@ export default function Hero() {
                     onChange={(e) => {
                       const value = e.target.value;
 
-                      // Regular expression for validating Indian phone numbers
                       const phoneRegex = /^[6-9]\d{0,9}$/;
 
-                      // Validate phone number length and format
                       if (phoneRegex.test(value) || value === "") {
                         setFormData({ ...formData, phoneNumber: value });
                         setErrorMessage({ ...errorMessage, phoneNumber: "" }); // Clear error message if valid
@@ -404,18 +366,14 @@ export default function Hero() {
                   />
                 </Box>
 
-                {/* Submit Button */}
                 <Box sx={{ display: "flex", justifyContent: "center", mt: 4 }}>
                   <Button
                     type="submit"
                     variant="contained"
                     color="primary"
-                    // disabled={loading}
-                    // sx={{ width: "200px" }}
                     sx={{
                       background:
                         "linear-gradient(135deg, #1598f9 0%, #095ff0 100%)",
-                      // borderRadius: 20,
                       width: "200px",
                     }}
                   >
