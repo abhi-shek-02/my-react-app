@@ -12,7 +12,10 @@ import { uniqueLocation } from "../utils/constant";
 import CircularProgress from "@mui/material/CircularProgress";
 import Modal from "@mui/material/Modal";
 import debounce from "lodash.debounce";
-import { InputAdornment } from "@mui/material";
+import { IconButton, InputAdornment, MenuItem } from "@mui/material";
+import LocationOnIcon from "@mui/icons-material/LocationOn";
+import { CheckCircle, Error } from "@mui/icons-material";
+import CloseIcon from "@mui/icons-material/Close";
 
 const BookEnquiry = () => {
   const [formData, setFormData] = useState({
@@ -26,10 +29,7 @@ const BookEnquiry = () => {
   const [open, setOpen] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState({});
-  const [showPickupLocationList, setShowPickupLocationList] = useState(false);
-  const [showDropLocationList, setShowDropLocationList] = useState(false);
-  const [filteredLocations, setFilteredLocations] = useState([]);
-  const [dropFilteredLocations, setDropFilteredLocations] = useState([]);
+  const [errorMsgForModal, setErrorMsgForModal] = useState("");
   const [bookingId, setBookingId] = useState("");
 
   const handleOpen = () => setOpen(true);
@@ -41,46 +41,6 @@ const BookEnquiry = () => {
       ...prevData,
       [name]: value,
     }));
-  };
-
-  const debouncedFilter = useCallback(
-    debounce((value) => {
-      const filtered = uniqueLocation.filter((location) =>
-        location.toLowerCase().includes(value.toLowerCase())
-      );
-      setFilteredLocations(filtered);
-      setShowPickupLocationList(true);
-    }, 300),
-    []
-  );
-
-  const handlePickupLocationChange = (e) => {
-    const { value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      pickupLocation: value,
-    }));
-    debouncedFilter(value);
-  };
-
-  const debouncedDropFilter = useCallback(
-    debounce((value) => {
-      const filtered = uniqueLocation.filter((location) =>
-        location.toLowerCase().includes(value.toLowerCase())
-      );
-      setDropFilteredLocations(filtered);
-      setShowDropLocationList(true);
-    }, 300),
-    []
-  );
-
-  const handleDropLocationChange = (e) => {
-    const { value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      dropLocation: value,
-    }));
-    debouncedDropFilter(value);
   };
 
   const handleSubmit = async (e) => {
@@ -99,6 +59,14 @@ const BookEnquiry = () => {
     }
     if (!formData.journeyDate.trim()) {
       validationErrors.journeyDate = "Journey Date is required";
+    } else {
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      const journeyDate = new Date(formData.journeyDate);
+      if (journeyDate < today) {
+        validationErrors.journeyDate =
+          "Journey Date must be today or a future date";
+      }
     }
     if (!formData.phoneNumber.trim()) {
       validationErrors.phoneNumber = "Phone Number is required";
@@ -146,31 +114,15 @@ const BookEnquiry = () => {
           setSuccessMessage("Booking Successful");
           handleOpen();
         } else {
-          setErrorMessage(data.message);
+          setErrorMsgForModal("Something went wrong!");
           handleOpen();
         }
       } catch (error) {
-        setErrorMessage(error.message);
+        setErrorMsgForModal("Something went wrong!");
         handleOpen();
       }
     }
     setLoading(false);
-  };
-
-  const handlePickupLocationSelect = (location) => {
-    setFormData((prevData) => ({
-      ...prevData,
-      pickupLocation: location,
-    }));
-    setShowPickupLocationList(false);
-  };
-
-  const handleDropLocationSelect = (location) => {
-    setFormData((prevData) => ({
-      ...prevData,
-      dropLocation: location,
-    }));
-    setShowDropLocationList(false);
   };
 
   return (
@@ -202,205 +154,101 @@ const BookEnquiry = () => {
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
                 <TextField
-                  id="outlined-basic-pickupLocation"
+                  id="pickup-location"
+                  select
                   label="Pickup Location"
-                  hiddenLabel
-                  size="small"
-                  variant="outlined"
-                  aria-label="Pickup Location"
-                  placeholder="Pickup Location"
                   fullWidth
                   required
-                  name="pickupLocation"
-                  value={formData.pickupLocation}
-                  onChange={handlePickupLocationChange}
-                  error={!!errorMessage.pickupLocation}
-                  helperText={errorMessage.pickupLocation}
-                  onFocus={() => setShowPickupLocationList(true)}
-                  onBlur={() =>
-                    setTimeout(() => setShowPickupLocationList(false), 200)
-                  }
+                  value={formData.pickupLocation || ""} // Ensure value is defined
+                  onChange={(e) => {
+                    const { value } = e.target;
+                    setFormData((prevData) => ({
+                      ...prevData,
+                      pickupLocation: value,
+                    }));
+                  }}
                   InputProps={{
                     startAdornment: (
                       <InputAdornment position="start">
-                        {/* <PersonIcon sx={{ color: "#095ff0" }} />{" "} */}
-                        {/* Optional: Person Icon */}
+                        <LocationOnIcon sx={{ color: "#095ff0" }} />
                       </InputAdornment>
                     ),
-                    sx: { borderRadius: "15px" }, // Apply the same rounded border
+                    sx: { borderRadius: "15px" },
                   }}
-                  sx={{
-                    "& .MuiOutlinedInput-root": {
-                      borderRadius: "15px", // Consistent rounded corner design
-                      "& fieldset": {
-                        // borderColor: "#095ff0",
-                      },
-                      "&:hover fieldset": {
-                        borderColor: "#095ff0",
-                      },
-                      "&.Mui-focused fieldset": {
-                        borderColor: "#095ff0",
-                      },
-                    },
-                    "& .MuiInputLabel-root": {
-                      // color: "#095ff0",
-                    },
-                    "& .MuiInputLabel-root.Mui-focused": {
-                      color: "#095ff0",
+                  SelectProps={{
+                    displayEmpty: true,
+                    renderValue: (selected) => {
+                      if (!selected) {
+                        return (
+                          <span style={{ color: "#aaa" }}>
+                            Select Pickup Location
+                          </span>
+                        );
+                      }
+                      return selected;
                     },
                   }}
-                />
-                {showPickupLocationList && (
-                  <Box
-                    sx={{
-                      position: "absolute",
-                      width: {
-                        xs: "90%", // 90% width for mobile view
-                        sm: "38%", // 38% width for larger screens
-                      },
-                      marginTop: "1rem",
-                      maxHeight: "10rem",
-                      overflow: "auto",
-                      bgcolor: "background.paper",
-                      zIndex: 1000,
-                      borderRadius: "4px",
-                      boxShadow: "0 2px 10px rgba(0,0,0,0.1)",
-                    }}
-                  >
-                    {filteredLocations.length > 0 ? (
-                      filteredLocations.map((location, index) => (
-                        <div
-                          key={index}
-                          onClick={() => handlePickupLocationSelect(location)}
-                          style={{
-                            padding: "8px",
-                            cursor: "pointer",
-                          }}
-                        >
-                          <Typography
-                            component="span"
-                            variant="body1"
-                            dangerouslySetInnerHTML={{
-                              __html: location.replace(
-                                new RegExp(
-                                  `(${formData.pickupLocation})`,
-                                  "gi"
-                                ),
-                                "<strong>$1</strong>"
-                              ),
-                            }}
-                          />
-                        </div>
-                      ))
-                    ) : (
-                      <div
-                        style={{
-                          padding: "8px",
-                          textAlign: "center",
-                        }}
-                      >
-                        <Typography variant="body2" color="textSecondary">
-                          No results found
-                        </Typography>
-                      </div>
-                    )}
-                  </Box>
-                )}
+                  error={!!errorMessage.pickupLocation}
+                  helperText={errorMessage.pickupLocation}
+                >
+                  <MenuItem value="" disabled>
+                    Select Pickup Location
+                  </MenuItem>
+                  {uniqueLocation.map((location) => (
+                    <MenuItem key={location} value={location}>
+                      {location}
+                    </MenuItem>
+                  ))}
+                </TextField>
               </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
-                  id="outlined-basic-dropLocation"
+                  id="drop-location"
+                  select
                   label="Drop Location"
-                  size="small"
-                  hiddenLabel
-                  variant="outlined"
-                  aria-label="Drop Location"
-                  placeholder="Drop Location"
                   fullWidth
                   required
-                  name="dropLocation"
-                  value={formData.dropLocation}
-                  onChange={handleDropLocationChange}
-                  error={!!errorMessage.dropLocation}
-                  helperText={errorMessage.dropLocation}
-                  onFocus={() => setShowDropLocationList(true)}
-                  onBlur={() =>
-                    setTimeout(() => setShowDropLocationList(false), 200)
-                  }
-                  sx={{
-                    "& .MuiOutlinedInput-root": {
-                      borderRadius: "15px", // Consistent rounded corner design
-                      "& fieldset": {
-                        // borderColor: "#095ff0",
-                      },
-                      "&:hover fieldset": {
-                        borderColor: "#095ff0",
-                      },
-                      "&.Mui-focused fieldset": {
-                        borderColor: "#095ff0",
-                      },
-                    },
-                    "& .MuiInputLabel-root": {
-                      // color: "#095ff0",
-                    },
-                    "& .MuiInputLabel-root.Mui-focused": {
-                      color: "#095ff0",
+                  value={formData.dropLocation || ""} // Ensure value is defined
+                  onChange={(e) => {
+                    const { value } = e.target;
+                    setFormData((prevData) => ({
+                      ...prevData,
+                      dropLocation: value,
+                    }));
+                  }}
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <LocationOnIcon sx={{ color: "#095ff0" }} />
+                      </InputAdornment>
+                    ),
+                    sx: { borderRadius: "15px" },
+                  }}
+                  SelectProps={{
+                    displayEmpty: true,
+                    renderValue: (selected) => {
+                      if (!selected) {
+                        return (
+                          <span style={{ color: "#aaa" }}>
+                            Select Drop Location
+                          </span>
+                        );
+                      }
+                      return selected;
                     },
                   }}
-                />
-                {showDropLocationList && (
-                  <Box
-                    sx={{
-                      position: "absolute",
-                      width: {
-                        xs: "90%", // 90% width for mobile view
-                        sm: "38%", // 38% width for larger screens
-                      },
-                      marginTop: "1rem",
-                      maxHeight: "10rem",
-                      overflow: "auto",
-                      bgcolor: "background.paper",
-                      zIndex: 1000,
-                      borderRadius: "4px",
-                      boxShadow: "0 2px 10px rgba(0,0,0,0.1)",
-                    }}
-                  >
-                    {dropFilteredLocations.length > 0 ? (
-                      dropFilteredLocations.map((location, index) => (
-                        <div
-                          key={index}
-                          onClick={() => handleDropLocationSelect(location)}
-                          style={{
-                            padding: "8px",
-                            cursor: "pointer",
-                          }}
-                        >
-                          <Typography
-                            component="span"
-                            variant="body1"
-                            dangerouslySetInnerHTML={{
-                              __html: location.replace(
-                                new RegExp(`(${formData.dropLocation})`, "gi"),
-                                "<strong>$1</strong>"
-                              ),
-                            }}
-                          />
-                        </div>
-                      ))
-                    ) : (
-                      <div
-                        style={{
-                          padding: "8px",
-                          textAlign: "center",
-                        }}
-                      >
-                        <Typography variant="body2" color="textSecondary">
-                          No results found
-                        </Typography>
-                      </div>
-                    )}
-                  </Box>
-                )}
+                  error={!!errorMessage.dropLocation}
+                  helperText={errorMessage.dropLocation}
+                >
+                  <MenuItem value="" disabled>
+                    Select Drop Location
+                  </MenuItem>
+                  {uniqueLocation.map((location) => (
+                    <MenuItem key={location} value={location}>
+                      {location}
+                    </MenuItem>
+                  ))}
+                </TextField>
               </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
@@ -423,6 +271,7 @@ const BookEnquiry = () => {
                   sx={{
                     "& .MuiOutlinedInput-root": {
                       borderRadius: "15px", // Consistent rounded corner design
+                      padding: "7px", // Add padding to the input field
                       "& fieldset": {
                         // borderColor: "#095ff0",
                       },
@@ -438,6 +287,9 @@ const BookEnquiry = () => {
                     },
                     "& .MuiInputLabel-root.Mui-focused": {
                       color: "#095ff0",
+                    },
+                    "& .MuiInputBase-input": {
+                      padding: "10px", // Adds more padding inside the text field input
                     },
                   }}
                 />
@@ -461,6 +313,7 @@ const BookEnquiry = () => {
                   sx={{
                     "& .MuiOutlinedInput-root": {
                       borderRadius: "15px", // Consistent rounded corner design
+                      padding: "7px", // Add padding to the input field
                       "& fieldset": {
                         // borderColor: "#095ff0",
                       },
@@ -476,6 +329,9 @@ const BookEnquiry = () => {
                     },
                     "& .MuiInputLabel-root.Mui-focused": {
                       color: "#095ff0",
+                    },
+                    "& .MuiInputBase-input": {
+                      padding: "8px", // Adds more padding inside the text field input
                     },
                   }}
                 />
@@ -552,18 +408,43 @@ const BookEnquiry = () => {
             bgcolor: "background.paper",
             border: "2px solid #000",
             boxShadow: 24,
-            p: 4,
+            p: { xs: 2, sm: 4 }, // Padding adjusts for mobile and larger screens
+            borderRadius: "10px", // Rounded corners for a modern look
+            width: { xs: "90%", sm: "400px" }, // Responsive width for mobile
+            maxWidth: "500px", // Max width for larger screens
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
           }}
         >
-          {errorMessage && (
-            <Typography variant="h6" color="error">
-              {errorMessage}
-            </Typography>
+          <IconButton
+            onClick={handleClose}
+            sx={{
+              position: "absolute",
+              top: 10,
+              right: 10,
+              color: "gray",
+            }}
+          >
+            <CloseIcon />
+          </IconButton>
+
+          {errorMsgForModal && (
+            <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
+              <Error sx={{ color: "red", mr: 1 }} />
+              <Typography variant="h6" color="error">
+                {errorMsgForModal}
+              </Typography>
+            </Box>
           )}
+
           {successMessage && (
-            <Typography variant="h6" color="primary">
-              {successMessage}
-            </Typography>
+            <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
+              <CheckCircle sx={{ color: "green", mr: 1 }} />
+              <Typography variant="h6" color="primary">
+                {successMessage}
+              </Typography>
+            </Box>
           )}
         </Box>
       </Modal>
