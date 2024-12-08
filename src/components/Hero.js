@@ -320,7 +320,15 @@ export default function Hero() {
                       ),
                       endAdornment: (
                         <InputAdornment position="end">
-                          <IconButton>
+                          <IconButton
+                            onClick={() => {
+                              setFormData({
+                                ...formData,
+                                pickupLocation: formData.dropLocation,
+                                dropLocation: formData.pickupLocation,
+                              });
+                            }}
+                          >
                             <SwapVertIcon sx={{ color: "#095ff0" }} />
                           </IconButton>
                         </InputAdornment>
