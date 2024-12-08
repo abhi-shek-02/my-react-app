@@ -28,72 +28,20 @@ import dayjs from "dayjs";
 import { PriceList } from "../utils/constant";
 
 // Custom futuristic theme
-const futuristicTheme = createTheme({
-  palette: {
-    mode: "dark",
-    primary: {
-      main: "#fff",
-    },
-    secondary: {
-      main: "#00bcd4",
-    },
-    background: {
-      default: "#090E10",
-      paper: "#1e1e1e",
-    },
-  },
-  typography: {
-    fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
-  },
-  components: {
-    MuiButton: {
-      styleOverrides: {
-        root: {
-          borderRadius: "20px",
-          boxShadow: "0 4px 8px rgba(0, 0, 0, 0.3)",
-          "&:hover": {
-            backgroundColor: "#fff",
-            boxShadow: "0 6px 12px rgba(0, 0, 0, 0.3)",
-          },
-        },
-      },
-    },
-    MuiTextField: {
-      styleOverrides: {
-        root: {
-          borderRadius: "10px",
-          "& .MuiOutlinedInput-root": {
-            borderRadius: "10px",
-            "& fieldset": {
-              borderColor: "#fff",
-            },
-            "&:hover fieldset": {
-              borderColor: "#00bcd4",
-            },
-          },
-          "& .MuiInputLabel-root": {
-            color: "#fff",
-          },
-        },
-      },
-    },
-  },
-});
 
 const Header = styled(Box)(({ theme }) => ({
   display: "flex",
   justifyContent: "space-between",
   alignItems: "center",
   padding: theme.spacing(2),
-  backgroundColor: theme.palette.background.default,
-  boxShadow: theme.shadows[1],
   marginBottom: theme.spacing(2),
 }));
 
 const FiltersSection = styled(Box)(({ theme }) => ({
-  padding: theme.spacing(2),
-  borderRight: `1px solid ${theme.palette.divider}`,
+  // padding: theme.spacing(2),
+  // borderRight: `1px solid ${theme.palette.divider}`,
   height: "100%",
+  color: "black",
 }));
 
 const ResultSection = styled(Box)(({ theme }) => ({
@@ -103,8 +51,7 @@ const ResultSection = styled(Box)(({ theme }) => ({
 const CarCard = styled(Paper)(({ theme }) => ({
   padding: theme.spacing(2),
   textAlign: "center",
-  color: theme.palette.text.secondary,
-  boxShadow: theme.shadows[3],
+
   borderRadius: theme.shape.borderRadius,
 }));
 
@@ -112,9 +59,7 @@ const IconSection = styled(Box)(({ theme }) => ({
   display: "flex",
   justifyContent: "space-between",
   padding: theme.spacing(2),
-  backgroundColor: theme.palette.background.paper,
   borderRadius: theme.shape.borderRadius,
-  boxShadow: theme.shadows[1],
   marginBottom: theme.spacing(2),
 }));
 
@@ -251,9 +196,9 @@ export default function Quote() {
   };
 
   return (
-    <ThemeProvider theme={futuristicTheme}>
-      <CssBaseline />
-      <Container maxWidth="lg" sx={{ marginTop: 10 }}>
+    <Container sx={{ marginTop: 10 }}>
+      {/* <CssBaseline /> */}
+      <Container maxWidth="lg" sx={{ marginTop: 0 }}>
         {/* Header */}
         <Header>
           {editMode ? (
@@ -381,7 +326,7 @@ export default function Quote() {
           {/* Search Results Section */}
           <Grid item xs={12} sm={9}>
             <ResultSection>
-              <Typography variant="h6">Search Result</Typography>
+              <Typography variant="h5">Search Result</Typography>
               <Typography variant="h6">
                 Your Safety Is Our Main Priority
               </Typography>
@@ -389,7 +334,7 @@ export default function Quote() {
                 <Box sx={{ textAlign: "center", padding: 2 }}>
                   <LocationOnIcon
                     fontSize="large"
-                    sx={{ color: "#00bcd4", marginBottom: 1 }}
+                    sx={{ color: "#095ff0", marginBottom: 1 }}
                   />
                   <Typography variant="body1" color="textPrimary">
                     Safe Arrival
@@ -398,7 +343,7 @@ export default function Quote() {
                 <Box sx={{ textAlign: "center", padding: 2 }}>
                   <LocalHospitalIcon
                     fontSize="large"
-                    sx={{ color: "#00bcd4", marginBottom: 1 }}
+                    sx={{ color: "#095ff0", marginBottom: 1 }}
                   />
                   <Typography variant="body1" color="textPrimary">
                     Sanitized Cabs
@@ -407,7 +352,7 @@ export default function Quote() {
                 <Box sx={{ textAlign: "center", padding: 2 }}>
                   <HygieneIcon
                     fontSize="large"
-                    sx={{ color: "#00bcd4", marginBottom: 1 }}
+                    sx={{ color: "#095ff0", marginBottom: 1 }}
                   />
                   <Typography variant="body1" color="textPrimary">
                     Clean & Safe
@@ -745,6 +690,6 @@ export default function Quote() {
       </Modal>
       <Divider />
       <Footer />
-    </ThemeProvider>
+    </Container>
   );
 }

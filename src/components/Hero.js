@@ -19,6 +19,7 @@ import { uniqueLocation } from "../utils/constant";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import DateRangeIcon from "@mui/icons-material/DateRange";
 import SwapVertIcon from "@mui/icons-material/SwapVert";
+import ScreenLoader from "./ScreenLoader";
 
 const StyledContainer = styled(Container)(({ theme }) => ({
   display: "flex",
@@ -59,6 +60,7 @@ export default function Hero() {
   const [errorMessage, setErrorMessage] = React.useState({});
   const pickUpLocationArray = [...uniqueLocation];
   const dropLocationArray = [...uniqueLocation];
+  const [loading, setLoading] = React.useState(false);
 
   const handleContactUsClick = () => {
     navigate("/contact");
@@ -125,18 +127,23 @@ export default function Hero() {
 
     setErrorMessage(validationErrors);
     if (Object.keys(validationErrors).length === 0) {
-      navigate("/quote", {
-        state: {
-          currentLocation: formData.pickupLocation,
-          destination: formData.dropLocation,
-          selectedDate: formData.journeyDate,
-          mobileNumber: formData.phoneNumber,
-        },
-      });
+      setLoading(true);
+      setTimeout(() => {
+        setLoading(false); // Hide loader after 800 ms
+        navigate("/quote", {
+          state: {
+            currentLocation: formData.pickupLocation,
+            destination: formData.dropLocation,
+            selectedDate: formData.journeyDate,
+            mobileNumber: formData.phoneNumber,
+          },
+        });
+      }, 1000);
     }
   };
   return (
     <Container sx={{ marginTop: -1 }}>
+      {loading && <ScreenLoader />}
       <Box
         id="hero"
         sx={(theme) => ({
