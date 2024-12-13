@@ -156,7 +156,7 @@ export default function Hero() {
       >
         <StyledContainer>
           <Box>
-            <Typography variant="h3" gutterBottom sx={{ color: "#4C4B5E" }}>
+            <Typography variant="h2" gutterBottom sx={{ color: "#4C4B5E" }}>
               Experience{" "}
               <span
                 style={{
@@ -168,7 +168,8 @@ export default function Hero() {
                 ZingCab
               </span>
             </Typography>
-            <Typography variant="body1" gutterBottom>
+
+            {/* <Typography variant="body1" gutterBottom>
               <Typography
                 variant="h6"
                 gutterBottom
@@ -188,7 +189,29 @@ export default function Hero() {
                 >
                   one-way cab services
                 </span>
-              </Typography>
+              </Typography> */}
+
+            <Typography
+              variant="h4"
+              gutterBottom
+              sx={{
+                color: "#4C4B5E",
+                display: { xs: "none", sm: "block" }, // Adjust display for screen sizes
+              }}
+            >
+              The gold standard of rides
+            </Typography>
+
+            <Typography variant="h5" gutterBottom sx={{ color: "#4C4B5E" }}>
+              We bring you unparalleled convenience with our{" "}
+              <span
+                style={{
+                  fontWeight: "bold",
+                  color: "#095ff0",
+                }}
+              >
+                one-way cab services
+              </span>
             </Typography>
             <Button
               variant="contained"
