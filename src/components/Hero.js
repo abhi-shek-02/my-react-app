@@ -394,6 +394,7 @@ export default function Hero() {
                   {/* Journey Date */}
                   <TextField
                     id="outlined-basic-journeyDate"
+                    label="Journey Date"
                     type="date"
                     fullWidth
                     required
