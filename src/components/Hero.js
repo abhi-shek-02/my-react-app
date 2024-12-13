@@ -358,6 +358,7 @@ export default function Hero() {
                                 dropLocation: formData.pickupLocation,
                               });
                             }}
+                            aria-label="Swap locations" // Added accessible name
                           >
                             <SwapVertIcon sx={{ color: "#095ff0" }} />
                           </IconButton>
