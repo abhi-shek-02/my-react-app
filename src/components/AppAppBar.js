@@ -135,7 +135,11 @@ function AppAppBar({ mode, toggleColorMode }) {
                 />
               </Button>
 
-              <Box sx={{ display: { xs: "none", md: "flex" } }}>
+              <Box
+                sx={{ display: { xs: "none", md: "flex" } }}
+                role="navigation"
+                aria-label="Main navigation"
+              >
                 <MenuItem
                   onClick={() => handleAboutClick("features")}
                   sx={{ py: "6px", px: "12px" }}
