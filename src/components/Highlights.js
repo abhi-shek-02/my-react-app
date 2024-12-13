@@ -166,7 +166,7 @@ const items = [
   },
   {
     lottieSrc: animationData5,
-    title: "Reliable support",
+    title: "Reliable Support",
     description:
       "Count on our responsive customer support, offering assistance that goes beyond the purchase.",
   },
@@ -213,7 +213,7 @@ export default function Highlights() {
           >
             Why ZingCab?
           </Typography>
-          <Typography variant="body1" sx={{ color: "#adadad" }}>
+          <Typography variant="body1" sx={{ color: "#4c4c4c" }}>
             ZingCab facilitates one-sided trips for customers by connecting them
             with cars that would otherwise return empty, ensuring efficient and
             cost-effective travel experiences with "One Way Trip..One Way
@@ -236,7 +236,7 @@ export default function Highlights() {
                   background: "transparent",
                   backgroundColor: "#FFFFFF",
                   borderRadius: "10px",
-                  boxShadow: " 0 0 5px 0 rgba(0, 0, 0, 0.1)",
+                  boxShadow: "0 0 5px 0 rgba(0, 0, 0, 0.1)",
                 }}
               >
                 <Box
@@ -257,7 +257,7 @@ export default function Highlights() {
                   <Typography
                     fontWeight="medium"
                     sx={{
-                      color: "#4c4b5e",
+                      color: "#4c4c4c",
                       justifyContent: "center",
                       display: "flex",
                     }}
@@ -267,7 +267,7 @@ export default function Highlights() {
                   <Typography
                     variant="body2"
                     sx={{
-                      color: "#adadad",
+                      color: "#6b6b6b",
                       justifyContent: "center",
                       display: "flex",
                       textAlign: "center",
