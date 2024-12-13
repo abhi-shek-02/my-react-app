@@ -313,7 +313,13 @@ export default function Footer() {
           <Box sx={{ width: { xs: "100%", sm: "60%" } }}>
             <Box sx={{ ml: "-15px" }}>
               <Button href="/" style={{ padding: 0 }}>
-                <img src={Logo} style={logoStyle} alt="ZingCab logo" />
+                <img
+                  srcSet={`${Logo}?w=200 200w, ${Logo}?w=400 400w, ${Logo}?w=800 800w`}
+                  sizes="(max-width: 600px) 200px, (max-width: 1200px) 400px, 800px"
+                  src={Logo}
+                  style={logoStyle}
+                  alt="ZingCab logo"
+                />
               </Button>
             </Box>
             <Typography variant="body2" fontWeight={600} gutterBottom>
