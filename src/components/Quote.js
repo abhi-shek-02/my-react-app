@@ -83,12 +83,19 @@ export default function Quote() {
   const [loading, setLoading] = React.useState(false);
   const [successMessage, setSuccessMessage] = React.useState("");
   const [bookingId, setBookingId] = React.useState("");
+  const [carType, setCarType] = React.useState("");
+  const [amount, setAmount] = React.useState("");
+
   React.useEffect(() => {
     if (location.state == null) {
       window.location.href = `${window.location.origin}`;
     }
   }, [location, location.state]);
-  const handleOpen = () => setOpen(true);
+  const handleOpen = (carType, amt) => {
+    setAmount(amt);
+    setCarType(carType);
+    setOpen(true);
+  };
   const handleClose = () => {
     setOpen(false);
     setEditMode(false);
@@ -152,6 +159,10 @@ export default function Quote() {
     setLoading(true);
     setErrorMessage({});
     setSuccessMessage("");
+    const digits = amount.replace(/\D/g, ""); // Removes all non-digit characters
+    console.log(digits);
+    console.log("carType", carType);
+    console.log("amount", digits);
 
     try {
       // Simulate a POST request
@@ -482,7 +493,16 @@ export default function Quote() {
                     <Button
                       variant="contained"
                       color="primary"
-                      onClick={handleOpen}
+                      onClick={() =>
+                        handleOpen(
+                          "sedan",
+                          getPrice(
+                            "booking_total_price_dzire",
+                            formData?.pickupLocation,
+                            formData?.dropLocation
+                          )
+                        )
+                      }
                       sx={{
                         padding: { xs: "12px 24px", sm: "10px 20px" }, // Adjusted padding for mobile
                         borderRadius: "20px",
@@ -562,7 +582,16 @@ export default function Quote() {
                     <Button
                       variant="contained"
                       color="primary"
-                      onClick={handleOpen}
+                      onClick={() =>
+                        handleOpen(
+                          "suv",
+                          getPrice(
+                            "booking_total_price_innova",
+                            formData?.pickupLocation,
+                            formData?.dropLocation
+                          )
+                        )
+                      }
                       sx={{
                         padding: { xs: "12px 24px", sm: "10px 20px" }, // Adjusted padding for mobile
                         borderRadius: "20px",
