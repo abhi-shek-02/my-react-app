@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import CssBaseline from "@mui/material/CssBaseline";
 import Box from "@mui/material/Box";
-import { ThemeProvider, createTheme } from "@mui/material/styles";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import MenuItem from "@mui/material/MenuItem";
@@ -13,59 +12,6 @@ import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
-
-// Custom futuristic theme
-const futuristicTheme = createTheme({
-  palette: {
-    mode: "dark",
-    primary: {
-      main: "#00bcd4", // Teal
-    },
-    secondary: {
-      main: "#ff4081", // Pink
-    },
-    background: {
-      default: "#090E10",
-      paper: "#1e1e1e",
-    },
-  },
-  typography: {
-    fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
-  },
-  components: {
-    MuiButton: {
-      styleOverrides: {
-        root: {
-          borderRadius: "20px",
-          boxShadow: "0 4px 8px rgba(0, 0, 0, 0.3)",
-          "&:hover": {
-            backgroundColor: "#00bcd4",
-            boxShadow: "0 6px 12px rgba(0, 0, 0, 0.3)",
-          },
-        },
-      },
-    },
-    MuiTextField: {
-      styleOverrides: {
-        root: {
-          borderRadius: "10px",
-          "& .MuiOutlinedInput-root": {
-            borderRadius: "10px",
-            "& fieldset": {
-              borderColor: "#fff",
-            },
-            "&:hover fieldset": {
-              borderColor: "#00bcd4",
-            },
-          },
-          "& .MuiInputLabel-root": {
-            color: "#fff",
-          },
-        },
-      },
-    },
-  },
-});
 
 // Sample booking data
 const bookingData = [
@@ -120,9 +66,7 @@ const WebDashboard = () => {
   });
 
   return (
-    <ThemeProvider theme={showCustomTheme ? futuristicTheme : futuristicTheme}>
-      <CssBaseline />
-
+    <Box>
       <TableContainer
         component={Paper}
         sx={{ margin: "auto", maxWidth: "90%", padding: 2 }}
@@ -180,7 +124,7 @@ const WebDashboard = () => {
           </TableBody>
         </Table>
       </TableContainer>
-    </ThemeProvider>
+    </Box>
   );
 };
 
