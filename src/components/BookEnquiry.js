@@ -102,7 +102,7 @@ const BookEnquiry = () => {
 
       try {
         const response = await fetch(
-          "https://bookings-uhs1.onrender.com/api/v1/booking/create",
+          `${process.env.REACT_APP_API_URL}/api/v1/booking/create`,
           requestOptions
         );
 
