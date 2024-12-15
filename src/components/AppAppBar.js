@@ -52,11 +52,11 @@ function AppAppBar({ mode, toggleColorMode }) {
   };
 
   const handleHowItWorksClick = () => {
-    navigate("/how-it-works");
+    navigate("/process");
   };
 
   const handleBookEnquiryClick = () => {
-    navigate("/book-enquiry");
+    navigate("/help");
   };
 
   const handleFAQClick = () => {
@@ -66,19 +66,17 @@ function AppAppBar({ mode, toggleColorMode }) {
     navigate("/");
   };
   const handleCancelBooking = () => {
-    navigate("/cancel-booking");
+    navigate("/cancel");
   };
   const handleTermsConditions = () => {
-    navigate("/terms-conditions");
+    navigate("/tnc");
   };
   const handleRefundPolicy = () => {
-    navigate("/refund-policy");
+    navigate("/refunds");
   };
   const handleMissionAndVision = () => {
-    navigate("/mission-and-vision");
+    navigate("/mission");
   };
-
-  // /terms-conditions
 
   return (
     <div>

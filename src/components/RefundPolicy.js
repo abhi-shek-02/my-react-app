@@ -30,7 +30,7 @@ const RefundPolicy = () => {
         <Typography variant="body1" align="center" paragraph sx={{ mt: 5 }}>
           For any reason, you are not completely satisfied with your booking or
           have multiple itineraries for the same trip, we invite you to review
-          our Refund Policy. ZingCab believes in helping its customers as much
+          our Refund Policy. zingcab believes in helping its customers as much
           as possible and has, therefore, a reliable cancellation and refund
           policy.
         </Typography>
@@ -90,13 +90,13 @@ const RefundPolicy = () => {
             <Typography variant="body1" align="left" paragraph>
               The cancellation can be made over the official website's "Cancel
               Booking" section. Please note that no cancellations are
-              entertained in any case for those services that ZingCab's
+              entertained in any case for those services that zingcab's
               marketing team has obtained on special occasions like Pongal,
               Dussehra, New Year, Diwali, etc. These are limited-time offers,
               which is why cancellations are not possible.
             </Typography>
             <Typography variant="body1" align="left" paragraph>
-              ZingCab will not be responsible for any delay of service in case
+              zingcab will not be responsible for any delay of service in case
               of any natural calamity, strike, road jam, agitation, etc.
               Moreover, we reserve the right to cancel or change the booking of
               a vehicle at any point in time.
@@ -130,7 +130,7 @@ const RefundPolicy = () => {
             <Typography variant="body1" align="left" paragraph>
               In a situation where the driver’s vehicle breaks down on the trip,
               you may ask the driver to find an alternative hire service for
-              you. ZingCab holds no responsibility in such situations for making
+              you. zingcab holds no responsibility in such situations for making
               any special arrangements whatsoever. If the driver fails to
               arrange any alternative hire service for you, you may be liable to
               pay an appropriate fare for the part of the trip covered by the
@@ -152,8 +152,16 @@ const RefundPolicy = () => {
                 Policy, please contact us:
               </ListItem>
               <ListItem>
-                <a href="http://www.ZingCab.com/contact">
-                  www.ZingCab.com/contact
+                <a href="http://www.zingcab.in/contact">
+                  www.zingcab.in/contact
+                </a>
+              </ListItem>
+              <ListItem>
+                <a
+                  href="mailto:support@zingcab.in"
+                  style={{ color: "#1976d2", textDecoration: "none" }}
+                >
+                  support@zingcab.in
                 </a>
               </ListItem>
             </List>

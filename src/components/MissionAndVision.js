@@ -28,7 +28,7 @@ const MissionAndVision = () => {
           </Grid>
           <Grid item xs={12} sm={6}>
             <Typography variant="body1" align="left" paragraph>
-              At ZingCab, our core values are rooted in delivering fair pricing
+              At zingcab, our core values are rooted in delivering fair pricing
               and earning the trust of our customers. We stand firmly by the
               idea that <b>“Return Fare isn’t Fair!”</b>
             </Typography>
@@ -39,11 +39,11 @@ const MissionAndVision = () => {
         <Grid container spacing={4} alignItems="center" sx={{ mt: 7 }}>
           <Grid item xs={12} sm={6} order={{ xs: 2, sm: 1 }}>
             <Typography variant="body1" align="left" paragraph>
-              Two years ago, we embarked on a journey to offer the most
-              budget-friendly intercity cab service across West Bengal. Guided
-              by our vision, <b>“To be the Best, not the Biggest,”</b> we
-              focused on creating a refined marketplace where high-quality cab
-              services are accessible, affordable, and risk-free.
+              We embarked on a journey to offer the most budget-friendly
+              intercity cab service across West Bengal. Guided by our vision,{" "}
+              <b>“To be the Best, not the Biggest,”</b> we focused on creating a
+              refined marketplace where high-quality cab services are
+              accessible, affordable, and risk-free.
             </Typography>
           </Grid>
           <Grid item xs={12} sm={6} order={{ xs: 1, sm: 2 }}>
@@ -77,7 +77,7 @@ const MissionAndVision = () => {
         </Grid>
 
         <Typography variant="body2" align="center" sx={{ mt: 7 }}>
-          ZingCab offers a seamless way to find affordable cabs in West Bengal.
+          zingcab offers a seamless way to find affordable cabs in West Bengal.
           We provide competitive pricing while ensuring a comfortable and
           reliable travel experience. Book your cab online today and experience
           our budget-friendly rates without compromising on quality.

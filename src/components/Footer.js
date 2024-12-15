@@ -123,13 +123,13 @@ export default function Footer() {
             Contact Us
           </a>
           <a
-            href="/mission-and-vision"
+            href="/mission"
             style={{ color: "inherit", textDecoration: "none" }}
           >
             Mission & Vision
           </a>
           <a
-            href="/how-it-works"
+            href="/process"
             style={{ color: "inherit", textDecoration: "none" }}
           >
             How It Works
@@ -145,20 +145,17 @@ export default function Footer() {
           <Typography variant="body2" fontWeight={600}>
             Quick Links
           </Typography>
-          <a
-            href="/terms-conditions"
-            style={{ color: "inherit", textDecoration: "none" }}
-          >
+          <a href="/tnc" style={{ color: "inherit", textDecoration: "none" }}>
             Terms & Conditions
           </a>
           <a
-            href="/refund-policy"
+            href="/refunds"
             style={{ color: "inherit", textDecoration: "none" }}
           >
             Refund Policy
           </a>
           <a
-            href="/cancel-booking"
+            href="/cancel"
             style={{ color: "inherit", textDecoration: "none" }}
           >
             Cancel Booking

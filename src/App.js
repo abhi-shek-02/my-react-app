@@ -30,7 +30,7 @@ function App() {
       setLoading(false);
     }, 800);
 
-    return () => clearTimeout(timer); 
+    return () => clearTimeout(timer);
   }, []);
   if (loading) {
     return <ScreenLoader />;
@@ -44,13 +44,13 @@ function App() {
           <Route path="/quote" element={<Quote />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<ContactUs />} />
-          <Route path="/how-it-works" element={<HowItWorks />} />
-          <Route path="/book-enquiry" element={<BookEnquiry />} />
-          <Route path="/mission-and-vision" element={<MissionAndVision />} />
-          <Route path="/refund-policy" element={<RefundPolicy />} />
-          <Route path="/cancel-booking" element={<CancelBooking />} />
+          <Route path="/process" element={<HowItWorks />} />
+          <Route path="/help" element={<BookEnquiry />} />
+          <Route path="/mission" element={<MissionAndVision />} />
+          <Route path="/refunds" element={<RefundPolicy />} />
+          <Route path="/cancel" element={<CancelBooking />} />
           <Route path="/faq" element={<FAQS />} />
-          <Route path="/terms-conditions" element={<TermsAndCondition />} />
+          <Route path="/tnc" element={<TermsAndCondition />} />
           <Route path="/sign-in" element={<SignIn />} />
           <Route path="/sign-up" element={<SignUp />} />
           <Route

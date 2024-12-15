@@ -114,15 +114,15 @@ const TermsAndCondition = () => {
           />
 
           <Typography variant="subtitle1" gutterBottom sx={{ mt: 4 }}>
-            Effective Date: 19th August, 2022
+            Effective Date: 19th December, 2024
           </Typography>
           <Grid container spacing={4} alignItems="center" sx={{ mt: 4 }}>
             <Grid item xs={12} sm={6}>
               <Typography variant="body1" gutterBottom>
-                Welcome to ZingCab! ZingCab is owned by ZingCab OPC Private
-                Limited and any reference herein to ZingCab, its application,
+                Welcome to zingcab! zingcab is owned by zingcab OPC Private
+                Limited and any reference herein to zingcab, its application,
                 website or services shall be deemed to have a reference to
-                ZingCab OPC Private Limited (“ZingCab”, “we”, “us”, or “our”).
+                zingcab OPC Private Limited (zingcab, “we”, “us”, or “our”).
               </Typography>
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -139,7 +139,7 @@ const TermsAndCondition = () => {
           {/* Add more terms and conditions here */}
           <Typography variant="body1" gutterBottom sx={{ mt: 2 }}>
             These Terms of Use are the terms of agreement between the cab
-            drivers and ZingCab for using or accessing our Services.
+            drivers and zingcab for using or accessing our Services.
           </Typography>
         </Container>
       </Box>
