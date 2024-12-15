@@ -98,7 +98,7 @@ export default function Footer() {
                 sx={{ mr: 1, color: "text.secondary", color: "#095ff0" }}
               />
               <Typography variant="body2" color="text.secondary">
-                Toll Free Number: 1800-0000-00
+                1800-0000-00
               </Typography>
             </Box>
           </Box>

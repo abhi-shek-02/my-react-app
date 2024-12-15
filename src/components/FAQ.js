@@ -73,7 +73,7 @@ export default function FAQ() {
                 sx={{ maxWidth: { sm: "100%", md: "70%" } }}
               >
                 You can reach our customer support team by emailing
-                <Link> support@email.com </Link>
+                <Link> support@zingcab.in </Link>
                 or calling our toll-free number. We&apos;re here to assist you
                 promptly.
               </Typography>
