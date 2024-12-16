@@ -121,7 +121,7 @@ const ContactUs = () => {
     if (Object.keys(validationErrors).length === 0) {
       try {
         const response = await fetch(
-          "https://bookings-uhs1.onrender.com/api/v1/contact/create",
+          `${process.env.REACT_APP_API_URL}api/contact`,
           {
             method: "POST",
             headers: {

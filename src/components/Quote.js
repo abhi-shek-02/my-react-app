@@ -160,19 +160,38 @@ export default function Quote() {
     setErrorMessage({});
     setSuccessMessage("");
     const digits = amount.replace(/\D/g, ""); // Removes all non-digit characters
-    console.log(digits);
-    console.log("carType", carType);
-    console.log("amount", digits);
 
     try {
-      // Simulate a POST request
-      const response = await new Promise((resolve) =>
-        setTimeout(() => resolve({ data: { bookingId: "12345" } }), 2000)
+      const response = await fetch(
+        `${process.env.REACT_APP_API_URL}api/booking`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            pickupLocation: formData.pickupLocation,
+            dropLocation: formData.dropLocation,
+            dateOfJourney: formData.journeyDate,
+            phoneNumber: formData.phoneNumber,
+            carType: carType,
+            amount: parseInt(digits, 10),
+            message: formData.message,
+          }),
+        }
       );
-      setBookingId(response.data.bookingId);
+      if (!response.ok) {
+        throw new Error(`Something went wrong!`);
+      }
+      const data = await response.json();
+      console.log("Response Data:", data);
+      setBookingId(data.bookingId || "");
       setSuccessMessage("Booking successful!");
     } catch (error) {
-      setErrorMessage({ message: "Failed to submit the form" });
+      console.error("Error submitting form:", error);
+      setErrorMessage({
+        message: `Something went wrong!`,
+      });
     } finally {
       setLoading(false);
     }

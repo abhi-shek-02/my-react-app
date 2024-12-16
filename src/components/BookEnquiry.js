@@ -97,12 +97,13 @@ const BookEnquiry = () => {
           drop_location: formData.dropLocation,
           phone: formData.phoneNumber,
           date: formData.journeyDate,
+          message: formData.message,
         }),
       };
 
       try {
         const response = await fetch(
-          "https://bookings-uhs1.onrender.com/api/v1/booking/create",
+          `${process.env.REACT_APP_API_URL}api/enquiry`,
           requestOptions
         );
 

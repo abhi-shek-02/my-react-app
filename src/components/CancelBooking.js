@@ -124,7 +124,7 @@ const CancelBooking = () => {
     try {
       // Make API call to cancel booking
       const response = await fetch(
-        "https://bookings-uhs1.onrender.com/api/v1/booking/cancel",
+        `${process.env.REACT_APP_API_URL}api/booking/cancel`,
         {
           method: "POST",
           headers: {
@@ -150,9 +150,6 @@ const CancelBooking = () => {
       setBookingId("");
     } catch (error) {
       console.error("Error:", error);
-      // Hide loader
-      setIsLoading(false);
-      // Handle error (e.g., display error message to user)
     }
   };
 
