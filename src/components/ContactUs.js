@@ -12,7 +12,13 @@ import Footer from "./Footer";
 import Divider from "@mui/material/Divider";
 import TextField from "@mui/material/TextField";
 import { motion } from "framer-motion";
-import { InputAdornment } from "@mui/material";
+import {
+  InputAdornment,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+} from "@mui/material";
 
 // Custom futuristic theme
 // const futuristicTheme = createTheme({
@@ -89,10 +95,8 @@ const ContactUs = () => {
     email: "",
   });
   const [errors, setErrors] = useState({});
-
-  // const toggleColorMode = () => {
-  //   setMode((prev) => (prev === "dark" ? "light" : "dark"));
-  // };
+  const [openSuccessModal, setOpenSuccessModal] = useState(false);
+  const [isSuccess, setIsSuccess] = useState("");
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -127,27 +131,42 @@ const ContactUs = () => {
             headers: {
               "Content-Type": "application/json",
             },
-            body: JSON.stringify(formData),
+            body: JSON.stringify({
+              name: formData?.name,
+              phoneNumber: formData?.phone, // Updated key
+              email: formData?.email,
+              subject: formData?.subject,
+              message: formData?.message,
+            }),
           }
         );
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
         const data = await response.json();
         console.log("Success:", data);
-        // Clear form after successful submission
-        setFormData({
-          name: "",
-          phone: "",
-          subject: "",
-          message: "",
-          email: "",
-        });
-        setErrors({});
+        if (data?.success) {
+          setOpenSuccessModal(true);
+          setIsSuccess("true");
+          // Clear form after successful submission
+          setFormData({
+            name: "",
+            phone: "",
+            subject: "",
+            message: "",
+            email: "",
+          });
+          setErrors({});
+        } else if (data?.success == false) {
+          setOpenSuccessModal(true);
+          setIsSuccess("false");
+        }
       } catch (error) {
         console.error("Error:", error);
       }
     }
+  };
+
+  const handleCloseSuccessModal = () => {
+    setOpenSuccessModal(false);
+    setIsSuccess("");
   };
 
   return (
@@ -483,9 +502,34 @@ const ContactUs = () => {
           </motion.form>
         </Box>
       </Container>
-      {/* </ThemeProvider> */}
+
+      {/* Success Modal */}
+      <Dialog open={openSuccessModal} onClose={handleCloseSuccessModal}>
+        {/* <DialogTitle>Success</DialogTitle> */}
+        <DialogContent>
+          {isSuccess == "true" && (
+            <Typography>
+              Thank you for contacting us! We will get back to you soon.
+            </Typography>
+          )}
+          {isSuccess == "false" && (
+            <Typography>Something went wrong</Typography>
+          )}
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseSuccessModal} color="primary">
+            Close
+          </Button>
+        </DialogActions>
+      </Dialog>
+
       <Footer />
     </Container>
   );
 };
+
+ContactUs.propTypes = {
+  window: PropTypes.func,
+};
+
 export default ContactUs;

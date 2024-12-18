@@ -180,18 +180,23 @@ export default function Quote() {
           }),
         }
       );
-      if (!response.ok) {
-        throw new Error(`Something went wrong!`);
-      }
       const data = await response.json();
       console.log("Response Data:", data);
-      setBookingId(data.bookingId || "");
-      setSuccessMessage("Booking successful!");
+      if (data?.success) {
+        setBookingId(data.bookingId || "");
+        setSuccessMessage("Booking successful!");
+      } else {
+        setBookingId("");
+        setErrorMessage({
+          message: `Something went wrong!`,
+        });
+      }
     } catch (error) {
       console.error("Error submitting form:", error);
       setErrorMessage({
         message: `Something went wrong!`,
       });
+      setBookingId("");
     } finally {
       setLoading(false);
     }
@@ -755,7 +760,7 @@ export default function Quote() {
                 color="success.main"
                 sx={{ mt: 2, textAlign: "center" }}
               >
-                {successMessage} Booking ID: {bookingId}
+                {successMessage} {bookingId && `Booking ID: ${bookingId}`}
               </Typography>
             )}
             {errorMessage.message && (

@@ -33,7 +33,10 @@ const BookEnquiry = () => {
   const [bookingId, setBookingId] = useState("");
 
   const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const handleClose = () => {
+    setOpen(false);
+    setErrorMsgForModal("");
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -42,6 +45,17 @@ const BookEnquiry = () => {
       [name]: value,
     }));
   };
+  function formatToISO8601(dateString) {
+    // Ensure the date string is in the right format (YYYY-MM-DD)
+    const date = new Date(dateString);
+
+    // Check if the date is valid
+    if (isNaN(date.getTime())) {
+      throw new Error("Invalid date format");
+    }
+
+    return date.toISOString(); // Converts to "2024-12-15T00:00:00.000Z"
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -93,10 +107,10 @@ const BookEnquiry = () => {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          pickup_location: formData.pickupLocation,
-          drop_location: formData.dropLocation,
-          phone: formData.phoneNumber,
-          date: formData.journeyDate,
+          pickupLocation: formData.pickupLocation,
+          dropLocation: formData.dropLocation,
+          phoneNumber: formData.phoneNumber,
+          dateOfJourney: formatToISO8601(formData.journeyDate),
           message: formData.message,
         }),
       };
@@ -108,11 +122,10 @@ const BookEnquiry = () => {
         );
 
         const data = await response.json();
-        console.log("data", data);
 
-        if (data?.success) {
+        if (data?.success == true) {
           setBookingId(data?.data?._id);
-          setSuccessMessage("Booking Successful");
+          setSuccessMessage(`Enquiry received successfully!`);
           handleOpen();
         } else {
           setErrorMsgForModal("Something went wrong!");
