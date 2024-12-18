@@ -163,7 +163,7 @@ export default function Quote() {
 
     try {
       const response = await fetch(
-        `${process.env.REACT_APP_API_URL}api/booking`,
+        `${process.env.REACT_APP_API_URL}api/booking/book`,
         {
           method: "POST",
           headers: {
