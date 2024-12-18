@@ -117,7 +117,9 @@ const CancelBooking = () => {
     setShowCustomTheme((prev) => !prev);
   };
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (event) => {
+    event.preventDefault(); // Prevent page reload
+
     // Show loader
     setIsLoading(true);
 
