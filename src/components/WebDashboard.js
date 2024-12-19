@@ -16,6 +16,7 @@ import {
   TextField,
   Button,
   Pagination,
+  TablePagination,
 } from "@mui/material";
 
 const AdminPanel = () => {
@@ -53,12 +54,22 @@ const AdminPanel = () => {
 // Component for Enquiry Details
 const GetEnquiryDetails = () => {
   const [data, setData] = useState([]);
-  const [filterPhone, setFilterPhone] = useState("");
+  const [filterPhone, setFilterPhone] = useState(""); // For phone number filter
+  const [startDate, setStartDate] = useState(
+    new Date(new Date().setDate(new Date().getDate() - 30)) // Default start date 30 days ago
+      .toISOString()
+      .split("T")[0]
+  );
+  const [endDate, setEndDate] = useState(
+    new Date().toISOString().split("T")[0]
+  ); // Default to today
+  const [page, setPage] = useState(0); // Current page
+  const [rowsPerPage, setRowsPerPage] = useState(5); // Rows per page
 
   const fetchEnquiryDetails = async () => {
     try {
       const response = await fetch(
-        "https://api.zingcab.in/api/admin/get-enquiry-details"
+        `https://api.zingcab.in/api/admin/get-enquiry-details?startDate=${startDate}&endDate=${endDate}`
       );
       const result = await response.json();
       if (response.ok && result.success) {
@@ -75,21 +86,50 @@ const GetEnquiryDetails = () => {
   };
 
   useEffect(() => {
-    fetchEnquiryDetails();
-  }, []);
+    fetchEnquiryDetails(); // Fetch data initially when the component mounts
+  }, [startDate, endDate]); // Trigger fetch when dates change
 
+  // Filter data by phone number
   const filteredData = filterPhone
     ? data.filter((item) => item.phoneNumber.includes(filterPhone))
     : data;
 
+  // Handle page change
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  // Handle rows per page change
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0); // Reset to the first page when changing rows per page
+  };
+
   return (
     <div>
-      <TextField
-        label="Filter by Phone"
-        value={filterPhone}
-        onChange={(e) => setFilterPhone(e.target.value)}
-        fullWidth
-      />
+      <Box display="flex" justifyContent="space-between" mb={2}>
+        <TextField
+          label="Start Date"
+          type="date"
+          value={startDate}
+          onChange={(e) => setStartDate(e.target.value)} // Update start date
+          InputLabelProps={{ shrink: true }}
+        />
+        <TextField
+          label="End Date"
+          type="date"
+          value={endDate}
+          onChange={(e) => setEndDate(e.target.value)} // Update end date
+          InputLabelProps={{ shrink: true }}
+        />
+        <TextField
+          label="Filter by Phone"
+          value={filterPhone}
+          onChange={(e) => setFilterPhone(e.target.value)} // Update phone filter
+          fullWidth
+        />
+      </Box>
+
       <Button variant="contained" onClick={fetchEnquiryDetails}>
         Refresh Data
       </Button>
@@ -97,32 +137,45 @@ const GetEnquiryDetails = () => {
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell>ID</TableCell>
-              <TableCell>Name</TableCell>
-              <TableCell>Phone</TableCell>
-              <TableCell>Email</TableCell>
-              <TableCell>Subject</TableCell>
-              <TableCell>Message</TableCell>
               <TableCell>Created At</TableCell>
+              <TableCell>Pickup</TableCell>
+              <TableCell>Drop</TableCell>
+              <TableCell>Phone</TableCell>
+              <TableCell>Date of Journey</TableCell>
+              <TableCell>Message</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {filteredData.map((row) => (
-              <TableRow key={row._id}>
-                <TableCell>{row._id}</TableCell>
-                <TableCell>{row.name}</TableCell>
-                <TableCell>{row.phoneNumber}</TableCell>
-                <TableCell>{row.email}</TableCell>
-                <TableCell>{row.subject}</TableCell>
-                <TableCell>{row.message}</TableCell>
-                <TableCell>
-                  {new Date(row.createdAt).toLocaleDateString()}
-                </TableCell>
-              </TableRow>
-            ))}
+            {filteredData
+              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+              .map((row) => (
+                <TableRow key={row._id}>
+                  <TableCell>
+                    {new Date(row.createdAt).toLocaleDateString()}
+                  </TableCell>
+                  <TableCell>{row.pickupLocation}</TableCell>
+                  <TableCell>{row.dropLocation}</TableCell>
+                  <TableCell>{row.phoneNumber}</TableCell>
+                  <TableCell>
+                    {new Date(row.dateOfJourney).toLocaleDateString()}
+                  </TableCell>
+                  <TableCell>{row.message}</TableCell>
+                </TableRow>
+              ))}
           </TableBody>
         </Table>
       </TableContainer>
+
+      {/* Pagination controls */}
+      <TablePagination
+        rowsPerPageOptions={[5, 10, 25]}
+        component="div"
+        count={filteredData.length}
+        rowsPerPage={rowsPerPage}
+        page={page}
+        onPageChange={handleChangePage}
+        onRowsPerPageChange={handleChangeRowsPerPage}
+      />
     </div>
   );
 };
@@ -203,15 +256,32 @@ const GetBookingDetails = () => {
 // Component for Contact Details
 const GetContactDetails = () => {
   const [data, setData] = useState([]);
+  const [startDate, setStartDate] = useState(
+    new Date(new Date().setDate(new Date().getDate() - 30))
+      .toISOString()
+      .split("T")[0]
+  );
+  const [endDate, setEndDate] = useState(
+    new Date().toISOString().split("T")[0]
+  );
+  const [phoneNumber, setPhoneNumber] = useState(""); // Phone number filter
+  const [filteredData, setFilteredData] = useState([]); // Filtered data
+  const [page, setPage] = useState(0); // Current page
+  const [rowsPerPage, setRowsPerPage] = useState(5); // Rows per page
+
+  useEffect(() => {
+    fetchContactDetails();
+  }, [startDate, endDate]); // Trigger API call when dates change
 
   const fetchContactDetails = async () => {
     try {
       const response = await fetch(
-        "https://api.zingcab.in/api/admin/get-contact-details"
+        `https://api.zingcab.in/api/admin/get-contact-details?startDate=${startDate}&endDate=${endDate}`
       );
       const result = await response.json();
       if (response.ok && result.success) {
         setData(result.data);
+        setFilteredData(result.data); // Set initial filtered data
       } else {
         console.error(
           "Error fetching contact details:",
@@ -223,12 +293,65 @@ const GetContactDetails = () => {
     }
   };
 
-  useEffect(() => {
-    fetchContactDetails();
-  }, []);
+  // Handle filtering logic for phone number
+  const handlePhoneNumberChange = (e) => {
+    const phoneNumber = e.target.value;
+    setPhoneNumber(phoneNumber);
+
+    // Filter by date range first
+    const filteredByDate = data.filter((item) => {
+      const isInDateRange =
+        new Date(item.createdAt) >= new Date(startDate) &&
+        new Date(item.createdAt) <= new Date(endDate);
+      return isInDateRange;
+    });
+
+    // Apply phone number filter if provided
+    const filtered = phoneNumber
+      ? filteredByDate.filter((item) => item.phoneNumber.includes(phoneNumber))
+      : filteredByDate;
+
+    setFilteredData(filtered);
+    setPage(0); // Reset page to the first page when filters are applied
+  };
+
+  // Handle page change
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  // Handle rows per page change
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0); // Reset to first page when changing rows per page
+  };
 
   return (
     <div>
+      <Box display="flex" justifyContent="space-between" mb={2}>
+        <TextField
+          label="Start Date"
+          type="date"
+          value={startDate}
+          onChange={(e) => setStartDate(e.target.value)} // Trigger API call on date change
+          InputLabelProps={{ shrink: true }}
+        />
+        <TextField
+          label="End Date"
+          type="date"
+          value={endDate}
+          onChange={(e) => setEndDate(e.target.value)} // Trigger API call on date change
+          InputLabelProps={{ shrink: true }}
+        />
+        <TextField
+          label="Phone Number"
+          type="text"
+          value={phoneNumber}
+          onChange={handlePhoneNumberChange} // Directly handle phone number filter
+          InputLabelProps={{ shrink: true }}
+        />
+      </Box>
+
       <TableContainer component={Paper}>
         <Table>
           <TableHead>
@@ -242,21 +365,34 @@ const GetContactDetails = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {data.map((row) => (
-              <TableRow key={row._id}>
-                <TableCell>
-                  {new Date(row.createdAt).toLocaleDateString()}
-                </TableCell>
-                <TableCell>{row.name}</TableCell>
-                <TableCell>{row.phoneNumber}</TableCell>
-                <TableCell>{row.email}</TableCell>
-                <TableCell>{row.subject}</TableCell>
-                <TableCell>{row.message}</TableCell>
-              </TableRow>
-            ))}
+            {filteredData
+              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+              .map((row) => (
+                <TableRow key={row._id}>
+                  <TableCell>
+                    {new Date(row.createdAt).toLocaleDateString()}
+                  </TableCell>
+                  <TableCell>{row.name}</TableCell>
+                  <TableCell>{row.phoneNumber}</TableCell>
+                  <TableCell>{row.email}</TableCell>
+                  <TableCell>{row.subject}</TableCell>
+                  <TableCell>{row.message}</TableCell>
+                </TableRow>
+              ))}
           </TableBody>
         </Table>
       </TableContainer>
+
+      {/* Pagination controls */}
+      <TablePagination
+        rowsPerPageOptions={[5, 10, 25]}
+        component="div"
+        count={filteredData.length}
+        rowsPerPage={rowsPerPage}
+        page={page}
+        onPageChange={handleChangePage}
+        onRowsPerPageChange={handleChangeRowsPerPage}
+      />
     </div>
   );
 };
