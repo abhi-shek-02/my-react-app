@@ -22,7 +22,7 @@ const AdminPanel = () => {
   const [section, setSection] = useState("enquiry");
 
   return (
-    <div>
+    <div style={{ marginTop: 120 }}>
       <AppBar position="static">
         <Toolbar>
           <Typography variant="h6">Admin Panel</Typography>
@@ -233,27 +233,25 @@ const GetContactDetails = () => {
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell>ID</TableCell>
+              <TableCell>Created At</TableCell>
               <TableCell>Name</TableCell>
               <TableCell>Phone</TableCell>
               <TableCell>Email</TableCell>
               <TableCell>Subject</TableCell>
               <TableCell>Message</TableCell>
-              <TableCell>Created At</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {data.map((row) => (
               <TableRow key={row._id}>
-                <TableCell>{row._id}</TableCell>
+                <TableCell>
+                  {new Date(row.createdAt).toLocaleDateString()}
+                </TableCell>
                 <TableCell>{row.name}</TableCell>
                 <TableCell>{row.phoneNumber}</TableCell>
                 <TableCell>{row.email}</TableCell>
                 <TableCell>{row.subject}</TableCell>
                 <TableCell>{row.message}</TableCell>
-                <TableCell>
-                  {new Date(row.createdAt).toLocaleDateString()}
-                </TableCell>
               </TableRow>
             ))}
           </TableBody>
