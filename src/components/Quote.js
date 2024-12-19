@@ -189,7 +189,7 @@ export default function Quote() {
       console.log("Response Data:", data);
       if (data?.success) {
         setBookingId(data.bookingId || "");
-        setSnackbarMessage(`Your booking was successful! Booking ID: ${bookingId}. We look forward to serving you!`);
+        setSnackbarMessage(`Your booking was successful! Booking ID: ${data.bookingId}. We look forward to serving you!`);
         setSnackbarSeverity("success");
         setSnackbarOpen(true);
         handleClose(); // Close the modal
