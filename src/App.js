@@ -20,8 +20,8 @@ import { AuthProvider } from "./contexts/AuthContext";
 import PrivateRoute from "./components/PrivateRoute";
 import "./App.css";
 import ForgotPassword from "./components/ForgotPassword";
-import WebDashboard from "./components/WebDashboard";
 import ScreenLoader from "./components/ScreenLoader";
+import AdminPanel from "./components/WebDashboard";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -62,7 +62,7 @@ function App() {
             }
           />
           <Route path="/forgot-password" element={<ForgotPassword />} />
-          <Route path="/dashboard" element={<WebDashboard />} />
+          <Route path="/dashboard" element={<AdminPanel />} />
         </Routes>
       </AuthProvider>
     </Router>

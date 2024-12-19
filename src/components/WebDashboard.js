@@ -1,131 +1,326 @@
-import React, { useState } from "react";
-import PropTypes from "prop-types";
-import CssBaseline from "@mui/material/CssBaseline";
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import TextField from "@mui/material/TextField";
-import MenuItem from "@mui/material/MenuItem";
-import Paper from "@mui/material/Paper";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
+import React, { useState, useEffect } from "react";
+import {
+  AppBar,
+  Toolbar,
+  Typography,
+  Container,
+  MenuItem,
+  Select,
+  TextField,
+  Button,
+  Modal,
+  Box,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+  IconButton,
+  Pagination,
+} from "@mui/material";
+import EditIcon from "@mui/icons-material/Edit";
 
-// Sample booking data
-const bookingData = [
-  {
-    bookingId: "B001",
-    dateOfJourney: "2024-08-01",
-    pickupLocation: "Location A",
-    dropLocation: "Location B",
-    amount: 100,
-    cabType: "Sedan",
-    userId: "U001",
-    phone: "1234567890",
-    email: "user1@example.com",
-    name: "Abhi",
-  },
-  {
-    bookingId: "B002",
-    dateOfJourney: "2024-08-02",
-    pickupLocation: "Location C",
-    dropLocation: "Location D",
-    amount: 200,
-    cabType: "SUV",
-    userId: "U002",
-    phone: "0987654321",
-    email: "user2@example.com",
-    name: "Shaw",
-  },
-  // Add more booking data here
-];
-
-const WebDashboard = () => {
-  const [showCustomTheme, setShowCustomTheme] = useState(true);
-  const [filter, setFilter] = useState("");
-  const [filterValue, setFilterValue] = useState("");
-
-  const toggleCustomTheme = () => {
-    setShowCustomTheme((prev) => !prev);
-  };
-
-  const handleFilterChange = (event) => {
-    setFilter(event.target.value);
-    setFilterValue(""); // Clear filter value when filter type changes
-  };
-
-  const handleFilterValueChange = (event) => {
-    setFilterValue(event.target.value);
-  };
-
-  const filteredBookings = bookingData.filter((booking) => {
-    if (!filter || !filterValue) return true;
-    return booking[filter].toString().includes(filterValue);
+const AdminPanel = () => {
+  const [section, setSection] = useState("enquiry");
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
+  const [data, setData] = useState([]);
+  const [page, setPage] = useState(1);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [filterPhone, setFilterPhone] = useState("");
+  const [driverDetails, setDriverDetails] = useState({
+    bookingId: "",
+    driverName: "",
+    driverPhoneNumber: "",
+    carNumber: "",
+    remarks: "",
   });
 
+  const fetchData = async () => {
+    try {
+      const apiUrl =
+        section === "enquiry"
+          ? `https://api.zingcab.in/api/admin/get-contact-details?startDate=${startDate}&endDate=${endDate}`
+          : `https://api.zingcab.in/api/admin/get-booking-details?startDate=${startDate}&endDate=${endDate}&page=${page}&limit=10`;
+
+      const response = await fetch(apiUrl);
+      const result = await response.json();
+
+      if (response.ok && result.success) {
+        setData(result.data);
+      } else {
+        console.error(
+          "Error fetching data:",
+          result.message || "Unknown error"
+        );
+      }
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
+  useEffect(() => {
+    const defaultEndDate = new Date().toISOString().split("T")[0];
+    const defaultStartDate = new Date();
+    defaultStartDate.setDate(defaultStartDate.getDate() - 30);
+    setStartDate(defaultStartDate.toISOString().split("T")[0]);
+    setEndDate(defaultEndDate);
+  }, []);
+
+  useEffect(() => {
+    if (startDate && endDate) fetchData();
+  }, [section, startDate, endDate, page]);
+
+  const handleAssignDriver = async () => {
+    try {
+      const response = await fetch(
+        "https://api.zingcab.in/api/admin/assign-driver",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(driverDetails),
+        }
+      );
+
+      const result = await response.json();
+
+      if (response.ok && result.success) {
+        alert(result.message);
+        setModalOpen(false);
+        fetchData();
+      } else {
+        alert(`Error: ${result.message || "Unable to assign driver."}`);
+      }
+    } catch (error) {
+      console.error("Error assigning driver:", error);
+    }
+  };
+
+  const filteredData =
+    section === "enquiry" && filterPhone
+      ? data.filter((item) => item.phoneNumber.includes(filterPhone))
+      : data;
+
   return (
-    <Box>
-      <TableContainer
-        component={Paper}
-        sx={{ margin: "auto", maxWidth: "90%", padding: 2 }}
-      >
-        <Box sx={{ marginTop: 10, marginBottom: 2, padding: 2 }}>
+    <Container>
+      <AppBar position="static">
+        <Toolbar>
+          <Typography variant="h6">Admin Panel</Typography>
+        </Toolbar>
+      </AppBar>
+
+      <Box my={2}>
+        <Select
+          value={section}
+          onChange={(e) => setSection(e.target.value)}
+          fullWidth
+        >
+          <MenuItem value="enquiry">Get Enquiry Details</MenuItem>
+          <MenuItem value="booking">Get Booking Details</MenuItem>
+        </Select>
+      </Box>
+
+      <Box display="flex" gap={2} my={2}>
+        <TextField
+          type="date"
+          label="Start Date"
+          InputLabelProps={{ shrink: true }}
+          value={startDate}
+          onChange={(e) => setStartDate(e.target.value)}
+          fullWidth
+        />
+        <TextField
+          type="date"
+          label="End Date"
+          InputLabelProps={{ shrink: true }}
+          value={endDate}
+          onChange={(e) => setEndDate(e.target.value)}
+          fullWidth
+        />
+        {section === "enquiry" && (
           <TextField
-            select
-            label="Filter by"
-            value={filter}
-            onChange={handleFilterChange}
-            sx={{ marginRight: 2, width: "20%" }}
-          >
-            <MenuItem value="bookingId">Booking ID</MenuItem>
-            <MenuItem value="dateOfJourney">Date of Journey</MenuItem>
-            <MenuItem value="userId">User ID</MenuItem>
-            <MenuItem value="phone">Phone</MenuItem>
-          </TextField>
-          <TextField
-            label="Filter value"
-            value={filterValue}
-            onChange={handleFilterValueChange}
-            sx={{ width: "20%" }}
+            label="Filter by Phone"
+            value={filterPhone}
+            onChange={(e) => setFilterPhone(e.target.value)}
+            fullWidth
           />
-        </Box>
+        )}
+        <Button variant="contained" onClick={fetchData}>
+          Fetch Data
+        </Button>
+      </Box>
+
+      <TableContainer component={Paper}>
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell>Booking ID</TableCell>
-              <TableCell>Date of Journey</TableCell>
-              <TableCell>Pickup Location</TableCell>
-              <TableCell>Drop Location</TableCell>
-              <TableCell>Amount</TableCell>
-              <TableCell>Cab Type</TableCell>
-              <TableCell>User ID</TableCell>
-              <TableCell>Phone</TableCell>
-              <TableCell>Email</TableCell>
-              <TableCell>Name</TableCell>
+              {section === "enquiry" ? (
+                <>
+                  <TableCell>ID</TableCell>
+                  <TableCell>Name</TableCell>
+                  <TableCell>Phone</TableCell>
+                  <TableCell>Email</TableCell>
+                  <TableCell>Subject</TableCell>
+                  <TableCell>Message</TableCell>
+                  <TableCell>Created At</TableCell>
+                </>
+              ) : (
+                <>
+                  <TableCell>Booking ID</TableCell>
+                  <TableCell>Date of Journey</TableCell>
+                  <TableCell>Pickup</TableCell>
+                  <TableCell>Drop</TableCell>
+                  <TableCell>Phone</TableCell>
+                  <TableCell>Car Type</TableCell>
+                  <TableCell>Amount</TableCell>
+                  <TableCell>Status</TableCell>
+                  <TableCell>Driver Name</TableCell>
+                  <TableCell>Driver Phone</TableCell>
+                  <TableCell>Car Number</TableCell>
+                  <TableCell>Remarks</TableCell>
+                  <TableCell>Actions</TableCell>
+                </>
+              )}
             </TableRow>
           </TableHead>
           <TableBody>
-            {filteredBookings.map((booking, index) => (
-              <TableRow key={index}>
-                <TableCell>{booking.bookingId}</TableCell>
-                <TableCell>{booking.dateOfJourney}</TableCell>
-                <TableCell>{booking.pickupLocation}</TableCell>
-                <TableCell>{booking.dropLocation}</TableCell>
-                <TableCell>${booking.amount}</TableCell>
-                <TableCell>{booking.cabType}</TableCell>
-                <TableCell>{booking.userId}</TableCell>
-                <TableCell>{booking.phone}</TableCell>
-                <TableCell>{booking.email}</TableCell>
-                <TableCell>{booking.name}</TableCell>
+            {filteredData.map((row) => (
+              <TableRow key={row._id}>
+                {section === "enquiry" ? (
+                  <>
+                    <TableCell>{row._id}</TableCell>
+                    <TableCell>{row.name}</TableCell>
+                    <TableCell>{row.phoneNumber}</TableCell>
+                    <TableCell>{row.email}</TableCell>
+                    <TableCell>{row.subject}</TableCell>
+                    <TableCell>{row.message}</TableCell>
+                    <TableCell>
+                      {new Date(row.createdAt).toLocaleDateString()}
+                    </TableCell>
+                  </>
+                ) : (
+                  <>
+                    <TableCell>{row.bookingId}</TableCell>
+                    <TableCell>
+                      {new Date(row.dateOfJourney).toLocaleDateString()}
+                    </TableCell>
+                    <TableCell>{row.pickupLocation}</TableCell>
+                    <TableCell>{row.dropLocation}</TableCell>
+                    <TableCell>{row.phoneNumber}</TableCell>
+                    <TableCell>{row.carType}</TableCell>
+                    <TableCell>{row.amount}</TableCell>
+                    <TableCell>
+                      {row.isDriverAssigned ? "Assigned" : "Pending"}
+                    </TableCell>
+                    <TableCell>
+                      {row.isDriverAssigned
+                        ? row.driverDetails?.driverName
+                        : ""}
+                    </TableCell>
+                    <TableCell>
+                      {row.isDriverAssigned
+                        ? row.driverDetails?.driverPhoneNumber
+                        : ""}
+                    </TableCell>
+                    <TableCell>
+                      {row.isDriverAssigned ? row.driverDetails?.carNumber : ""}
+                    </TableCell>
+                    <TableCell>
+                      {row.isDriverAssigned ? row.driverDetails?.remarks : ""}
+                    </TableCell>
+                    <TableCell>
+                      {!row.isDriverAssigned && (
+                        <IconButton
+                          onClick={() => {
+                            setDriverDetails({
+                              bookingId: row.bookingId,
+                              driverName: "",
+                              driverPhoneNumber: "",
+                              carNumber: "",
+                              remarks: "",
+                            });
+                            setModalOpen(true);
+                          }}
+                        >
+                          <EditIcon />
+                        </IconButton>
+                      )}
+                    </TableCell>
+                  </>
+                )}
               </TableRow>
             ))}
           </TableBody>
         </Table>
       </TableContainer>
-    </Box>
+
+      {section === "booking" && (
+        <Box my={2} display="flex" justifyContent="center">
+          <Pagination
+            count={Math.ceil(data.length / 10)}
+            page={page}
+            onChange={(e, value) => setPage(value)}
+          />
+        </Box>
+      )}
+
+      <Modal open={modalOpen} onClose={() => setModalOpen(false)}>
+        <Box
+          p={4}
+          bgcolor="white"
+          borderRadius={2}
+          boxShadow={24}
+          display="flex"
+          flexDirection="column"
+          gap={2}
+        >
+          <Typography variant="h6">Assign Driver</Typography>
+          <TextField
+            label="Driver Name"
+            value={driverDetails.driverName}
+            onChange={(e) =>
+              setDriverDetails({ ...driverDetails, driverName: e.target.value })
+            }
+            fullWidth
+          />
+          <TextField
+            label="Driver Phone Number"
+            value={driverDetails.driverPhoneNumber}
+            onChange={(e) =>
+              setDriverDetails({
+                ...driverDetails,
+                driverPhoneNumber: e.target.value,
+              })
+            }
+            fullWidth
+          />
+          <TextField
+            label="Car Number"
+            value={driverDetails.carNumber}
+            onChange={(e) =>
+              setDriverDetails({ ...driverDetails, carNumber: e.target.value })
+            }
+            fullWidth
+          />
+          <TextField
+            label="Remarks"
+            value={driverDetails.remarks}
+            onChange={(e) =>
+              setDriverDetails({ ...driverDetails, remarks: e.target.value })
+            }
+            fullWidth
+          />
+          <Button variant="contained" onClick={handleAssignDriver}>
+            Assign Driver
+          </Button>
+        </Box>
+      </Modal>
+    </Container>
   );
 };
 
-export default WebDashboard;
+export default AdminPanel;
