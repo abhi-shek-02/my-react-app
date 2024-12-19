@@ -212,6 +212,7 @@ const GetBookingDetails = () => {
   const [remarks, setRemarks] = useState("");
   const [snackbarMessage, setSnackbarMessage] = useState("");
   const [snackbarSeverity, setSnackbarSeverity] = useState("success");
+  const [totalPages, setTotalPages] = useState(1); // Store total pages from API
 
   const fetchBookingDetails = async () => {
     try {
@@ -221,7 +222,8 @@ const GetBookingDetails = () => {
       const result = await response.json();
       if (response.ok && result.success) {
         setData(result.data);
-        setFilteredData(result.data); // Set initial filtered data
+        setFilteredData(result.data);
+        setTotalPages(result.pagination.totalPages); // Update totalPages from API
       } else {
         console.error(
           "Error fetching booking details:",
@@ -427,9 +429,11 @@ const GetBookingDetails = () => {
 
       {/* Pagination */}
       <Pagination
-        count={Math.ceil(filteredData.length / rowsPerPage)}
+        count={totalPages} // Use totalPages from API response
         page={page}
-        onChange={(e, value) => setPage(value)}
+        onChange={(e, newPage) => {
+          setPage(newPage);
+        }}
         color="primary"
       />
 
