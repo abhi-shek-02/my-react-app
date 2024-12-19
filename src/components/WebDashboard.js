@@ -19,10 +19,14 @@ import {
   TablePagination,
   InputLabel,
   FormControl,
+  Modal,
+  IconButton,
+  Snackbar,
+  Alert,
 } from "@mui/material";
-
+import EditIcon from "@mui/icons-material/Edit"; // Import Edit icon
 const AdminPanel = () => {
-  const [section, setSection] = useState("enquiry");
+  const [section, setSection] = useState("booking");
 
   return (
     <div style={{ marginTop: 120 }}>
@@ -199,6 +203,16 @@ const GetBookingDetails = () => {
   const [searchField, setSearchField] = useState("BookingID"); // Dropdown search field
   const [searchValue, setSearchValue] = useState(""); // Search input value
 
+  // Modal and Snackbar state
+  const [openModal, setOpenModal] = useState(false);
+  const [selectedBooking, setSelectedBooking] = useState(null);
+  const [driverName, setDriverName] = useState("");
+  const [driverPhoneNumber, setDriverPhoneNumber] = useState("");
+  const [carNumber, setCarNumber] = useState("");
+  const [remarks, setRemarks] = useState("");
+  const [snackbarMessage, setSnackbarMessage] = useState("");
+  const [snackbarSeverity, setSnackbarSeverity] = useState("success");
+
   const fetchBookingDetails = async () => {
     try {
       const response = await fetch(
@@ -256,8 +270,61 @@ const GetBookingDetails = () => {
     fetchBookingDetails(); // Fetch data when the date range changes
   };
 
+  const openDriverAssignModal = (booking) => {
+    setSelectedBooking(booking);
+    setDriverName("");
+    setDriverPhoneNumber("");
+    setCarNumber("");
+    setRemarks("");
+    setOpenModal(true);
+  };
+
+  const handleDriverAssignment = async () => {
+    if (!driverName || !driverPhoneNumber || !carNumber || !remarks) {
+      setSnackbarMessage("Please fill all the fields.");
+      setSnackbarSeverity("error");
+      return;
+    }
+
+    const payload = {
+      bookingId: selectedBooking.bookingId,
+      driverName,
+      driverPhoneNumber,
+      carNumber,
+      remarks,
+    };
+
+    try {
+      const response = await fetch(
+        "https://api.zingcab.in/api/admin/assign-driver",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(payload),
+        }
+      );
+      const result = await response.json();
+      if (response.ok && result.success) {
+        setSnackbarMessage("Driver assigned successfully.");
+        setSnackbarSeverity("success");
+        fetchBookingDetails(); // Refresh the data
+        setOpenModal(false); // Close the modal
+      } else {
+        setSnackbarMessage(result.message || "Failed to assign driver.");
+        setSnackbarSeverity("error");
+      }
+    } catch (error) {
+      console.error("Error assigning driver:", error);
+      setSnackbarMessage("An error occurred while assigning the driver.");
+      setSnackbarSeverity("error");
+    }
+  };
+
   return (
     <div>
+      {/* Date Filter */}
       <Box display="flex" justifyContent="space-between" mb={2}>
         <TextField
           label="Start Date"
@@ -278,6 +345,7 @@ const GetBookingDetails = () => {
         </Button>
       </Box>
 
+      {/* Search Filter */}
       <Box display="flex" mb={2} alignItems="center">
         <FormControl fullWidth>
           <InputLabel>Search By</InputLabel>
@@ -303,6 +371,7 @@ const GetBookingDetails = () => {
         />
       </Box>
 
+      {/* Table with Booking Data */}
       <TableContainer component={Paper}>
         <Table>
           <TableHead>
@@ -338,23 +407,111 @@ const GetBookingDetails = () => {
                 <TableCell>{row.bookingStatus}</TableCell>
                 <TableCell>{row.message}</TableCell>
                 <TableCell>
-                  {row.isDriverAssigned ? "Assigned" : "Pending"}
+                  {row.isDriverAssigned ? (
+                    "Assigned"
+                  ) : (
+                    <IconButton onClick={() => openDriverAssignModal(row)}>
+                      <EditIcon />
+                    </IconButton>
+                  )}
                 </TableCell>
-                <TableCell>{row?.driverDetails?.carNumber}</TableCell>
-                <TableCell>{row?.driverDetails?.driverPhoneNumber}</TableCell>
-                <TableCell>{row?.driverDetails?.driverName}</TableCell>
-                <TableCell>{row?.driverDetails?.remarks}</TableCell>
+                <TableCell>{row.driverDetails?.carNumber}</TableCell>
+                <TableCell>{row.driverDetails?.driverPhoneNumber}</TableCell>
+                <TableCell>{row.driverDetails?.driverName}</TableCell>
+                <TableCell>{row.driverDetails?.remarks}</TableCell>
               </TableRow>
             ))}
           </TableBody>
         </Table>
       </TableContainer>
+
+      {/* Pagination */}
       <Pagination
         count={Math.ceil(filteredData.length / rowsPerPage)}
         page={page}
         onChange={(e, value) => setPage(value)}
         color="primary"
       />
+
+      {/* Modal for Driver Assignment */}
+      <Modal open={openModal} onClose={() => setOpenModal(false)}>
+        <Box
+          sx={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            width: "80%",
+            maxWidth: 500,
+            backgroundColor: "white",
+            padding: 2,
+            boxShadow: 24,
+          }}
+        >
+          <Typography variant="h6" mb={2}>
+            Assign Driver
+          </Typography>
+          <TextField
+            label="Driver Name"
+            value={driverName}
+            onChange={(e) => setDriverName(e.target.value)}
+            fullWidth
+            mb={2}
+          />
+          <TextField
+            label="Driver Phone Number"
+            value={driverPhoneNumber}
+            onChange={(e) => setDriverPhoneNumber(e.target.value)}
+            fullWidth
+            mb={2}
+          />
+          <TextField
+            label="Car Number"
+            value={carNumber}
+            onChange={(e) => setCarNumber(e.target.value)}
+            fullWidth
+            mb={2}
+          />
+          <TextField
+            label="Remarks"
+            value={remarks}
+            onChange={(e) => setRemarks(e.target.value)}
+            fullWidth
+            mb={2}
+          />
+          <Box display="flex" justifyContent="space-between">
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={handleDriverAssignment}
+            >
+              Assign Driver
+            </Button>
+            <Button
+              variant="outlined"
+              color="secondary"
+              onClick={() => setOpenModal(false)}
+            >
+              Cancel
+            </Button>
+          </Box>
+        </Box>
+      </Modal>
+
+      {/* Snackbar for feedback messages */}
+      <Snackbar
+        open={!!snackbarMessage}
+        autoHideDuration={6000}
+        onClose={() => setSnackbarMessage("")}
+      >
+        <Alert
+          onClose={() => setSnackbarMessage("")}
+          severity={snackbarSeverity}
+          sx={{ width: "100%" }}
+        >
+          {snackbarMessage}
+        </Alert>
+      </Snackbar>
     </div>
   );
 };
