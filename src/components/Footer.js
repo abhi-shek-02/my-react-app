@@ -98,7 +98,7 @@ export default function Footer() {
                 sx={{ mr: 1, color: "text.secondary", color: "#095ff0" }}
               />
               <Typography variant="body2" color="text.secondary">
-                1800-0000-00
+                7003371343
               </Typography>
             </Box>
           </Box>
