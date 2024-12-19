@@ -16,6 +16,8 @@ import {
   CircularProgress,
   InputAdornment,
   MenuItem,
+  Snackbar,
+  Alert,
 } from "@mui/material";
 import { styled } from "@mui/system";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
@@ -85,6 +87,9 @@ export default function Quote() {
   const [bookingId, setBookingId] = React.useState("");
   const [carType, setCarType] = React.useState("");
   const [amount, setAmount] = React.useState("");
+  const [snackbarOpen, setSnackbarOpen] = React.useState(false);
+  const [snackbarMessage, setSnackbarMessage] = React.useState("");
+  const [snackbarSeverity, setSnackbarSeverity] = React.useState("success"); // "success" or "error"
 
   React.useEffect(() => {
     if (location.state == null) {
@@ -184,18 +189,21 @@ export default function Quote() {
       console.log("Response Data:", data);
       if (data?.success) {
         setBookingId(data.bookingId || "");
-        setSuccessMessage("Booking successful!");
+        setSnackbarMessage("Booking successful!");
+        setSnackbarSeverity("success");
+        setSnackbarOpen(true);
+        handleClose(); // Close the modal
       } else {
         setBookingId("");
-        setErrorMessage({
-          message: `Something went wrong!`,
-        });
+        setSnackbarMessage("Something went wrong!");
+        setSnackbarSeverity("error");
+        setSnackbarOpen(true);
       }
     } catch (error) {
       console.error("Error submitting form:", error);
-      setErrorMessage({
-        message: `Something went wrong!`,
-      });
+      setSnackbarMessage("Something went wrong!");
+      setSnackbarSeverity("error");
+      setSnackbarOpen(true);
       setBookingId("");
     } finally {
       setLoading(false);
@@ -749,32 +757,27 @@ export default function Quote() {
               <Button
                 onClick={handleClose}
                 color="secondary"
-                sx={{ mb: { xs: 1, sm: 0 } }} // Add margin between buttons on smaller screens
+                sx={{ mb: { xs: 1, sm: 0 } }}
               >
                 Close
               </Button>
             </Box>
-            {successMessage && (
-              <Typography
-                variant="body2"
-                color="success.main"
-                sx={{ mt: 2, textAlign: "center" }}
-              >
-                {successMessage} {bookingId && `Booking ID: ${bookingId}`}
-              </Typography>
-            )}
-            {errorMessage.message && (
-              <Typography
-                variant="body2"
-                color="error.main"
-                sx={{ mt: 2, textAlign: "center" }}
-              >
-                {errorMessage.message}
-              </Typography>
-            )}
           </form>
         </Box>
       </Modal>
+      {/* Snackbar for success/error messages */}
+      <Snackbar
+        open={snackbarOpen}
+        autoHideDuration={6000}
+        onClose={() => setSnackbarOpen(false)}
+      >
+        <Alert
+          onClose={() => setSnackbarOpen(false)}
+          severity={snackbarSeverity}
+        >
+          {snackbarMessage}
+        </Alert>
+      </Snackbar>
       <Divider />
       <Footer />
     </Container>
