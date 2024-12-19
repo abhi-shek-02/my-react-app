@@ -17,6 +17,8 @@ import {
   Button,
   Pagination,
   TablePagination,
+  InputLabel,
+  FormControl,
 } from "@mui/material";
 
 const AdminPanel = () => {
@@ -183,16 +185,29 @@ const GetEnquiryDetails = () => {
 // Component for Booking Details
 const GetBookingDetails = () => {
   const [data, setData] = useState([]);
+  const [filteredData, setFilteredData] = useState([]);
   const [page, setPage] = useState(1);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [startDate, setStartDate] = useState(
+    new Date(new Date().setDate(new Date().getDate() - 30)) // Default to 30 days ago
+      .toISOString()
+      .split("T")[0]
+  );
+  const [endDate, setEndDate] = useState(
+    new Date().toISOString().split("T")[0]
+  ); // Default to today
+  const [searchField, setSearchField] = useState("BookingID"); // Dropdown search field
+  const [searchValue, setSearchValue] = useState(""); // Search input value
 
   const fetchBookingDetails = async () => {
     try {
       const response = await fetch(
-        `https://api.zingcab.in/api/admin/get-booking-details?page=${page}&limit=10`
+        `https://api.zingcab.in/api/admin/get-booking-details?startDate=${startDate}&endDate=${endDate}&page=${page}&limit=${rowsPerPage}`
       );
       const result = await response.json();
       if (response.ok && result.success) {
         setData(result.data);
+        setFilteredData(result.data); // Set initial filtered data
       } else {
         console.error(
           "Error fetching booking details:",
@@ -206,48 +221,139 @@ const GetBookingDetails = () => {
 
   useEffect(() => {
     fetchBookingDetails();
-  }, [page]);
+  }, [page, startDate, endDate, rowsPerPage]);
+
+  const handleSearchChange = (e) => {
+    const value = e.target.value;
+    setSearchValue(value);
+
+    // Filter data based on selected search field and input value
+    const filtered = data.filter((item) => {
+      if (searchField === "BookingID") {
+        return item.bookingId.includes(value);
+      } else if (searchField === "Pickup") {
+        return item.pickupLocation.includes(value);
+      } else if (searchField === "Drop") {
+        return item.dropLocation.includes(value);
+      } else if (searchField === "Phone") {
+        return item.phoneNumber.includes(value);
+      } else if (searchField === "DriverAssigned") {
+        return item.isDriverAssigned.toString().includes(value);
+      } else if (searchField === "Car Number") {
+        return item.driverDetails?.carNumber.includes(value);
+      } else if (searchField === "Driver Phone Number") {
+        return item.driverDetails?.driverPhoneNumber.includes(value);
+      } else {
+        return true;
+      }
+    });
+
+    setFilteredData(filtered);
+    setPage(1); // Reset to the first page when searching
+  };
+
+  const handleDateChange = () => {
+    fetchBookingDetails(); // Fetch data when the date range changes
+  };
 
   return (
     <div>
+      <Box display="flex" justifyContent="space-between" mb={2}>
+        <TextField
+          label="Start Date"
+          type="date"
+          value={startDate}
+          onChange={(e) => setStartDate(e.target.value)}
+          InputLabelProps={{ shrink: true }}
+        />
+        <TextField
+          label="End Date"
+          type="date"
+          value={endDate}
+          onChange={(e) => setEndDate(e.target.value)}
+          InputLabelProps={{ shrink: true }}
+        />
+        <Button variant="contained" onClick={handleDateChange}>
+          Apply Date Filter
+        </Button>
+      </Box>
+
+      <Box display="flex" mb={2} alignItems="center">
+        <FormControl fullWidth>
+          <InputLabel>Search By</InputLabel>
+          <Select
+            value={searchField}
+            onChange={(e) => setSearchField(e.target.value)}
+            label="Search By"
+          >
+            <MenuItem value="BookingID">BookingID</MenuItem>
+            <MenuItem value="Pickup">Pickup</MenuItem>
+            <MenuItem value="Drop">Drop</MenuItem>
+            <MenuItem value="Phone">Phone</MenuItem>
+            <MenuItem value="DriverAssigned">DriverAssigned</MenuItem>
+            <MenuItem value="Car Number">Car Number</MenuItem>
+            <MenuItem value="Driver Phone Number">Driver Phone Number</MenuItem>
+          </Select>
+        </FormControl>
+        <TextField
+          label="Search"
+          value={searchValue}
+          onChange={handleSearchChange}
+          fullWidth
+        />
+      </Box>
+
       <TableContainer component={Paper}>
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell>ID</TableCell>
+              <TableCell>BookingID</TableCell>
+              <TableCell>Date of Journey</TableCell>
               <TableCell>Pickup</TableCell>
               <TableCell>Drop</TableCell>
-              <TableCell>Date of Journey</TableCell>
               <TableCell>Phone</TableCell>
-              <TableCell>Status</TableCell>
-              <TableCell>Actions</TableCell>
+              <TableCell>Car Type</TableCell>
+              <TableCell>Amount</TableCell>
+              <TableCell>Booking Status</TableCell>
+              <TableCell>Message</TableCell>
+              <TableCell>Driver Assigned</TableCell>
+              <TableCell>Car Number</TableCell>
+              <TableCell>Driver Phone Number</TableCell>
+              <TableCell>Driver Name</TableCell>
+              <TableCell>Remarks</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {data.map((row) => (
+            {filteredData.map((row) => (
               <TableRow key={row._id}>
                 <TableCell>{row.bookingId}</TableCell>
-                <TableCell>{row.pickupLocation}</TableCell>
-                <TableCell>{row.dropLocation}</TableCell>
                 <TableCell>
                   {new Date(row.dateOfJourney).toLocaleDateString()}
                 </TableCell>
+                <TableCell>{row.pickupLocation}</TableCell>
+                <TableCell>{row.dropLocation}</TableCell>
                 <TableCell>{row.phoneNumber}</TableCell>
+                <TableCell>{row.carType}</TableCell>
+                <TableCell>{row.amount}</TableCell>
+                <TableCell>{row.bookingStatus}</TableCell>
+                <TableCell>{row.message}</TableCell>
                 <TableCell>
                   {row.isDriverAssigned ? "Assigned" : "Pending"}
                 </TableCell>
-                <TableCell>
-                  {!row.isDriverAssigned ? "Assign Driver" : ""}
-                </TableCell>
+                <TableCell>{row?.driverDetails?.carNumber}</TableCell>
+                <TableCell>{row?.driverDetails?.driverPhoneNumber}</TableCell>
+                <TableCell>{row?.driverDetails?.driverName}</TableCell>
+                <TableCell>{row?.driverDetails?.remarks}</TableCell>
               </TableRow>
             ))}
           </TableBody>
         </Table>
       </TableContainer>
       <Pagination
-        count={Math.ceil(data.length / 10)}
+        count={Math.ceil(filteredData.length / rowsPerPage)}
         page={page}
         onChange={(e, value) => setPage(value)}
+        color="primary"
       />
     </div>
   );
