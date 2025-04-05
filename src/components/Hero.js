@@ -20,6 +20,7 @@ import LocationOnIcon from "@mui/icons-material/LocationOn";
 import DateRangeIcon from "@mui/icons-material/DateRange";
 import SwapVertIcon from "@mui/icons-material/SwapVert";
 import ScreenLoader from "./ScreenLoader";
+import { Autocomplete } from "@mui/material";
 
 const StyledContainer = styled(Container)(({ theme }) => ({
   display: "flex",
@@ -291,106 +292,172 @@ export default function Hero() {
               <form onSubmit={handleSubmit}>
                 <Box sx={{ display: "flex", flexDirection: "column", gap: 3 }}>
                   {/* Pickup Location */}
-                  <TextField
+                  <Autocomplete
                     id="pickup-location"
-                    select
-                    label="Pickup Location"
-                    fullWidth
-                    required
-                    value={formData.pickupLocation || ""} // Ensure the value is always defined
-                    onChange={handlePickupLocationChange}
-                    InputProps={{
-                      startAdornment: (
-                        <InputAdornment position="start">
-                          <LocationOnIcon sx={{ color: "#095ff0" }} />
-                        </InputAdornment>
-                      ),
-                      sx: { borderRadius: "15px" },
+                    options={pickUpLocationArray}
+                    value={formData.pickupLocation || null}
+                    freeSolo
+                    filterOptions={(options, params) => {
+                      const filtered = options.filter((option) =>
+                        option
+                          .toLowerCase()
+                          .includes(params.inputValue.toLowerCase())
+                      );
+                      return filtered;
                     }}
-                    SelectProps={{
-                      displayEmpty: true,
-                      renderValue: (selected) => {
-                        if (!selected) {
-                          return (
-                            <span style={{ color: "#aaa" }}>
-                              Select Pickup Location
-                            </span>
-                          );
+                    onKeyDown={(event) => {
+                      if (event.key === "Enter") {
+                        event.preventDefault();
+                        const inputValue = event.target.value;
+                        const filteredOptions = pickUpLocationArray.filter(
+                          (option) =>
+                            option
+                              .toLowerCase()
+                              .includes(inputValue.toLowerCase())
+                        );
+
+                        if (filteredOptions.length > 0) {
+                          setFormData((prevData) => ({
+                            ...prevData,
+                            pickupLocation: filteredOptions[0],
+                          }));
+                        } else {
+                          setFormData((prevData) => ({
+                            ...prevData,
+                            pickupLocation: inputValue,
+                          }));
                         }
-                        return selected;
-                      },
+                      }
                     }}
-                    error={!!errorMessage.pickupLocation}
-                    helperText={errorMessage.pickupLocation}
-                  >
-                    <MenuItem value="" disabled>
-                      Select Pickup Location
-                    </MenuItem>
-                    {pickUpLocationArray.map((location) => (
-                      <MenuItem key={location} value={location}>
-                        {location}
-                      </MenuItem>
-                    ))}
-                  </TextField>
+                    onChange={(event, newValue) => {
+                      setFormData((prevData) => ({
+                        ...prevData,
+                        pickupLocation: newValue || "",
+                      }));
+                      if (newValue !== formData.pickupLocation) {
+                        setErrorMessage((prevErrors) => ({
+                          ...prevErrors,
+                          pickupLocation: "",
+                        }));
+                      }
+                    }}
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        label="Pickup Location"
+                        required
+                        error={!!errorMessage.pickupLocation}
+                        helperText={errorMessage.pickupLocation}
+                        onChange={(e) => {
+                          setFormData((prevData) => ({
+                            ...prevData,
+                            pickupLocation: e.target.value,
+                          }));
+                        }}
+                        InputProps={{
+                          ...params.InputProps,
+                          startAdornment: (
+                            <InputAdornment position="start">
+                              <LocationOnIcon sx={{ color: "#095ff0" }} />
+                            </InputAdornment>
+                          ),
+                          sx: { borderRadius: "15px" },
+                        }}
+                      />
+                    )}
+                  />
 
                   {/* Drop Location */}
-                  <TextField
+                  <Autocomplete
                     id="drop-location"
-                    select
-                    label="Drop Location"
-                    fullWidth
-                    required
-                    value={formData.dropLocation || ""} // Ensure the value is always defined
-                    onChange={handleDropLocationChange}
-                    InputProps={{
-                      startAdornment: (
-                        <InputAdornment position="start">
-                          <LocationOnIcon sx={{ color: "#095ff0" }} />
-                        </InputAdornment>
-                      ),
-                      endAdornment: (
-                        <InputAdornment position="end">
-                          <IconButton
-                            onClick={() => {
-                              setFormData({
-                                ...formData,
-                                pickupLocation: formData.dropLocation,
-                                dropLocation: formData.pickupLocation,
-                              });
-                            }}
-                            aria-label="Swap locations" // Added accessible name
-                          >
-                            <SwapVertIcon sx={{ color: "#095ff0" }} />
-                          </IconButton>
-                        </InputAdornment>
-                      ),
-                      sx: { borderRadius: "15px" },
+                    options={dropLocationArray}
+                    value={formData.dropLocation || null}
+                    freeSolo
+                    filterOptions={(options, params) => {
+                      const filtered = options.filter((option) =>
+                        option
+                          .toLowerCase()
+                          .includes(params.inputValue.toLowerCase())
+                      );
+                      return filtered;
                     }}
-                    SelectProps={{
-                      displayEmpty: true, // Ensures placeholder-like behavior
-                      renderValue: (selected) => {
-                        if (!selected) {
-                          return (
-                            <span style={{ color: "#aaa" }}>
-                              Select Drop Location
-                            </span>
-                          );
+                    onKeyDown={(event) => {
+                      if (event.key === "Enter") {
+                        event.preventDefault();
+                        const inputValue = event.target.value;
+                        const filteredOptions = dropLocationArray.filter(
+                          (option) =>
+                            option
+                              .toLowerCase()
+                              .includes(inputValue.toLowerCase())
+                        );
+
+                        if (filteredOptions.length > 0) {
+                          setFormData((prevData) => ({
+                            ...prevData,
+                            dropLocation: filteredOptions[0],
+                          }));
+                        } else {
+                          setFormData((prevData) => ({
+                            ...prevData,
+                            dropLocation: inputValue,
+                          }));
                         }
-                        return selected;
-                      },
+                      }
                     }}
-                    error={!!errorMessage.dropLocation}
-                    helperText={errorMessage.dropLocation}
-                  >
-                    <MenuItem value="" disabled>
-                      Select Drop Location
-                    </MenuItem>
-                    {dropLocationArray.map((location) => (
-                      <MenuItem key={location} value={location}>
-                        {location}
-                      </MenuItem>
-                    ))}
-                  </TextField>
+                    onChange={(event, newValue) => {
+                      setFormData((prevData) => ({
+                        ...prevData,
+                        dropLocation: newValue || "",
+                      }));
+                      if (newValue !== formData.dropLocation) {
+                        setErrorMessage((prevErrors) => ({
+                          ...prevErrors,
+                          dropLocation: "",
+                        }));
+                      }
+                    }}
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        label="Drop Location"
+                        required
+                        error={!!errorMessage.dropLocation}
+                        helperText={errorMessage.dropLocation}
+                        onChange={(e) => {
+                          setFormData((prevData) => ({
+                            ...prevData,
+                            dropLocation: e.target.value,
+                          }));
+                        }}
+                        InputProps={{
+                          ...params.InputProps,
+                          startAdornment: (
+                            <InputAdornment position="start">
+                              <LocationOnIcon sx={{ color: "#095ff0" }} />
+                            </InputAdornment>
+                          ),
+                          endAdornment: (
+                            <InputAdornment position="end">
+                              <IconButton
+                                onClick={() => {
+                                  setFormData({
+                                    ...formData,
+                                    pickupLocation: formData.dropLocation,
+                                    dropLocation: formData.pickupLocation,
+                                  });
+                                }}
+                                aria-label="Swap locations"
+                              >
+                                <SwapVertIcon sx={{ color: "#095ff0" }} />
+                              </IconButton>
+                            </InputAdornment>
+                          ),
+                          sx: { borderRadius: "15px" },
+                        }}
+                      />
+                    )}
+                  />
 
                   {/* Journey Date */}
                   <TextField

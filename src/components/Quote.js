@@ -120,7 +120,7 @@ export default function Quote() {
 
     // If no matching entry is found, return a default price or handle it as needed
     if (!locationEntry) {
-      return "Pricing details are not available for this route. Call us on [123-456-7890](tel:1234567890) to get more details.";
+      return "Pricing details are not available for this route. Call us on 7003371343 to get more details.";
     }
 
     // Find the price for the specified car type
@@ -128,7 +128,7 @@ export default function Quote() {
 
     // If no matching price is found, return a default price or handle it as needed
     if (!priceEntry) {
-      return "Pricing details are not available for this route. Call us on [123-456-7890](tel:1234567890) to get more details.";
+      return "Pricing details are not available for this route. Call us on 7003371343 to get more details.";
     }
 
     // Return the price
