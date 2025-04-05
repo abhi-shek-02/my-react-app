@@ -15019,739 +15019,1291 @@ export const uniqueLocation = [
 // ];
 export const PriceList = [
   {
-    start_location: "Asansol",
-    end_location: "Kolkata",
-    price: [
-      { car_type: "booking_total_price_dzire", price: "4106" },
-      { car_type: "booking_total_price_innova", price: "5875" },
-    ],
-  },
-  {
-    start_location: "Durgapur",
-    end_location: "Kolkata",
-    price: [
-      { car_type: "booking_total_price_dzire", price: "3526" },
-      { car_type: "booking_total_price_innova", price: "4827" },
-    ],
-  },
-  {
-    start_location: "Kharagpur",
-    end_location: "Kolkata",
-    price: [
-      { car_type: "booking_total_price_dzire", price: "3434" },
-      { car_type: "booking_total_price_innova", price: "3434" },
-    ],
-  },
-  {
-    start_location: "Digha",
-    end_location: "Kolkata",
-    price: [
-      { car_type: "booking_total_price_dzire", price: "4408" },
-      { car_type: "booking_total_price_innova", price: "5196" },
-    ],
-  },
-  {
-    start_location: "Mandarmani",
-    end_location: "Kolkata",
-    price: [
-      { car_type: "booking_total_price_dzire", price: "4334" },
-      { car_type: "booking_total_price_innova", price: "5934" },
-    ],
-  },
-  {
-    start_location: "Berhampore",
-    end_location: "Kolkata",
-    price: [
-      { car_type: "booking_total_price_dzire", price: "5138" },
-      { car_type: "booking_total_price_innova", price: "5975" },
-    ],
-  },
-  {
-    start_location: "Contai",
-    end_location: "Kolkata",
-    price: [
-      { car_type: "booking_total_price_dzire", price: "3019" },
-      { car_type: "booking_total_price_innova", price: "5445" },
-    ],
-  },
-  {
-    start_location: "Medinipur",
-    end_location: "Kolkata",
-    price: [
-      { car_type: "booking_total_price_dzire", price: "3964" },
-      { car_type: "booking_total_price_innova", price: "5013" },
-    ],
-  },
-  {
-    start_location: "Bardhaman",
-    end_location: "Kolkata",
-    price: [
-      { car_type: "booking_total_price_dzire", price: "3221" },
-      { car_type: "booking_total_price_innova", price: "4828" },
-    ],
-  },
-  {
-    start_location: "Suri",
-    end_location: "Kolkata",
-    price: [
-      { car_type: "booking_total_price_dzire", price: "5064" },
-      { car_type: "booking_total_price_innova", price: "5073" },
-    ],
-  },
-  {
-    start_location: "Bolpur",
-    end_location: "Kolkata",
-    price: [
-      { car_type: "booking_total_price_dzire", price: "4851" },
-      { car_type: "booking_total_price_innova", price: "5586" },
-    ],
-  },
-  {
-    start_location: "Purulia",
-    end_location: "Kolkata",
-    price: [
-      { car_type: "booking_total_price_dzire", price: "7162" },
-      { car_type: "booking_total_price_innova", price: "8928" },
-    ],
-  },
-  {
-    start_location: "Bankura",
-    end_location: "Kolkata",
-    price: [
-      { car_type: "booking_total_price_dzire", price: "4951" },
-      { car_type: "booking_total_price_innova", price: "6426" },
-    ],
-  },
-  {
-    start_location: "Haldia",
-    end_location: "Kolkata",
-    price: [
-      { car_type: "booking_total_price_dzire", price: "3644" },
-      { car_type: "booking_total_price_innova", price: "4366" },
-    ],
-  },
-  {
-    start_location: "Kolaghat",
-    end_location: "Kolkata",
-    price: [
-      { car_type: "booking_total_price_dzire", price: "2728" },
-      { car_type: "booking_total_price_innova", price: "3888" },
-    ],
-  },
-  {
-    start_location: "Krishnanagar",
-    end_location: "Kolkata",
-    price: [
-      { car_type: "booking_total_price_dzire", price: "3798" },
-      { car_type: "booking_total_price_innova", price: "3998" },
-    ],
-  },
-  {
-    start_location: "Murshidabad",
-    end_location: "Kolkata",
-    price: [
-      { car_type: "booking_total_price_dzire", price: "4998" },
-      { car_type: "booking_total_price_innova", price: "6798" },
-    ],
-  },
-  {
-    start_location: "Shantiniketan",
-    end_location: "Kolkata",
-    price: [
-      { car_type: "booking_total_price_dzire", price: "4098" },
-      { car_type: "booking_total_price_innova", price: "4898" },
-    ],
-  },
-  {
-    start_location: "Gangasagar",
-    end_location: "Kolkata",
-    price: [
-      { car_type: "booking_total_price_dzire", price: "2898" },
-      { car_type: "booking_total_price_innova", price: "5198" },
-    ],
-  },
-  {
-    start_location: "Bakkhali",
-    end_location: "Kolkata",
-    price: [
-      { car_type: "booking_total_price_dzire", price: "4119" },
-      { car_type: "booking_total_price_innova", price: "4584" },
-    ],
-  },
-  {
-    start_location: "Kakdwip",
-    end_location: "Kolkata",
-    price: [
-      { car_type: "booking_total_price_dzire", price: "4206" },
-      { car_type: "booking_total_price_innova", price: "4342" },
-    ],
-  },
-  {
-    start_location: "Diamond Harbour",
-    end_location: "Kolkata",
-    price: [
-      { car_type: "booking_total_price_dzire", price: "2323" },
-      { car_type: "booking_total_price_innova", price: "3078" },
-    ],
-  },
-  {
-    start_location: "Baruipur",
-    end_location: "Kolkata",
-    price: [
-      { car_type: "booking_total_price_dzire", price: "2725" },
-      { car_type: "booking_total_price_innova", price: "3590" },
-    ],
-  },
-  {
-    start_location: "Sonarpur",
-    end_location: "Kolkata",
-    price: [
-      { car_type: "booking_total_price_dzire", price: "1891" },
-      { car_type: "booking_total_price_innova", price: "3280" },
-    ],
-  },
-  {
-    start_location: "Habra",
-    end_location: "Kolkata",
-    price: [
-      { car_type: "booking_total_price_dzire", price: "2594" },
-      { car_type: "booking_total_price_innova", price: "3675" },
-    ],
-  },
-  {
-    start_location: "Kalyani",
-    end_location: "Kolkata",
-    price: [
-      { car_type: "booking_total_price_dzire", price: "2247" },
-      { car_type: "booking_total_price_innova", price: "3589" },
-    ],
-  },
-  {
-    start_location: "Bangaon",
-    end_location: "Kolkata",
-    price: [
-      { car_type: "booking_total_price_dzire", price: "3150" },
-      { car_type: "booking_total_price_innova", price: "4111" },
-    ],
-  },
-  {
-    start_location: "Ranaghat",
-    end_location: "Kolkata",
-    price: [
-      { car_type: "booking_total_price_dzire", price: "2662" },
-      { car_type: "booking_total_price_innova", price: "3481" },
-    ],
-  },
-  {
-    start_location: "Tarapith",
-    end_location: "Kolkata",
-    price: [
-      { car_type: "booking_total_price_dzire", price: "5585" },
-      { car_type: "booking_total_price_innova", price: "8349" },
-    ],
-  },
-  {
-    start_location: "Howrah",
-    end_location: "Kolkata",
-    price: [
-      { car_type: "booking_total_price_dzire", price: "1617" },
-      { car_type: "booking_total_price_innova", price: "2439" },
-    ],
-  },
-  {
-    start_location: "Hooghly / Chinsurah",
-    end_location: "Kolkata",
-    price: [
-      { car_type: "booking_total_price_dzire", price: "2108" },
-      { car_type: "booking_total_price_innova", price: "2939" },
-    ],
-  },
-  {
-    start_location: "Serampore",
-    end_location: "Kolkata",
-    price: [
-      { car_type: "booking_total_price_dzire", price: "1593" },
-      { car_type: "booking_total_price_innova", price: "2167" },
-    ],
-  },
-  {
-    start_location: "Barrackpore",
-    end_location: "Kolkata",
-    price: [
-      { car_type: "booking_total_price_dzire", price: "2626" },
-      { car_type: "booking_total_price_innova", price: "3170" },
-    ],
-  },
-  {
-    start_location: "Basirhat",
-    end_location: "Kolkata",
-    price: [
-      { car_type: "booking_total_price_dzire", price: "2436" },
-      { car_type: "booking_total_price_innova", price: "2767" },
-    ],
-  },
-  {
-    start_location: "Malda (English Bazar)",
-    end_location: "Kolkata",
-    price: [
-      { car_type: "booking_total_price_dzire", price: "4318" },
-      { car_type: "booking_total_price_innova", price: "5147" },
-    ],
-  },
-  {
-    start_location: "Siliguri",
-    end_location: "Kolkata",
-    price: [
-      { car_type: "booking_total_price_dzire", price: "24941" },
-      { car_type: "booking_total_price_innova", price: "24936" },
-    ],
-  },
-  {
-    start_location: "Jalpaiguri",
-    end_location: "Kolkata",
-    price: [
-      { car_type: "booking_total_price_dzire", price: "12792" },
-      { car_type: "booking_total_price_innova", price: "16567" },
-    ],
-  },
-  {
-    start_location: "Cooch Behar",
-    end_location: "Kolkata",
-    price: [
-      { car_type: "booking_total_price_dzire", price: "26755" },
-      { car_type: "booking_total_price_innova", price: "27204" },
-    ],
-  },
-  {
-    start_location: "Darjeeling",
-    end_location: "Kolkata",
-    price: [
-      { car_type: "booking_total_price_dzire", price: "13413" },
-      { car_type: "booking_total_price_innova", price: "17507" },
-    ],
-  },
-  {
-    start_location: "Mayapur",
-    end_location: "Kolkata",
-    price: [
-      { car_type: "booking_total_price_dzire", price: "3523" },
-      { car_type: "booking_total_price_innova", price: "5256" },
-    ],
-  },
-  {
-    start_location: "Nabadwip",
-    end_location: "Kolkata",
-    price: [
-      { car_type: "booking_total_price_dzire", price: "3686" },
-      { car_type: "booking_total_price_innova", price: "4206" },
-    ],
-  },
-  {
-    start_location: "Kalna",
-    end_location: "Kolkata",
-    price: [
-      { car_type: "booking_total_price_dzire", price: "2889" },
-      { car_type: "booking_total_price_innova", price: "3960" },
-    ],
-  },
-  {
-    start_location: "Tarakeswar",
-    end_location: "Kolkata",
-    price: [
-      { car_type: "booking_total_price_dzire", price: "2574" },
-      { car_type: "booking_total_price_innova", price: "3539" },
-    ],
-  },
-  {
-    start_location: "Raichak",
-    end_location: "Kolkata",
-    price: [
-      { car_type: "booking_total_price_dzire", price: "2725" },
-      { car_type: "booking_total_price_innova", price: "4206" },
-    ],
-  },
-  {
-    start_location: "Taki",
-    end_location: "Kolkata",
-    price: [
-      { car_type: "booking_total_price_dzire", price: "3061" },
-      { car_type: "booking_total_price_innova", price: "4206" },
-    ],
-  },
-  {
-    start_location: "Tajpur",
-    end_location: "Kolkata",
-    price: [
-      { car_type: "booking_total_price_dzire", price: "4025" },
-      { car_type: "booking_total_price_innova", price: "5072" },
-    ],
-  },
-  {
-    start_location: "Kolkata",
-    end_location: "Asansol",
-    price: [
-      { car_type: "booking_total_price_dzire", price: "3607" },
-      { car_type: "booking_total_price_innova", price: "5376" },
-    ],
-  },
-  {
-    start_location: "Kolkata",
-    end_location: "Durgapur",
-    price: [
-      { car_type: "booking_total_price_dzire", price: "3027" },
-      { car_type: "booking_total_price_innova", price: "4328" },
-    ],
-  },
-  {
-    start_location: "Kolkata",
-    end_location: "Kharagpur",
-    price: [
-      { car_type: "booking_total_price_dzire", price: "2935" },
-      { car_type: "booking_total_price_innova", price: "2935" },
-    ],
-  },
-  {
-    start_location: "Kolkata",
-    end_location: "Digha",
-    price: [
-      { car_type: "booking_total_price_dzire", price: "3909" },
-      { car_type: "booking_total_price_innova", price: "4697" },
-    ],
-  },
-  {
-    start_location: "Kolkata",
-    end_location: "Mandarmani",
-    price: [
-      { car_type: "booking_total_price_dzire", price: "3835" },
-      { car_type: "booking_total_price_innova", price: "5435" },
-    ],
-  },
-  {
-    start_location: "Kolkata",
-    end_location: "Berhampore",
-    price: [
-      { car_type: "booking_total_price_dzire", price: "4639" },
-      { car_type: "booking_total_price_innova", price: "5476" },
-    ],
-  },
-  {
-    start_location: "Kolkata",
-    end_location: "Contai",
-    price: [
-      { car_type: "booking_total_price_dzire", price: "2520" },
-      { car_type: "booking_total_price_innova", price: "4946" },
-    ],
-  },
-  {
-    start_location: "Kolkata",
-    end_location: "Medinipur",
-    price: [
-      { car_type: "booking_total_price_dzire", price: "3465" },
-      { car_type: "booking_total_price_innova", price: "4514" },
-    ],
-  },
-  {
-    start_location: "Kolkata",
-    end_location: "Bardhaman",
-    price: [
-      { car_type: "booking_total_price_dzire", price: "2722" },
-      { car_type: "booking_total_price_innova", price: "4329" },
-    ],
-  },
-  {
-    start_location: "Kolkata",
-    end_location: "Suri",
-    price: [
-      { car_type: "booking_total_price_dzire", price: "4565" },
-      { car_type: "booking_total_price_innova", price: "4574" },
-    ],
-  },
-  {
-    start_location: "Kolkata",
-    end_location: "Bolpur",
-    price: [
-      { car_type: "booking_total_price_dzire", price: "4352" },
-      { car_type: "booking_total_price_innova", price: "5087" },
-    ],
-  },
-  {
-    start_location: "Kolkata",
-    end_location: "Purulia",
-    price: [
-      { car_type: "booking_total_price_dzire", price: "6663" },
-      { car_type: "booking_total_price_innova", price: "8429" },
-    ],
-  },
-  {
-    start_location: "Kolkata",
-    end_location: "Bankura",
-    price: [
-      { car_type: "booking_total_price_dzire", price: "4452" },
-      { car_type: "booking_total_price_innova", price: "5927" },
-    ],
-  },
-  {
-    start_location: "Kolkata",
-    end_location: "Haldia",
-    price: [
-      { car_type: "booking_total_price_dzire", price: "3145" },
-      { car_type: "booking_total_price_innova", price: "3867" },
-    ],
-  },
-  {
-    start_location: "Kolkata",
-    end_location: "Kolaghat",
-    price: [
-      { car_type: "booking_total_price_dzire", price: "2229" },
-      { car_type: "booking_total_price_innova", price: "3389" },
-    ],
-  },
-  {
-    start_location: "Kolkata",
-    end_location: "Krishnanagar",
-    price: [
-      { car_type: "booking_total_price_dzire", price: "3299" },
-      { car_type: "booking_total_price_innova", price: "3499" },
-    ],
-  },
-  {
-    start_location: "Kolkata",
-    end_location: "Murshidabad",
-    price: [
-      { car_type: "booking_total_price_dzire", price: "4499" },
-      { car_type: "booking_total_price_innova", price: "6299" },
-    ],
-  },
-  {
-    start_location: "Kolkata",
-    end_location: "Shantiniketan",
-    price: [
-      { car_type: "booking_total_price_dzire", price: "3599" },
-      { car_type: "booking_total_price_innova", price: "4399" },
-    ],
-  },
-  {
-    start_location: "Kolkata",
-    end_location: "Gangasagar",
-    price: [
-      { car_type: "booking_total_price_dzire", price: "2399" },
-      { car_type: "booking_total_price_innova", price: "4699" },
-    ],
-  },
-  {
-    start_location: "Kolkata",
-    end_location: "Bakkhali",
-    price: [
-      { car_type: "booking_total_price_dzire", price: "3620" },
-      { car_type: "booking_total_price_innova", price: "4085" },
-    ],
-  },
-  {
-    start_location: "Kolkata",
-    end_location: "Kakdwip",
-    price: [
-      { car_type: "booking_total_price_dzire", price: "3707" },
-      { car_type: "booking_total_price_innova", price: "3843" },
-    ],
-  },
-  {
-    start_location: "Kolkata",
-    end_location: "Diamond Harbour",
-    price: [
-      { car_type: "booking_total_price_dzire", price: "1824" },
-      { car_type: "booking_total_price_innova", price: "2579" },
-    ],
-  },
-  {
-    start_location: "Kolkata",
-    end_location: "Baruipur",
-    price: [
-      { car_type: "booking_total_price_dzire", price: "2226" },
-      { car_type: "booking_total_price_innova", price: "3091" },
-    ],
-  },
-  {
-    start_location: "Kolkata",
-    end_location: "Sonarpur",
-    price: [
-      { car_type: "booking_total_price_dzire", price: "1392" },
-      { car_type: "booking_total_price_innova", price: "2781" },
-    ],
-  },
-  {
-    start_location: "Kolkata",
-    end_location: "Habra",
-    price: [
-      { car_type: "booking_total_price_dzire", price: "2095" },
-      { car_type: "booking_total_price_innova", price: "3176" },
-    ],
-  },
-  {
-    start_location: "Kolkata",
-    end_location: "Kalyani",
-    price: [
-      { car_type: "booking_total_price_dzire", price: "1748" },
-      { car_type: "booking_total_price_innova", price: "3090" },
-    ],
-  },
-  {
-    start_location: "Kolkata",
-    end_location: "Bangaon",
-    price: [
-      { car_type: "booking_total_price_dzire", price: "2651" },
-      { car_type: "booking_total_price_innova", price: "3612" },
-    ],
-  },
-  {
-    start_location: "Kolkata",
-    end_location: "Ranaghat",
-    price: [
-      { car_type: "booking_total_price_dzire", price: "2163" },
-      { car_type: "booking_total_price_innova", price: "2982" },
-    ],
-  },
-  {
-    start_location: "Kolkata",
-    end_location: "Tarapith",
-    price: [
-      { car_type: "booking_total_price_dzire", price: "5086" },
-      { car_type: "booking_total_price_innova", price: "7851" },
-    ],
-  },
-  {
-    start_location: "Kolkata",
-    end_location: "Howrah",
-    price: [
-      { car_type: "booking_total_price_dzire", price: "1118" },
-      { car_type: "booking_total_price_innova", price: "1940" },
-    ],
-  },
-  {
-    start_location: "Kolkata",
-    end_location: "Hooghly / Chinsurah",
-    price: [
-      { car_type: "booking_total_price_dzire", price: "1609" },
-      { car_type: "booking_total_price_innova", price: "2440" },
-    ],
-  },
-  {
-    start_location: "Kolkata",
-    end_location: "Serampore",
-    price: [
-      { car_type: "booking_total_price_dzire", price: "1094" },
-      { car_type: "booking_total_price_innova", price: "1668" },
-    ],
-  },
-  {
-    start_location: "Kolkata",
-    end_location: "Barrackpore",
-    price: [
-      { car_type: "booking_total_price_dzire", price: "2127" },
-      { car_type: "booking_total_price_innova", price: "2671" },
-    ],
-  },
-  {
-    start_location: "Kolkata",
-    end_location: "Basirhat",
-    price: [
-      { car_type: "booking_total_price_dzire", price: "1937" },
-      { car_type: "booking_total_price_innova", price: "2268" },
-    ],
-  },
-  {
-    start_location: "Kolkata",
-    end_location: "Malda (English Bazar)",
-    price: [
-      { car_type: "booking_total_price_dzire", price: "3819" },
-      { car_type: "booking_total_price_innova", price: "4648" },
-    ],
-  },
-  {
-    start_location: "Kolkata",
-    end_location: "Siliguri",
-    price: [
-      { car_type: "booking_total_price_dzire", price: "24442" },
-      { car_type: "booking_total_price_innova", price: "24437" },
-    ],
-  },
-  {
-    start_location: "Kolkata",
-    end_location: "Jalpaiguri",
-    price: [
-      { car_type: "booking_total_price_dzire", price: "12293" },
-      { car_type: "booking_total_price_innova", price: "16068" },
-    ],
-  },
-  {
-    start_location: "Kolkata",
-    end_location: "Cooch Behar",
-    price: [
-      { car_type: "booking_total_price_dzire", price: "26256" },
-      { car_type: "booking_total_price_innova", price: "26705" },
-    ],
-  },
-  {
-    start_location: "Kolkata",
-    end_location: "Darjeeling",
-    price: [
-      { car_type: "booking_total_price_dzire", price: "12914" },
-      { car_type: "booking_total_price_innova", price: "17008" },
-    ],
-  },
-  {
-    start_location: "Kolkata",
-    end_location: "Mayapur",
-    price: [
-      { car_type: "booking_total_price_dzire", price: "3024" },
-      { car_type: "booking_total_price_innova", price: "4757" },
-    ],
-  },
-  {
-    start_location: "Kolkata",
-    end_location: "Nabadwip",
-    price: [
-      { car_type: "booking_total_price_dzire", price: "3187" },
-      { car_type: "booking_total_price_innova", price: "3707" },
-    ],
-  },
-  {
-    start_location: "Kolkata",
-    end_location: "Kalna",
-    price: [
-      { car_type: "booking_total_price_dzire", price: "2390" },
-      { car_type: "booking_total_price_innova", price: "3461" },
-    ],
-  },
-  {
-    start_location: "Kolkata",
-    end_location: "Tarakeswar",
-    price: [
-      { car_type: "booking_total_price_dzire", price: "2075" },
-      { car_type: "booking_total_price_innova", price: "3040" },
-    ],
-  },
-  {
-    start_location: "Kolkata",
-    end_location: "Raichak",
-    price: [
-      { car_type: "booking_total_price_dzire", price: "2226" },
-      { car_type: "booking_total_price_innova", price: "3707" },
-    ],
-  },
-  {
-    start_location: "Kolkata",
-    end_location: "Taki",
-    price: [
-      { car_type: "booking_total_price_dzire", price: "2562" },
-      { car_type: "booking_total_price_innova", price: "3707" },
-    ],
-  },
-  {
-    start_location: "Kolkata",
-    end_location: "Tajpur",
-    price: [
-      { car_type: "booking_total_price_dzire", price: "3526" },
-      { car_type: "booking_total_price_innova", price: "4573" },
-    ],
-  },
-];
+    "start_location": "Kolkata",
+    "end_location": "Asansol",
+    "price": [
+      {
+        "car_type": "booking_total_price_dzire",
+        "price": "3307"
+      },
+      {
+        "car_type": "booking_total_price_innova",
+        "price": "5076"
+      }
+    ]
+  },
+  {
+    "start_location": "Kolkata",
+    "end_location": "Durgapur",
+    "price": [
+      {
+        "car_type": "booking_total_price_dzire",
+        "price": "2727"
+      },
+      {
+        "car_type": "booking_total_price_innova",
+        "price": "4028"
+      }
+    ]
+  },
+  {
+    "start_location": "Kolkata",
+    "end_location": "Kharagpur",
+    "price": [
+      {
+        "car_type": "booking_total_price_dzire",
+        "price": "2635"
+      },
+      {
+        "car_type": "booking_total_price_innova",
+        "price": "2635"
+      }
+    ]
+  },
+  {
+    "start_location": "Kolkata",
+    "end_location": "Digha",
+    "price": [
+      {
+        "car_type": "booking_total_price_dzire",
+        "price": "3609"
+      },
+      {
+        "car_type": "booking_total_price_innova",
+        "price": "4397"
+      }
+    ]
+  },
+  {
+    "start_location": "Kolkata",
+    "end_location": "Mandarmani",
+    "price": [
+      {
+        "car_type": "booking_total_price_dzire",
+        "price": "3535"
+      },
+      {
+        "car_type": "booking_total_price_innova",
+        "price": "5135"
+      }
+    ]
+  },
+  {
+    "start_location": "Kolkata",
+    "end_location": "Berhampore",
+    "price": [
+      {
+        "car_type": "booking_total_price_dzire",
+        "price": "4339"
+      },
+      {
+        "car_type": "booking_total_price_innova",
+        "price": "5176"
+      }
+    ]
+  },
+  {
+    "start_location": "Kolkata",
+    "end_location": "Contai",
+    "price": [
+      {
+        "car_type": "booking_total_price_dzire",
+        "price": "2220"
+      },
+      {
+        "car_type": "booking_total_price_innova",
+        "price": "4646"
+      }
+    ]
+  },
+  {
+    "start_location": "Kolkata",
+    "end_location": "Medinipur",
+    "price": [
+      {
+        "car_type": "booking_total_price_dzire",
+        "price": "3165"
+      },
+      {
+        "car_type": "booking_total_price_innova",
+        "price": "4214"
+      }
+    ]
+  },
+  {
+    "start_location": "Kolkata",
+    "end_location": "Bardhaman",
+    "price": [
+      {
+        "car_type": "booking_total_price_dzire",
+        "price": "2422"
+      },
+      {
+        "car_type": "booking_total_price_innova",
+        "price": "4029"
+      }
+    ]
+  },
+  {
+    "start_location": "Kolkata",
+    "end_location": "Suri",
+    "price": [
+      {
+        "car_type": "booking_total_price_dzire",
+        "price": "4265"
+      },
+      {
+        "car_type": "booking_total_price_innova",
+        "price": "4274"
+      }
+    ]
+  },
+  {
+    "start_location": "Kolkata",
+    "end_location": "Bolpur",
+    "price": [
+      {
+        "car_type": "booking_total_price_dzire",
+        "price": "4052"
+      },
+      {
+        "car_type": "booking_total_price_innova",
+        "price": "4787"
+      }
+    ]
+  },
+  {
+    "start_location": "Kolkata",
+    "end_location": "Purulia",
+    "price": [
+      {
+        "car_type": "booking_total_price_dzire",
+        "price": "6363"
+      },
+      {
+        "car_type": "booking_total_price_innova",
+        "price": "8129"
+      }
+    ]
+  },
+  {
+    "start_location": "Kolkata",
+    "end_location": "Bankura",
+    "price": [
+      {
+        "car_type": "booking_total_price_dzire",
+        "price": "4152"
+      },
+      {
+        "car_type": "booking_total_price_innova",
+        "price": "5627"
+      }
+    ]
+  },
+  {
+    "start_location": "Kolkata",
+    "end_location": "Haldia",
+    "price": [
+      {
+        "car_type": "booking_total_price_dzire",
+        "price": "2845"
+      },
+      {
+        "car_type": "booking_total_price_innova",
+        "price": "3567"
+      }
+    ]
+  },
+  {
+    "start_location": "Kolkata",
+    "end_location": "Kolaghat",
+    "price": [
+      {
+        "car_type": "booking_total_price_dzire",
+        "price": "1929"
+      },
+      {
+        "car_type": "booking_total_price_innova",
+        "price": "3089"
+      }
+    ]
+  },
+  {
+    "start_location": "Kolkata",
+    "end_location": "Krishnanagar",
+    "price": [
+      {
+        "car_type": "booking_total_price_dzire",
+        "price": "2999"
+      },
+      {
+        "car_type": "booking_total_price_innova",
+        "price": "3199"
+      }
+    ]
+  },
+  {
+    "start_location": "Kolkata",
+    "end_location": "Murshidabad",
+    "price": [
+      {
+        "car_type": "booking_total_price_dzire",
+        "price": "4199"
+      },
+      {
+        "car_type": "booking_total_price_innova",
+        "price": "5999"
+      }
+    ]
+  },
+  {
+    "start_location": "Kolkata",
+    "end_location": "Shantiniketan",
+    "price": [
+      {
+        "car_type": "booking_total_price_dzire",
+        "price": "3299"
+      },
+      {
+        "car_type": "booking_total_price_innova",
+        "price": "4099"
+      }
+    ]
+  },
+  {
+    "start_location": "Kolkata",
+    "end_location": "Gangasagar",
+    "price": [
+      {
+        "car_type": "booking_total_price_dzire",
+        "price": "2099"
+      },
+      {
+        "car_type": "booking_total_price_innova",
+        "price": "4399"
+      }
+    ]
+  },
+  {
+    "start_location": "Kolkata",
+    "end_location": "Bakkhali",
+    "price": [
+      {
+        "car_type": "booking_total_price_dzire",
+        "price": "3320"
+      },
+      {
+        "car_type": "booking_total_price_innova",
+        "price": "3785"
+      }
+    ]
+  },
+  {
+    "start_location": "Kolkata",
+    "end_location": "Kakdwip",
+    "price": [
+      {
+        "car_type": "booking_total_price_dzire",
+        "price": "3407"
+      },
+      {
+        "car_type": "booking_total_price_innova",
+        "price": "3543"
+      }
+    ]
+  },
+  {
+    "start_location": "Kolkata",
+    "end_location": "Diamond Harbour",
+    "price": [
+      {
+        "car_type": "booking_total_price_dzire",
+        "price": "1524"
+      },
+      {
+        "car_type": "booking_total_price_innova",
+        "price": "2279"
+      }
+    ]
+  },
+  {
+    "start_location": "Kolkata",
+    "end_location": "Baruipur",
+    "price": [
+      {
+        "car_type": "booking_total_price_dzire",
+        "price": "1926"
+      },
+      {
+        "car_type": "booking_total_price_innova",
+        "price": "2791"
+      }
+    ]
+  },
+  {
+    "start_location": "Kolkata",
+    "end_location": "Sonarpur",
+    "price": [
+      {
+        "car_type": "booking_total_price_dzire",
+        "price": "1092"
+      },
+      {
+        "car_type": "booking_total_price_innova",
+        "price": "2481"
+      }
+    ]
+  },
+  {
+    "start_location": "Kolkata",
+    "end_location": "Habra",
+    "price": [
+      {
+        "car_type": "booking_total_price_dzire",
+        "price": "1795"
+      },
+      {
+        "car_type": "booking_total_price_innova",
+        "price": "2876"
+      }
+    ]
+  },
+  {
+    "start_location": "Kolkata",
+    "end_location": "Kalyani",
+    "price": [
+      {
+        "car_type": "booking_total_price_dzire",
+        "price": "1448"
+      },
+      {
+        "car_type": "booking_total_price_innova",
+        "price": "2790"
+      }
+    ]
+  },
+  {
+    "start_location": "Kolkata",
+    "end_location": "Bangaon",
+    "price": [
+      {
+        "car_type": "booking_total_price_dzire",
+        "price": "2351"
+      },
+      {
+        "car_type": "booking_total_price_innova",
+        "price": "3312"
+      }
+    ]
+  },
+  {
+    "start_location": "Kolkata",
+    "end_location": "Ranaghat",
+    "price": [
+      {
+        "car_type": "booking_total_price_dzire",
+        "price": "1863"
+      },
+      {
+        "car_type": "booking_total_price_innova",
+        "price": "2682"
+      }
+    ]
+  },
+  {
+    "start_location": "Kolkata",
+    "end_location": "Tarapith",
+    "price": [
+      {
+        "car_type": "booking_total_price_dzire",
+        "price": "4786"
+      },
+      {
+        "car_type": "booking_total_price_innova",
+        "price": "7551"
+      }
+    ]
+  },
+  {
+    "start_location": "Kolkata",
+    "end_location": "Howrah",
+    "price": [
+      {
+        "car_type": "booking_total_price_dzire",
+        "price": "818"
+      },
+      {
+        "car_type": "booking_total_price_innova",
+        "price": "1640"
+      }
+    ]
+  },
+  {
+    "start_location": "Kolkata",
+    "end_location": "Hooghly / Chinsurah",
+    "price": [
+      {
+        "car_type": "booking_total_price_dzire",
+        "price": "1309"
+      },
+      {
+        "car_type": "booking_total_price_innova",
+        "price": "2140"
+      }
+    ]
+  },
+  {
+    "start_location": "Kolkata",
+    "end_location": "Serampore",
+    "price": [
+      {
+        "car_type": "booking_total_price_dzire",
+        "price": "794"
+      },
+      {
+        "car_type": "booking_total_price_innova",
+        "price": "1368"
+      }
+    ]
+  },
+  {
+    "start_location": "Kolkata",
+    "end_location": "Barrackpore",
+    "price": [
+      {
+        "car_type": "booking_total_price_dzire",
+        "price": "1827"
+      },
+      {
+        "car_type": "booking_total_price_innova",
+        "price": "2371"
+      }
+    ]
+  },
+  {
+    "start_location": "Kolkata",
+    "end_location": "Basirhat",
+    "price": [
+      {
+        "car_type": "booking_total_price_dzire",
+        "price": "1637"
+      },
+      {
+        "car_type": "booking_total_price_innova",
+        "price": "1968"
+      }
+    ]
+  },
+  {
+    "start_location": "Kolkata",
+    "end_location": "Malda (English Bazar)",
+    "price": [
+      {
+        "car_type": "booking_total_price_dzire",
+        "price": "3519"
+      },
+      {
+        "car_type": "booking_total_price_innova",
+        "price": "4348"
+      }
+    ]
+  },
+  {
+    "start_location": "Kolkata",
+    "end_location": "Siliguri",
+    "price": [
+      {
+        "car_type": "booking_total_price_dzire",
+        "price": "24142"
+      },
+      {
+        "car_type": "booking_total_price_innova",
+        "price": "24137"
+      }
+    ]
+  },
+  {
+    "start_location": "Kolkata",
+    "end_location": "Jalpaiguri",
+    "price": [
+      {
+        "car_type": "booking_total_price_dzire",
+        "price": "11993"
+      },
+      {
+        "car_type": "booking_total_price_innova",
+        "price": "15768"
+      }
+    ]
+  },
+  {
+    "start_location": "Kolkata",
+    "end_location": "Cooch Behar",
+    "price": [
+      {
+        "car_type": "booking_total_price_dzire",
+        "price": "25956"
+      },
+      {
+        "car_type": "booking_total_price_innova",
+        "price": "26405"
+      }
+    ]
+  },
+  {
+    "start_location": "Kolkata",
+    "end_location": "Darjeeling",
+    "price": [
+      {
+        "car_type": "booking_total_price_dzire",
+        "price": "12614"
+      },
+      {
+        "car_type": "booking_total_price_innova",
+        "price": "16708"
+      }
+    ]
+  },
+  {
+    "start_location": "Kolkata",
+    "end_location": "Mayapur",
+    "price": [
+      {
+        "car_type": "booking_total_price_dzire",
+        "price": "2724"
+      },
+      {
+        "car_type": "booking_total_price_innova",
+        "price": "4457"
+      }
+    ]
+  },
+  {
+    "start_location": "Kolkata",
+    "end_location": "Nabadwip",
+    "price": [
+      {
+        "car_type": "booking_total_price_dzire",
+        "price": "2887"
+      },
+      {
+        "car_type": "booking_total_price_innova",
+        "price": "3407"
+      }
+    ]
+  },
+  {
+    "start_location": "Kolkata",
+    "end_location": "Kalna",
+    "price": [
+      {
+        "car_type": "booking_total_price_dzire",
+        "price": "2090"
+      },
+      {
+        "car_type": "booking_total_price_innova",
+        "price": "3161"
+      }
+    ]
+  },
+  {
+    "start_location": "Kolkata",
+    "end_location": "Tarakeswar",
+    "price": [
+      {
+        "car_type": "booking_total_price_dzire",
+        "price": "1775"
+      },
+      {
+        "car_type": "booking_total_price_innova",
+        "price": "2740"
+      }
+    ]
+  },
+  {
+    "start_location": "Kolkata",
+    "end_location": "Raichak",
+    "price": [
+      {
+        "car_type": "booking_total_price_dzire",
+        "price": "1926"
+      },
+      {
+        "car_type": "booking_total_price_innova",
+        "price": "3407"
+      }
+    ]
+  },
+  {
+    "start_location": "Kolkata",
+    "end_location": "Taki",
+    "price": [
+      {
+        "car_type": "booking_total_price_dzire",
+        "price": "2262"
+      },
+      {
+        "car_type": "booking_total_price_innova",
+        "price": "3407"
+      }
+    ]
+  },
+  {
+    "start_location": "Kolkata",
+    "end_location": "Tajpur",
+    "price": [
+      {
+        "car_type": "booking_total_price_dzire",
+        "price": "3226"
+      },
+      {
+        "car_type": "booking_total_price_innova",
+        "price": "4273"
+      }
+    ]
+  },
+  {
+    "start_location": "Asansol",
+    "end_location": "Kolkata",
+    "price": [
+      {
+        "car_type": "booking_total_price_dzire",
+        "price": "3307"
+      },
+      {
+        "car_type": "booking_total_price_innova",
+        "price": "5076"
+      }
+    ]
+  },
+  {
+    "start_location": "Durgapur",
+    "end_location": "Kolkata",
+    "price": [
+      {
+        "car_type": "booking_total_price_dzire",
+        "price": "2727"
+      },
+      {
+        "car_type": "booking_total_price_innova",
+        "price": "4028"
+      }
+    ]
+  },
+  {
+    "start_location": "Kharagpur",
+    "end_location": "Kolkata",
+    "price": [
+      {
+        "car_type": "booking_total_price_dzire",
+        "price": "2635"
+      },
+      {
+        "car_type": "booking_total_price_innova",
+        "price": "2635"
+      }
+    ]
+  },
+  {
+    "start_location": "Digha",
+    "end_location": "Kolkata",
+    "price": [
+      {
+        "car_type": "booking_total_price_dzire",
+        "price": "3609"
+      },
+      {
+        "car_type": "booking_total_price_innova",
+        "price": "4397"
+      }
+    ]
+  },
+  {
+    "start_location": "Mandarmani",
+    "end_location": "Kolkata",
+    "price": [
+      {
+        "car_type": "booking_total_price_dzire",
+        "price": "3535"
+      },
+      {
+        "car_type": "booking_total_price_innova",
+        "price": "5135"
+      }
+    ]
+  },
+  {
+    "start_location": "Berhampore",
+    "end_location": "Kolkata",
+    "price": [
+      {
+        "car_type": "booking_total_price_dzire",
+        "price": "4339"
+      },
+      {
+        "car_type": "booking_total_price_innova",
+        "price": "5176"
+      }
+    ]
+  },
+  {
+    "start_location": "Contai",
+    "end_location": "Kolkata",
+    "price": [
+      {
+        "car_type": "booking_total_price_dzire",
+        "price": "2220"
+      },
+      {
+        "car_type": "booking_total_price_innova",
+        "price": "4646"
+      }
+    ]
+  },
+  {
+    "start_location": "Medinipur",
+    "end_location": "Kolkata",
+    "price": [
+      {
+        "car_type": "booking_total_price_dzire",
+        "price": "3165"
+      },
+      {
+        "car_type": "booking_total_price_innova",
+        "price": "4214"
+      }
+    ]
+  },
+  {
+    "start_location": "Bardhaman",
+    "end_location": "Kolkata",
+    "price": [
+      {
+        "car_type": "booking_total_price_dzire",
+        "price": "2422"
+      },
+      {
+        "car_type": "booking_total_price_innova",
+        "price": "4029"
+      }
+    ]
+  },
+  {
+    "start_location": "Suri",
+    "end_location": "Kolkata",
+    "price": [
+      {
+        "car_type": "booking_total_price_dzire",
+        "price": "4265"
+      },
+      {
+        "car_type": "booking_total_price_innova",
+        "price": "4274"
+      }
+    ]
+  },
+  {
+    "start_location": "Bolpur",
+    "end_location": "Kolkata",
+    "price": [
+      {
+        "car_type": "booking_total_price_dzire",
+        "price": "4052"
+      },
+      {
+        "car_type": "booking_total_price_innova",
+        "price": "4787"
+      }
+    ]
+  },
+  {
+    "start_location": "Purulia",
+    "end_location": "Kolkata",
+    "price": [
+      {
+        "car_type": "booking_total_price_dzire",
+        "price": "6363"
+      },
+      {
+        "car_type": "booking_total_price_innova",
+        "price": "8129"
+      }
+    ]
+  },
+  {
+    "start_location": "Bankura",
+    "end_location": "Kolkata",
+    "price": [
+      {
+        "car_type": "booking_total_price_dzire",
+        "price": "4152"
+      },
+      {
+        "car_type": "booking_total_price_innova",
+        "price": "5627"
+      }
+    ]
+  },
+  {
+    "start_location": "Haldia",
+    "end_location": "Kolkata",
+    "price": [
+      {
+        "car_type": "booking_total_price_dzire",
+        "price": "2845"
+      },
+      {
+        "car_type": "booking_total_price_innova",
+        "price": "3567"
+      }
+    ]
+  },
+  {
+    "start_location": "Kolaghat",
+    "end_location": "Kolkata",
+    "price": [
+      {
+        "car_type": "booking_total_price_dzire",
+        "price": "1929"
+      },
+      {
+        "car_type": "booking_total_price_innova",
+        "price": "3089"
+      }
+    ]
+  },
+  {
+    "start_location": "Krishnanagar",
+    "end_location": "Kolkata",
+    "price": [
+      {
+        "car_type": "booking_total_price_dzire",
+        "price": "2999"
+      },
+      {
+        "car_type": "booking_total_price_innova",
+        "price": "3199"
+      }
+    ]
+  },
+  {
+    "start_location": "Murshidabad",
+    "end_location": "Kolkata",
+    "price": [
+      {
+        "car_type": "booking_total_price_dzire",
+        "price": "4199"
+      },
+      {
+        "car_type": "booking_total_price_innova",
+        "price": "5999"
+      }
+    ]
+  },
+  {
+    "start_location": "Shantiniketan",
+    "end_location": "Kolkata",
+    "price": [
+      {
+        "car_type": "booking_total_price_dzire",
+        "price": "3299"
+      },
+      {
+        "car_type": "booking_total_price_innova",
+        "price": "4099"
+      }
+    ]
+  },
+  {
+    "start_location": "Gangasagar",
+    "end_location": "Kolkata",
+    "price": [
+      {
+        "car_type": "booking_total_price_dzire",
+        "price": "2099"
+      },
+      {
+        "car_type": "booking_total_price_innova",
+        "price": "4399"
+      }
+    ]
+  },
+  {
+    "start_location": "Bakkhali",
+    "end_location": "Kolkata",
+    "price": [
+      {
+        "car_type": "booking_total_price_dzire",
+        "price": "3320"
+      },
+      {
+        "car_type": "booking_total_price_innova",
+        "price": "3785"
+      }
+    ]
+  },
+  {
+    "start_location": "Kakdwip",
+    "end_location": "Kolkata",
+    "price": [
+      {
+        "car_type": "booking_total_price_dzire",
+        "price": "3407"
+      },
+      {
+        "car_type": "booking_total_price_innova",
+        "price": "3543"
+      }
+    ]
+  },
+  {
+    "start_location": "Diamond Harbour",
+    "end_location": "Kolkata",
+    "price": [
+      {
+        "car_type": "booking_total_price_dzire",
+        "price": "1524"
+      },
+      {
+        "car_type": "booking_total_price_innova",
+        "price": "2279"
+      }
+    ]
+  },
+  {
+    "start_location": "Baruipur",
+    "end_location": "Kolkata",
+    "price": [
+      {
+        "car_type": "booking_total_price_dzire",
+        "price": "1926"
+      },
+      {
+        "car_type": "booking_total_price_innova",
+        "price": "2791"
+      }
+    ]
+  },
+  {
+    "start_location": "Sonarpur",
+    "end_location": "Kolkata",
+    "price": [
+      {
+        "car_type": "booking_total_price_dzire",
+        "price": "1092"
+      },
+      {
+        "car_type": "booking_total_price_innova",
+        "price": "2481"
+      }
+    ]
+  },
+  {
+    "start_location": "Habra",
+    "end_location": "Kolkata",
+    "price": [
+      {
+        "car_type": "booking_total_price_dzire",
+        "price": "1795"
+      },
+      {
+        "car_type": "booking_total_price_innova",
+        "price": "2876"
+      }
+    ]
+  },
+  {
+    "start_location": "Kalyani",
+    "end_location": "Kolkata",
+    "price": [
+      {
+        "car_type": "booking_total_price_dzire",
+        "price": "1448"
+      },
+      {
+        "car_type": "booking_total_price_innova",
+        "price": "2790"
+      }
+    ]
+  },
+  {
+    "start_location": "Bangaon",
+    "end_location": "Kolkata",
+    "price": [
+      {
+        "car_type": "booking_total_price_dzire",
+        "price": "2351"
+      },
+      {
+        "car_type": "booking_total_price_innova",
+        "price": "3312"
+      }
+    ]
+  },
+  {
+    "start_location": "Ranaghat",
+    "end_location": "Kolkata",
+    "price": [
+      {
+        "car_type": "booking_total_price_dzire",
+        "price": "1863"
+      },
+      {
+        "car_type": "booking_total_price_innova",
+        "price": "2682"
+      }
+    ]
+  },
+  {
+    "start_location": "Tarapith",
+    "end_location": "Kolkata",
+    "price": [
+      {
+        "car_type": "booking_total_price_dzire",
+        "price": "4786"
+      },
+      {
+        "car_type": "booking_total_price_innova",
+        "price": "7551"
+      }
+    ]
+  },
+  {
+    "start_location": "Howrah",
+    "end_location": "Kolkata",
+    "price": [
+      {
+        "car_type": "booking_total_price_dzire",
+        "price": "818"
+      },
+      {
+        "car_type": "booking_total_price_innova",
+        "price": "1640"
+      }
+    ]
+  },
+  {
+    "start_location": "Hooghly / Chinsurah",
+    "end_location": "Kolkata",
+    "price": [
+      {
+        "car_type": "booking_total_price_dzire",
+        "price": "1309"
+      },
+      {
+        "car_type": "booking_total_price_innova",
+        "price": "2140"
+      }
+    ]
+  },
+  {
+    "start_location": "Serampore",
+    "end_location": "Kolkata",
+    "price": [
+      {
+        "car_type": "booking_total_price_dzire",
+        "price": "794"
+      },
+      {
+        "car_type": "booking_total_price_innova",
+        "price": "1368"
+      }
+    ]
+  },
+  {
+    "start_location": "Barrackpore",
+    "end_location": "Kolkata",
+    "price": [
+      {
+        "car_type": "booking_total_price_dzire",
+        "price": "1827"
+      },
+      {
+        "car_type": "booking_total_price_innova",
+        "price": "2371"
+      }
+    ]
+  },
+  {
+    "start_location": "Basirhat",
+    "end_location": "Kolkata",
+    "price": [
+      {
+        "car_type": "booking_total_price_dzire",
+        "price": "1637"
+      },
+      {
+        "car_type": "booking_total_price_innova",
+        "price": "1968"
+      }
+    ]
+  },
+  {
+    "start_location": "Malda (English Bazar)",
+    "end_location": "Kolkata",
+    "price": [
+      {
+        "car_type": "booking_total_price_dzire",
+        "price": "3519"
+      },
+      {
+        "car_type": "booking_total_price_innova",
+        "price": "4348"
+      }
+    ]
+  },
+  {
+    "start_location": "Siliguri",
+    "end_location": "Kolkata",
+    "price": [
+      {
+        "car_type": "booking_total_price_dzire",
+        "price": "24142"
+      },
+      {
+        "car_type": "booking_total_price_innova",
+        "price": "24137"
+      }
+    ]
+  },
+  {
+    "start_location": "Jalpaiguri",
+    "end_location": "Kolkata",
+    "price": [
+      {
+        "car_type": "booking_total_price_dzire",
+        "price": "11993"
+      },
+      {
+        "car_type": "booking_total_price_innova",
+        "price": "15768"
+      }
+    ]
+  },
+  {
+    "start_location": "Cooch Behar",
+    "end_location": "Kolkata",
+    "price": [
+      {
+        "car_type": "booking_total_price_dzire",
+        "price": "25956"
+      },
+      {
+        "car_type": "booking_total_price_innova",
+        "price": "26405"
+      }
+    ]
+  },
+  {
+    "start_location": "Darjeeling",
+    "end_location": "Kolkata",
+    "price": [
+      {
+        "car_type": "booking_total_price_dzire",
+        "price": "12614"
+      },
+      {
+        "car_type": "booking_total_price_innova",
+        "price": "16708"
+      }
+    ]
+  },
+  {
+    "start_location": "Mayapur",
+    "end_location": "Kolkata",
+    "price": [
+      {
+        "car_type": "booking_total_price_dzire",
+        "price": "2724"
+      },
+      {
+        "car_type": "booking_total_price_innova",
+        "price": "4457"
+      }
+    ]
+  },
+  {
+    "start_location": "Nabadwip",
+    "end_location": "Kolkata",
+    "price": [
+      {
+        "car_type": "booking_total_price_dzire",
+        "price": "2887"
+      },
+      {
+        "car_type": "booking_total_price_innova",
+        "price": "3407"
+      }
+    ]
+  },
+  {
+    "start_location": "Kalna",
+    "end_location": "Kolkata",
+    "price": [
+      {
+        "car_type": "booking_total_price_dzire",
+        "price": "2090"
+      },
+      {
+        "car_type": "booking_total_price_innova",
+        "price": "3161"
+      }
+    ]
+  },
+  {
+    "start_location": "Tarakeswar",
+    "end_location": "Kolkata",
+    "price": [
+      {
+        "car_type": "booking_total_price_dzire",
+        "price": "1775"
+      },
+      {
+        "car_type": "booking_total_price_innova",
+        "price": "2740"
+      }
+    ]
+  },
+  {
+    "start_location": "Raichak",
+    "end_location": "Kolkata",
+    "price": [
+      {
+        "car_type": "booking_total_price_dzire",
+        "price": "1926"
+      },
+      {
+        "car_type": "booking_total_price_innova",
+        "price": "3407"
+      }
+    ]
+  },
+  {
+    "start_location": "Taki",
+    "end_location": "Kolkata",
+    "price": [
+      {
+        "car_type": "booking_total_price_dzire",
+        "price": "2262"
+      },
+      {
+        "car_type": "booking_total_price_innova",
+        "price": "3407"
+      }
+    ]
+  },
+  {
+    "start_location": "Tajpur",
+    "end_location": "Kolkata",
+    "price": [
+      {
+        "car_type": "booking_total_price_dzire",
+        "price": "3226"
+      },
+      {
+        "car_type": "booking_total_price_innova",
+        "price": "4273"
+      }
+    ]
+  }
+]
