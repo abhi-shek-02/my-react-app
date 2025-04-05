@@ -505,7 +505,7 @@ export default function Quote() {
                       Dzire Or Similar
                     </Typography>
                     <Typography variant="body2" sx={{ marginBottom: "8px" }}>
-                      Note: Rs 125/- Night charge will apply before 6AM and
+                      Note: Rs 200/- Night charge will apply before 6AM and
                       after 11PM
                     </Typography>
                     <Typography
@@ -513,14 +513,14 @@ export default function Quote() {
                       color="success"
                       sx={{ marginBottom: "8px" }}
                     >
-                      Toll Tax: Required
+                     Top Rated Cabs & Chauffeurs
                     </Typography>
                     <Typography
                       variant="body2"
                       color="#095ff0"
                       sx={{ marginBottom: "16px" }}
                     >
-                      Hidden Charge: N/A
+                      Includes Toll, State Tax, Driver Allowance & Parking
                     </Typography>
                     <Button
                       variant="contained"
@@ -565,7 +565,7 @@ export default function Quote() {
                   >
                     <img
                       src={Ertiga}
-                      alt="Innova, Ertiga or Similar"
+                      alt="Ertiga or Similar"
                       style={{
                         width: "100%",
                         height: "auto", // Maintain aspect ratio
@@ -591,10 +591,10 @@ export default function Quote() {
                       )}
                     </Typography>
                     <Typography variant="body1" sx={{ marginBottom: "8px" }}>
-                      Innova, Ertiga Or Similar
+                      Ertiga Or Similar
                     </Typography>
                     <Typography variant="body2" sx={{ marginBottom: "8px" }}>
-                      Note: Rs 125/- Night charge will apply before 6AM and
+                      Note: Rs 200/- Night charge will apply before 6AM and
                       after 11PM
                     </Typography>
                     <Typography
@@ -602,14 +602,14 @@ export default function Quote() {
                       color="success"
                       sx={{ marginBottom: "8px" }}
                     >
-                      Toll Tax: Required
+                     Top Rated Cabs & Chauffeurs
                     </Typography>
                     <Typography
                       variant="body2"
                       color="#095ff0"
                       sx={{ marginBottom: "16px" }}
                     >
-                      Hidden Charge: N/A
+                      Includes Toll, State Tax & Parking
                     </Typography>
                     <Button
                       variant="contained"
